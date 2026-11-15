@@ -23,7 +23,7 @@ def save(fig,path):
 def mechanism(path,ir):
     g=Module(ir.read_text(encoding="utf8"))
     fig,ax=plt.subplots(figsize=(10,3.9))
-    ax.set_xlim(-.42,4.45)
+    ax.set_xlim(-.55,4.54)
     ax.set_ylim(-.62,2.6)
     ax.axis("off")
     def box(x,y,title,line,color):
@@ -49,7 +49,7 @@ def mechanism(path,ir):
         if i:
             ax.text(len(nodes)-.49,y,name,fontsize=11,weight="bold",color=COLORS[i])
     ax.set_title("One main result and two count paths in optimized CPU HLO",loc="left",weight="bold",pad=8)
-    fig.text(.11,.045,"E0 chain, post/post. Nodes show selected operations; line numbers refer to the archived scheduled module.",fontsize=9)
+    fig.text(.11,.045,"E0 chain, post/post. Numbers refer to selected lines of the archived scheduled HLO.",fontsize=9)
     save(fig,path)
 
 

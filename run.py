@@ -35,13 +35,15 @@ def main():
                                            "controls","lowering","report","all","recommend","verify"], default="pilot")
     parser.add_argument("--backend", choices=["cpu","gpu"], default="cpu")
     parser.add_argument("--out", type=Path)
-    parser.add_argument("--case", default="R2")
+    parser.add_argument("--case", choices=conditions()+["R1","R2"], default="R2")
     parser.add_argument("--query", default="positive_count")
     parser.add_argument("--worker", help=argparse.SUPPRESS)
     parser.add_argument("--process", type=int, default=0, help=argparse.SUPPRESS)
     parser.add_argument("--cases", nargs="+", help=argparse.SUPPRESS)
     args = parser.parse_args()
-    args.out = (args.out or ROOT / "results" / args.backend).resolve()
+    archive = ROOT / "results" / args.backend
+    default = archive if args.stage in ("report","recommend","verify") else ROOT / "reproduction" / args.backend
+    args.out = (args.out or default).resolve()
     if args.worker:
         pin()
         if args.worker == "baselines":
@@ -57,7 +59,10 @@ def main():
             from fusionscope.lowering import run
             run(args.out)
         else:
-            from fusionscope.bench import worker
+            from fusionscope.bench import environment, worker
+            old = args.out / args.worker / f"env_p{args.process}.json"
+            if old.exists() and read(old) != environment(args.backend):
+                raise SystemExit(f"The archived environment differs at {old}. Use a new --out directory.")
             worker(args.out, args.worker, args.cases, args.process, args.backend)
         return
     stages = ["pilot","matrix","model","confirm","external","controls","lowering","report","verify"] if args.stage == "all" else [args.stage]
@@ -102,7 +107,11 @@ def main():
             from fusionscope.audit import verify
             verify(args.out)
         elif stage == "recommend":
-            from fusionscope.model import recommend
+            from fusionscope.model import recommend, require_query
+            try:
+                require_query(args.query)
+            except ValueError as error:
+                parser.error(str(error))
             print(recommend(args.out, args.case, args.query))
 
 

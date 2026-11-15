@@ -1,0 +1,307 @@
+config_id,family,shape,topology,mode,inputs,ir_folder,env_file,processes,valid
+cpu/E0_chain/base,E,"(16, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/E0_chain/base,matrix/env_p0.json,5,True
+cpu/E0_chain/u_pre,E,"(16, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/E0_chain/u_pre,matrix/env_p0.json,5,True
+cpu/E0_chain/u_post,E,"(16, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/E0_chain/u_post,matrix/env_p0.json,5,True
+cpu/E0_chain/v_pre,E,"(16, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/E0_chain/v_pre,matrix/env_p0.json,5,True
+cpu/E0_chain/v_post,E,"(16, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/E0_chain/v_post,matrix/env_p0.json,5,True
+cpu/E0_chain/pre_pre,E,"(16, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/E0_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/E0_chain/pre_post,E,"(16, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/E0_chain/pre_post,matrix/env_p0.json,5,True
+cpu/E0_chain/post_pre,E,"(16, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/E0_chain/post_pre,matrix/env_p0.json,5,True
+cpu/E0_chain/post_post,E,"(16, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/E0_chain/post_post,matrix/env_p0.json,5,True
+cpu/E0_branch/base,E,"(16, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/E0_branch/base,matrix/env_p0.json,5,True
+cpu/E0_branch/u_pre,E,"(16, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/E0_branch/u_pre,matrix/env_p0.json,5,True
+cpu/E0_branch/u_post,E,"(16, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/E0_branch/u_post,matrix/env_p0.json,5,True
+cpu/E0_branch/v_pre,E,"(16, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/E0_branch/v_pre,matrix/env_p0.json,5,True
+cpu/E0_branch/v_post,E,"(16, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/E0_branch/v_post,matrix/env_p0.json,5,True
+cpu/E0_branch/pre_pre,E,"(16, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/E0_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/E0_branch/pre_post,E,"(16, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/E0_branch/pre_post,matrix/env_p0.json,5,True
+cpu/E0_branch/post_pre,E,"(16, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/E0_branch/post_pre,matrix/env_p0.json,5,True
+cpu/E0_branch/post_post,E,"(16, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/E0_branch/post_post,matrix/env_p0.json,5,True
+cpu/E1_chain/base,E,"(128, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/E1_chain/base,matrix/env_p0.json,5,True
+cpu/E1_chain/u_pre,E,"(128, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/E1_chain/u_pre,matrix/env_p0.json,5,True
+cpu/E1_chain/u_post,E,"(128, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/E1_chain/u_post,matrix/env_p0.json,5,True
+cpu/E1_chain/v_pre,E,"(128, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/E1_chain/v_pre,matrix/env_p0.json,5,True
+cpu/E1_chain/v_post,E,"(128, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/E1_chain/v_post,matrix/env_p0.json,5,True
+cpu/E1_chain/pre_pre,E,"(128, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/E1_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/E1_chain/pre_post,E,"(128, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/E1_chain/pre_post,matrix/env_p0.json,5,True
+cpu/E1_chain/post_pre,E,"(128, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/E1_chain/post_pre,matrix/env_p0.json,5,True
+cpu/E1_chain/post_post,E,"(128, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/E1_chain/post_post,matrix/env_p0.json,5,True
+cpu/E1_branch/base,E,"(128, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/E1_branch/base,matrix/env_p0.json,5,True
+cpu/E1_branch/u_pre,E,"(128, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/E1_branch/u_pre,matrix/env_p0.json,5,True
+cpu/E1_branch/u_post,E,"(128, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/E1_branch/u_post,matrix/env_p0.json,5,True
+cpu/E1_branch/v_pre,E,"(128, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/E1_branch/v_pre,matrix/env_p0.json,5,True
+cpu/E1_branch/v_post,E,"(128, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/E1_branch/v_post,matrix/env_p0.json,5,True
+cpu/E1_branch/pre_pre,E,"(128, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/E1_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/E1_branch/pre_post,E,"(128, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/E1_branch/pre_post,matrix/env_p0.json,5,True
+cpu/E1_branch/post_pre,E,"(128, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/E1_branch/post_pre,matrix/env_p0.json,5,True
+cpu/E1_branch/post_post,E,"(128, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/E1_branch/post_post,matrix/env_p0.json,5,True
+cpu/E2_chain/base,E,"(1024, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/E2_chain/base,matrix/env_p0.json,5,True
+cpu/E2_chain/u_pre,E,"(1024, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/E2_chain/u_pre,matrix/env_p0.json,5,True
+cpu/E2_chain/u_post,E,"(1024, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/E2_chain/u_post,matrix/env_p0.json,5,True
+cpu/E2_chain/v_pre,E,"(1024, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/E2_chain/v_pre,matrix/env_p0.json,5,True
+cpu/E2_chain/v_post,E,"(1024, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/E2_chain/v_post,matrix/env_p0.json,5,True
+cpu/E2_chain/pre_pre,E,"(1024, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/E2_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/E2_chain/pre_post,E,"(1024, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/E2_chain/pre_post,matrix/env_p0.json,5,True
+cpu/E2_chain/post_pre,E,"(1024, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/E2_chain/post_pre,matrix/env_p0.json,5,True
+cpu/E2_chain/post_post,E,"(1024, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/E2_chain/post_post,matrix/env_p0.json,5,True
+cpu/E2_branch/base,E,"(1024, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/E2_branch/base,matrix/env_p0.json,5,True
+cpu/E2_branch/u_pre,E,"(1024, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/E2_branch/u_pre,matrix/env_p0.json,5,True
+cpu/E2_branch/u_post,E,"(1024, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/E2_branch/u_post,matrix/env_p0.json,5,True
+cpu/E2_branch/v_pre,E,"(1024, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/E2_branch/v_pre,matrix/env_p0.json,5,True
+cpu/E2_branch/v_post,E,"(1024, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/E2_branch/v_post,matrix/env_p0.json,5,True
+cpu/E2_branch/pre_pre,E,"(1024, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/E2_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/E2_branch/pre_post,E,"(1024, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/E2_branch/pre_post,matrix/env_p0.json,5,True
+cpu/E2_branch/post_pre,E,"(1024, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/E2_branch/post_pre,matrix/env_p0.json,5,True
+cpu/E2_branch/post_post,E,"(1024, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/E2_branch/post_post,matrix/env_p0.json,5,True
+cpu/E3_chain/base,E,"(4096, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/E3_chain/base,matrix/env_p0.json,5,True
+cpu/E3_chain/u_pre,E,"(4096, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/E3_chain/u_pre,matrix/env_p0.json,5,True
+cpu/E3_chain/u_post,E,"(4096, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/E3_chain/u_post,matrix/env_p0.json,5,True
+cpu/E3_chain/v_pre,E,"(4096, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/E3_chain/v_pre,matrix/env_p0.json,5,True
+cpu/E3_chain/v_post,E,"(4096, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/E3_chain/v_post,matrix/env_p0.json,5,True
+cpu/E3_chain/pre_pre,E,"(4096, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/E3_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/E3_chain/pre_post,E,"(4096, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/E3_chain/pre_post,matrix/env_p0.json,5,True
+cpu/E3_chain/post_pre,E,"(4096, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/E3_chain/post_pre,matrix/env_p0.json,5,True
+cpu/E3_chain/post_post,E,"(4096, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/E3_chain/post_post,matrix/env_p0.json,5,True
+cpu/E3_branch/base,E,"(4096, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/E3_branch/base,matrix/env_p0.json,5,True
+cpu/E3_branch/u_pre,E,"(4096, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/E3_branch/u_pre,matrix/env_p0.json,5,True
+cpu/E3_branch/u_post,E,"(4096, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/E3_branch/u_post,matrix/env_p0.json,5,True
+cpu/E3_branch/v_pre,E,"(4096, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/E3_branch/v_pre,matrix/env_p0.json,5,True
+cpu/E3_branch/v_post,E,"(4096, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/E3_branch/v_post,matrix/env_p0.json,5,True
+cpu/E3_branch/pre_pre,E,"(4096, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/E3_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/E3_branch/pre_post,E,"(4096, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/E3_branch/pre_post,matrix/env_p0.json,5,True
+cpu/E3_branch/post_pre,E,"(4096, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/E3_branch/post_pre,matrix/env_p0.json,5,True
+cpu/E3_branch/post_post,E,"(4096, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/E3_branch/post_post,matrix/env_p0.json,5,True
+cpu/M0_chain/base,M,"(4, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/M0_chain/base,matrix/env_p0.json,5,True
+cpu/M0_chain/u_pre,M,"(4, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/M0_chain/u_pre,matrix/env_p0.json,5,True
+cpu/M0_chain/u_post,M,"(4, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/M0_chain/u_post,matrix/env_p0.json,5,True
+cpu/M0_chain/v_pre,M,"(4, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/M0_chain/v_pre,matrix/env_p0.json,5,True
+cpu/M0_chain/v_post,M,"(4, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/M0_chain/v_post,matrix/env_p0.json,5,True
+cpu/M0_chain/pre_pre,M,"(4, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/M0_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/M0_chain/pre_post,M,"(4, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/M0_chain/pre_post,matrix/env_p0.json,5,True
+cpu/M0_chain/post_pre,M,"(4, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/M0_chain/post_pre,matrix/env_p0.json,5,True
+cpu/M0_chain/post_post,M,"(4, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/M0_chain/post_post,matrix/env_p0.json,5,True
+cpu/M0_branch/base,M,"(4, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/M0_branch/base,matrix/env_p0.json,5,True
+cpu/M0_branch/u_pre,M,"(4, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/M0_branch/u_pre,matrix/env_p0.json,5,True
+cpu/M0_branch/u_post,M,"(4, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/M0_branch/u_post,matrix/env_p0.json,5,True
+cpu/M0_branch/v_pre,M,"(4, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/M0_branch/v_pre,matrix/env_p0.json,5,True
+cpu/M0_branch/v_post,M,"(4, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/M0_branch/v_post,matrix/env_p0.json,5,True
+cpu/M0_branch/pre_pre,M,"(4, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/M0_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/M0_branch/pre_post,M,"(4, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/M0_branch/pre_post,matrix/env_p0.json,5,True
+cpu/M0_branch/post_pre,M,"(4, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/M0_branch/post_pre,matrix/env_p0.json,5,True
+cpu/M0_branch/post_post,M,"(4, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/M0_branch/post_post,matrix/env_p0.json,5,True
+cpu/M1_chain/base,M,"(16, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/M1_chain/base,matrix/env_p0.json,5,True
+cpu/M1_chain/u_pre,M,"(16, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/M1_chain/u_pre,matrix/env_p0.json,5,True
+cpu/M1_chain/u_post,M,"(16, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/M1_chain/u_post,matrix/env_p0.json,5,True
+cpu/M1_chain/v_pre,M,"(16, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/M1_chain/v_pre,matrix/env_p0.json,5,True
+cpu/M1_chain/v_post,M,"(16, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/M1_chain/v_post,matrix/env_p0.json,5,True
+cpu/M1_chain/pre_pre,M,"(16, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/M1_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/M1_chain/pre_post,M,"(16, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/M1_chain/pre_post,matrix/env_p0.json,5,True
+cpu/M1_chain/post_pre,M,"(16, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/M1_chain/post_pre,matrix/env_p0.json,5,True
+cpu/M1_chain/post_post,M,"(16, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/M1_chain/post_post,matrix/env_p0.json,5,True
+cpu/M1_branch/base,M,"(16, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/M1_branch/base,matrix/env_p0.json,5,True
+cpu/M1_branch/u_pre,M,"(16, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/M1_branch/u_pre,matrix/env_p0.json,5,True
+cpu/M1_branch/u_post,M,"(16, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/M1_branch/u_post,matrix/env_p0.json,5,True
+cpu/M1_branch/v_pre,M,"(16, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/M1_branch/v_pre,matrix/env_p0.json,5,True
+cpu/M1_branch/v_post,M,"(16, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/M1_branch/v_post,matrix/env_p0.json,5,True
+cpu/M1_branch/pre_pre,M,"(16, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/M1_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/M1_branch/pre_post,M,"(16, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/M1_branch/pre_post,matrix/env_p0.json,5,True
+cpu/M1_branch/post_pre,M,"(16, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/M1_branch/post_pre,matrix/env_p0.json,5,True
+cpu/M1_branch/post_post,M,"(16, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/M1_branch/post_post,matrix/env_p0.json,5,True
+cpu/M2_chain/base,M,"(64, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/M2_chain/base,matrix/env_p0.json,5,True
+cpu/M2_chain/u_pre,M,"(64, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/M2_chain/u_pre,matrix/env_p0.json,5,True
+cpu/M2_chain/u_post,M,"(64, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/M2_chain/u_post,matrix/env_p0.json,5,True
+cpu/M2_chain/v_pre,M,"(64, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/M2_chain/v_pre,matrix/env_p0.json,5,True
+cpu/M2_chain/v_post,M,"(64, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/M2_chain/v_post,matrix/env_p0.json,5,True
+cpu/M2_chain/pre_pre,M,"(64, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/M2_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/M2_chain/pre_post,M,"(64, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/M2_chain/pre_post,matrix/env_p0.json,5,True
+cpu/M2_chain/post_pre,M,"(64, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/M2_chain/post_pre,matrix/env_p0.json,5,True
+cpu/M2_chain/post_post,M,"(64, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/M2_chain/post_post,matrix/env_p0.json,5,True
+cpu/M2_branch/base,M,"(64, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/M2_branch/base,matrix/env_p0.json,5,True
+cpu/M2_branch/u_pre,M,"(64, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/M2_branch/u_pre,matrix/env_p0.json,5,True
+cpu/M2_branch/u_post,M,"(64, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/M2_branch/u_post,matrix/env_p0.json,5,True
+cpu/M2_branch/v_pre,M,"(64, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/M2_branch/v_pre,matrix/env_p0.json,5,True
+cpu/M2_branch/v_post,M,"(64, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/M2_branch/v_post,matrix/env_p0.json,5,True
+cpu/M2_branch/pre_pre,M,"(64, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/M2_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/M2_branch/pre_post,M,"(64, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/M2_branch/pre_post,matrix/env_p0.json,5,True
+cpu/M2_branch/post_pre,M,"(64, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/M2_branch/post_pre,matrix/env_p0.json,5,True
+cpu/M2_branch/post_post,M,"(64, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/M2_branch/post_post,matrix/env_p0.json,5,True
+cpu/M3_chain/base,M,"(256, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/M3_chain/base,matrix/env_p0.json,5,True
+cpu/M3_chain/u_pre,M,"(256, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/M3_chain/u_pre,matrix/env_p0.json,5,True
+cpu/M3_chain/u_post,M,"(256, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/M3_chain/u_post,matrix/env_p0.json,5,True
+cpu/M3_chain/v_pre,M,"(256, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/M3_chain/v_pre,matrix/env_p0.json,5,True
+cpu/M3_chain/v_post,M,"(256, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/M3_chain/v_post,matrix/env_p0.json,5,True
+cpu/M3_chain/pre_pre,M,"(256, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/M3_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/M3_chain/pre_post,M,"(256, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/M3_chain/pre_post,matrix/env_p0.json,5,True
+cpu/M3_chain/post_pre,M,"(256, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/M3_chain/post_pre,matrix/env_p0.json,5,True
+cpu/M3_chain/post_post,M,"(256, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/M3_chain/post_post,matrix/env_p0.json,5,True
+cpu/M3_branch/base,M,"(256, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/M3_branch/base,matrix/env_p0.json,5,True
+cpu/M3_branch/u_pre,M,"(256, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/M3_branch/u_pre,matrix/env_p0.json,5,True
+cpu/M3_branch/u_post,M,"(256, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/M3_branch/u_post,matrix/env_p0.json,5,True
+cpu/M3_branch/v_pre,M,"(256, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/M3_branch/v_pre,matrix/env_p0.json,5,True
+cpu/M3_branch/v_post,M,"(256, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/M3_branch/v_post,matrix/env_p0.json,5,True
+cpu/M3_branch/pre_pre,M,"(256, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/M3_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/M3_branch/pre_post,M,"(256, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/M3_branch/pre_post,matrix/env_p0.json,5,True
+cpu/M3_branch/post_pre,M,"(256, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/M3_branch/post_pre,matrix/env_p0.json,5,True
+cpu/M3_branch/post_post,M,"(256, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/M3_branch/post_post,matrix/env_p0.json,5,True
+cpu/N0_chain/base,N,"(16, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/N0_chain/base,matrix/env_p0.json,5,True
+cpu/N0_chain/u_pre,N,"(16, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/N0_chain/u_pre,matrix/env_p0.json,5,True
+cpu/N0_chain/u_post,N,"(16, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/N0_chain/u_post,matrix/env_p0.json,5,True
+cpu/N0_chain/v_pre,N,"(16, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/N0_chain/v_pre,matrix/env_p0.json,5,True
+cpu/N0_chain/v_post,N,"(16, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/N0_chain/v_post,matrix/env_p0.json,5,True
+cpu/N0_chain/pre_pre,N,"(16, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/N0_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/N0_chain/pre_post,N,"(16, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/N0_chain/pre_post,matrix/env_p0.json,5,True
+cpu/N0_chain/post_pre,N,"(16, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/N0_chain/post_pre,matrix/env_p0.json,5,True
+cpu/N0_chain/post_post,N,"(16, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/N0_chain/post_post,matrix/env_p0.json,5,True
+cpu/N0_branch/base,N,"(16, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/N0_branch/base,matrix/env_p0.json,5,True
+cpu/N0_branch/u_pre,N,"(16, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/N0_branch/u_pre,matrix/env_p0.json,5,True
+cpu/N0_branch/u_post,N,"(16, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/N0_branch/u_post,matrix/env_p0.json,5,True
+cpu/N0_branch/v_pre,N,"(16, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/N0_branch/v_pre,matrix/env_p0.json,5,True
+cpu/N0_branch/v_post,N,"(16, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/N0_branch/v_post,matrix/env_p0.json,5,True
+cpu/N0_branch/pre_pre,N,"(16, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/N0_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/N0_branch/pre_post,N,"(16, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/N0_branch/pre_post,matrix/env_p0.json,5,True
+cpu/N0_branch/post_pre,N,"(16, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/N0_branch/post_pre,matrix/env_p0.json,5,True
+cpu/N0_branch/post_post,N,"(16, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/N0_branch/post_post,matrix/env_p0.json,5,True
+cpu/N1_chain/base,N,"(64, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/N1_chain/base,matrix/env_p0.json,5,True
+cpu/N1_chain/u_pre,N,"(64, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/N1_chain/u_pre,matrix/env_p0.json,5,True
+cpu/N1_chain/u_post,N,"(64, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/N1_chain/u_post,matrix/env_p0.json,5,True
+cpu/N1_chain/v_pre,N,"(64, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/N1_chain/v_pre,matrix/env_p0.json,5,True
+cpu/N1_chain/v_post,N,"(64, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/N1_chain/v_post,matrix/env_p0.json,5,True
+cpu/N1_chain/pre_pre,N,"(64, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/N1_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/N1_chain/pre_post,N,"(64, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/N1_chain/pre_post,matrix/env_p0.json,5,True
+cpu/N1_chain/post_pre,N,"(64, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/N1_chain/post_pre,matrix/env_p0.json,5,True
+cpu/N1_chain/post_post,N,"(64, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/N1_chain/post_post,matrix/env_p0.json,5,True
+cpu/N1_branch/base,N,"(64, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/N1_branch/base,matrix/env_p0.json,5,True
+cpu/N1_branch/u_pre,N,"(64, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/N1_branch/u_pre,matrix/env_p0.json,5,True
+cpu/N1_branch/u_post,N,"(64, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/N1_branch/u_post,matrix/env_p0.json,5,True
+cpu/N1_branch/v_pre,N,"(64, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/N1_branch/v_pre,matrix/env_p0.json,5,True
+cpu/N1_branch/v_post,N,"(64, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/N1_branch/v_post,matrix/env_p0.json,5,True
+cpu/N1_branch/pre_pre,N,"(64, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/N1_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/N1_branch/pre_post,N,"(64, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/N1_branch/pre_post,matrix/env_p0.json,5,True
+cpu/N1_branch/post_pre,N,"(64, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/N1_branch/post_pre,matrix/env_p0.json,5,True
+cpu/N1_branch/post_post,N,"(64, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/N1_branch/post_post,matrix/env_p0.json,5,True
+cpu/N2_chain/base,N,"(256, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/N2_chain/base,matrix/env_p0.json,5,True
+cpu/N2_chain/u_pre,N,"(256, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/N2_chain/u_pre,matrix/env_p0.json,5,True
+cpu/N2_chain/u_post,N,"(256, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/N2_chain/u_post,matrix/env_p0.json,5,True
+cpu/N2_chain/v_pre,N,"(256, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/N2_chain/v_pre,matrix/env_p0.json,5,True
+cpu/N2_chain/v_post,N,"(256, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/N2_chain/v_post,matrix/env_p0.json,5,True
+cpu/N2_chain/pre_pre,N,"(256, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/N2_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/N2_chain/pre_post,N,"(256, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/N2_chain/pre_post,matrix/env_p0.json,5,True
+cpu/N2_chain/post_pre,N,"(256, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/N2_chain/post_pre,matrix/env_p0.json,5,True
+cpu/N2_chain/post_post,N,"(256, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/N2_chain/post_post,matrix/env_p0.json,5,True
+cpu/N2_branch/base,N,"(256, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/N2_branch/base,matrix/env_p0.json,5,True
+cpu/N2_branch/u_pre,N,"(256, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/N2_branch/u_pre,matrix/env_p0.json,5,True
+cpu/N2_branch/u_post,N,"(256, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/N2_branch/u_post,matrix/env_p0.json,5,True
+cpu/N2_branch/v_pre,N,"(256, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/N2_branch/v_pre,matrix/env_p0.json,5,True
+cpu/N2_branch/v_post,N,"(256, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/N2_branch/v_post,matrix/env_p0.json,5,True
+cpu/N2_branch/pre_pre,N,"(256, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/N2_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/N2_branch/pre_post,N,"(256, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/N2_branch/pre_post,matrix/env_p0.json,5,True
+cpu/N2_branch/post_pre,N,"(256, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/N2_branch/post_pre,matrix/env_p0.json,5,True
+cpu/N2_branch/post_post,N,"(256, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/N2_branch/post_post,matrix/env_p0.json,5,True
+cpu/N3_chain/base,N,"(1024, 256)",chain,base,"[42, 1729, 2026]",matrix/ir/N3_chain/base,matrix/env_p0.json,5,True
+cpu/N3_chain/u_pre,N,"(1024, 256)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/N3_chain/u_pre,matrix/env_p0.json,5,True
+cpu/N3_chain/u_post,N,"(1024, 256)",chain,u_post,"[42, 1729, 2026]",matrix/ir/N3_chain/u_post,matrix/env_p0.json,5,True
+cpu/N3_chain/v_pre,N,"(1024, 256)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/N3_chain/v_pre,matrix/env_p0.json,5,True
+cpu/N3_chain/v_post,N,"(1024, 256)",chain,v_post,"[42, 1729, 2026]",matrix/ir/N3_chain/v_post,matrix/env_p0.json,5,True
+cpu/N3_chain/pre_pre,N,"(1024, 256)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/N3_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/N3_chain/pre_post,N,"(1024, 256)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/N3_chain/pre_post,matrix/env_p0.json,5,True
+cpu/N3_chain/post_pre,N,"(1024, 256)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/N3_chain/post_pre,matrix/env_p0.json,5,True
+cpu/N3_chain/post_post,N,"(1024, 256)",chain,post_post,"[42, 1729, 2026]",matrix/ir/N3_chain/post_post,matrix/env_p0.json,5,True
+cpu/N3_branch/base,N,"(1024, 256)",branch,base,"[42, 1729, 2026]",matrix/ir/N3_branch/base,matrix/env_p0.json,5,True
+cpu/N3_branch/u_pre,N,"(1024, 256)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/N3_branch/u_pre,matrix/env_p0.json,5,True
+cpu/N3_branch/u_post,N,"(1024, 256)",branch,u_post,"[42, 1729, 2026]",matrix/ir/N3_branch/u_post,matrix/env_p0.json,5,True
+cpu/N3_branch/v_pre,N,"(1024, 256)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/N3_branch/v_pre,matrix/env_p0.json,5,True
+cpu/N3_branch/v_post,N,"(1024, 256)",branch,v_post,"[42, 1729, 2026]",matrix/ir/N3_branch/v_post,matrix/env_p0.json,5,True
+cpu/N3_branch/pre_pre,N,"(1024, 256)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/N3_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/N3_branch/pre_post,N,"(1024, 256)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/N3_branch/pre_post,matrix/env_p0.json,5,True
+cpu/N3_branch/post_pre,N,"(1024, 256)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/N3_branch/post_pre,matrix/env_p0.json,5,True
+cpu/N3_branch/post_post,N,"(1024, 256)",branch,post_post,"[42, 1729, 2026]",matrix/ir/N3_branch/post_post,matrix/env_p0.json,5,True
+cpu/C0_chain/base,C,"(1, 32, 32, 16)",chain,base,"[42, 1729, 2026]",matrix/ir/C0_chain/base,matrix/env_p0.json,5,True
+cpu/C0_chain/u_pre,C,"(1, 32, 32, 16)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/C0_chain/u_pre,matrix/env_p0.json,5,True
+cpu/C0_chain/u_post,C,"(1, 32, 32, 16)",chain,u_post,"[42, 1729, 2026]",matrix/ir/C0_chain/u_post,matrix/env_p0.json,5,True
+cpu/C0_chain/v_pre,C,"(1, 32, 32, 16)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/C0_chain/v_pre,matrix/env_p0.json,5,True
+cpu/C0_chain/v_post,C,"(1, 32, 32, 16)",chain,v_post,"[42, 1729, 2026]",matrix/ir/C0_chain/v_post,matrix/env_p0.json,5,True
+cpu/C0_chain/pre_pre,C,"(1, 32, 32, 16)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/C0_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/C0_chain/pre_post,C,"(1, 32, 32, 16)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/C0_chain/pre_post,matrix/env_p0.json,5,True
+cpu/C0_chain/post_pre,C,"(1, 32, 32, 16)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/C0_chain/post_pre,matrix/env_p0.json,5,True
+cpu/C0_chain/post_post,C,"(1, 32, 32, 16)",chain,post_post,"[42, 1729, 2026]",matrix/ir/C0_chain/post_post,matrix/env_p0.json,5,True
+cpu/C0_branch/base,C,"(1, 32, 32, 16)",branch,base,"[42, 1729, 2026]",matrix/ir/C0_branch/base,matrix/env_p0.json,5,True
+cpu/C0_branch/u_pre,C,"(1, 32, 32, 16)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/C0_branch/u_pre,matrix/env_p0.json,5,True
+cpu/C0_branch/u_post,C,"(1, 32, 32, 16)",branch,u_post,"[42, 1729, 2026]",matrix/ir/C0_branch/u_post,matrix/env_p0.json,5,True
+cpu/C0_branch/v_pre,C,"(1, 32, 32, 16)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/C0_branch/v_pre,matrix/env_p0.json,5,True
+cpu/C0_branch/v_post,C,"(1, 32, 32, 16)",branch,v_post,"[42, 1729, 2026]",matrix/ir/C0_branch/v_post,matrix/env_p0.json,5,True
+cpu/C0_branch/pre_pre,C,"(1, 32, 32, 16)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/C0_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/C0_branch/pre_post,C,"(1, 32, 32, 16)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/C0_branch/pre_post,matrix/env_p0.json,5,True
+cpu/C0_branch/post_pre,C,"(1, 32, 32, 16)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/C0_branch/post_pre,matrix/env_p0.json,5,True
+cpu/C0_branch/post_post,C,"(1, 32, 32, 16)",branch,post_post,"[42, 1729, 2026]",matrix/ir/C0_branch/post_post,matrix/env_p0.json,5,True
+cpu/C1_chain/base,C,"(4, 32, 32, 16)",chain,base,"[42, 1729, 2026]",matrix/ir/C1_chain/base,matrix/env_p0.json,5,True
+cpu/C1_chain/u_pre,C,"(4, 32, 32, 16)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/C1_chain/u_pre,matrix/env_p0.json,5,True
+cpu/C1_chain/u_post,C,"(4, 32, 32, 16)",chain,u_post,"[42, 1729, 2026]",matrix/ir/C1_chain/u_post,matrix/env_p0.json,5,True
+cpu/C1_chain/v_pre,C,"(4, 32, 32, 16)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/C1_chain/v_pre,matrix/env_p0.json,5,True
+cpu/C1_chain/v_post,C,"(4, 32, 32, 16)",chain,v_post,"[42, 1729, 2026]",matrix/ir/C1_chain/v_post,matrix/env_p0.json,5,True
+cpu/C1_chain/pre_pre,C,"(4, 32, 32, 16)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/C1_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/C1_chain/pre_post,C,"(4, 32, 32, 16)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/C1_chain/pre_post,matrix/env_p0.json,5,True
+cpu/C1_chain/post_pre,C,"(4, 32, 32, 16)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/C1_chain/post_pre,matrix/env_p0.json,5,True
+cpu/C1_chain/post_post,C,"(4, 32, 32, 16)",chain,post_post,"[42, 1729, 2026]",matrix/ir/C1_chain/post_post,matrix/env_p0.json,5,True
+cpu/C1_branch/base,C,"(4, 32, 32, 16)",branch,base,"[42, 1729, 2026]",matrix/ir/C1_branch/base,matrix/env_p0.json,5,True
+cpu/C1_branch/u_pre,C,"(4, 32, 32, 16)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/C1_branch/u_pre,matrix/env_p0.json,5,True
+cpu/C1_branch/u_post,C,"(4, 32, 32, 16)",branch,u_post,"[42, 1729, 2026]",matrix/ir/C1_branch/u_post,matrix/env_p0.json,5,True
+cpu/C1_branch/v_pre,C,"(4, 32, 32, 16)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/C1_branch/v_pre,matrix/env_p0.json,5,True
+cpu/C1_branch/v_post,C,"(4, 32, 32, 16)",branch,v_post,"[42, 1729, 2026]",matrix/ir/C1_branch/v_post,matrix/env_p0.json,5,True
+cpu/C1_branch/pre_pre,C,"(4, 32, 32, 16)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/C1_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/C1_branch/pre_post,C,"(4, 32, 32, 16)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/C1_branch/pre_post,matrix/env_p0.json,5,True
+cpu/C1_branch/post_pre,C,"(4, 32, 32, 16)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/C1_branch/post_pre,matrix/env_p0.json,5,True
+cpu/C1_branch/post_post,C,"(4, 32, 32, 16)",branch,post_post,"[42, 1729, 2026]",matrix/ir/C1_branch/post_post,matrix/env_p0.json,5,True
+cpu/C2_chain/base,C,"(8, 32, 32, 16)",chain,base,"[42, 1729, 2026]",matrix/ir/C2_chain/base,matrix/env_p0.json,5,True
+cpu/C2_chain/u_pre,C,"(8, 32, 32, 16)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/C2_chain/u_pre,matrix/env_p0.json,5,True
+cpu/C2_chain/u_post,C,"(8, 32, 32, 16)",chain,u_post,"[42, 1729, 2026]",matrix/ir/C2_chain/u_post,matrix/env_p0.json,5,True
+cpu/C2_chain/v_pre,C,"(8, 32, 32, 16)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/C2_chain/v_pre,matrix/env_p0.json,5,True
+cpu/C2_chain/v_post,C,"(8, 32, 32, 16)",chain,v_post,"[42, 1729, 2026]",matrix/ir/C2_chain/v_post,matrix/env_p0.json,5,True
+cpu/C2_chain/pre_pre,C,"(8, 32, 32, 16)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/C2_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/C2_chain/pre_post,C,"(8, 32, 32, 16)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/C2_chain/pre_post,matrix/env_p0.json,5,True
+cpu/C2_chain/post_pre,C,"(8, 32, 32, 16)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/C2_chain/post_pre,matrix/env_p0.json,5,True
+cpu/C2_chain/post_post,C,"(8, 32, 32, 16)",chain,post_post,"[42, 1729, 2026]",matrix/ir/C2_chain/post_post,matrix/env_p0.json,5,True
+cpu/C2_branch/base,C,"(8, 32, 32, 16)",branch,base,"[42, 1729, 2026]",matrix/ir/C2_branch/base,matrix/env_p0.json,5,True
+cpu/C2_branch/u_pre,C,"(8, 32, 32, 16)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/C2_branch/u_pre,matrix/env_p0.json,5,True
+cpu/C2_branch/u_post,C,"(8, 32, 32, 16)",branch,u_post,"[42, 1729, 2026]",matrix/ir/C2_branch/u_post,matrix/env_p0.json,5,True
+cpu/C2_branch/v_pre,C,"(8, 32, 32, 16)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/C2_branch/v_pre,matrix/env_p0.json,5,True
+cpu/C2_branch/v_post,C,"(8, 32, 32, 16)",branch,v_post,"[42, 1729, 2026]",matrix/ir/C2_branch/v_post,matrix/env_p0.json,5,True
+cpu/C2_branch/pre_pre,C,"(8, 32, 32, 16)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/C2_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/C2_branch/pre_post,C,"(8, 32, 32, 16)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/C2_branch/pre_post,matrix/env_p0.json,5,True
+cpu/C2_branch/post_pre,C,"(8, 32, 32, 16)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/C2_branch/post_pre,matrix/env_p0.json,5,True
+cpu/C2_branch/post_post,C,"(8, 32, 32, 16)",branch,post_post,"[42, 1729, 2026]",matrix/ir/C2_branch/post_post,matrix/env_p0.json,5,True
+cpu/C3_chain/base,C,"(16, 32, 32, 16)",chain,base,"[42, 1729, 2026]",matrix/ir/C3_chain/base,matrix/env_p0.json,5,True
+cpu/C3_chain/u_pre,C,"(16, 32, 32, 16)",chain,u_pre,"[42, 1729, 2026]",matrix/ir/C3_chain/u_pre,matrix/env_p0.json,5,True
+cpu/C3_chain/u_post,C,"(16, 32, 32, 16)",chain,u_post,"[42, 1729, 2026]",matrix/ir/C3_chain/u_post,matrix/env_p0.json,5,True
+cpu/C3_chain/v_pre,C,"(16, 32, 32, 16)",chain,v_pre,"[42, 1729, 2026]",matrix/ir/C3_chain/v_pre,matrix/env_p0.json,5,True
+cpu/C3_chain/v_post,C,"(16, 32, 32, 16)",chain,v_post,"[42, 1729, 2026]",matrix/ir/C3_chain/v_post,matrix/env_p0.json,5,True
+cpu/C3_chain/pre_pre,C,"(16, 32, 32, 16)",chain,pre_pre,"[42, 1729, 2026]",matrix/ir/C3_chain/pre_pre,matrix/env_p0.json,5,True
+cpu/C3_chain/pre_post,C,"(16, 32, 32, 16)",chain,pre_post,"[42, 1729, 2026]",matrix/ir/C3_chain/pre_post,matrix/env_p0.json,5,True
+cpu/C3_chain/post_pre,C,"(16, 32, 32, 16)",chain,post_pre,"[42, 1729, 2026]",matrix/ir/C3_chain/post_pre,matrix/env_p0.json,5,True
+cpu/C3_chain/post_post,C,"(16, 32, 32, 16)",chain,post_post,"[42, 1729, 2026]",matrix/ir/C3_chain/post_post,matrix/env_p0.json,5,True
+cpu/C3_branch/base,C,"(16, 32, 32, 16)",branch,base,"[42, 1729, 2026]",matrix/ir/C3_branch/base,matrix/env_p0.json,5,True
+cpu/C3_branch/u_pre,C,"(16, 32, 32, 16)",branch,u_pre,"[42, 1729, 2026]",matrix/ir/C3_branch/u_pre,matrix/env_p0.json,5,True
+cpu/C3_branch/u_post,C,"(16, 32, 32, 16)",branch,u_post,"[42, 1729, 2026]",matrix/ir/C3_branch/u_post,matrix/env_p0.json,5,True
+cpu/C3_branch/v_pre,C,"(16, 32, 32, 16)",branch,v_pre,"[42, 1729, 2026]",matrix/ir/C3_branch/v_pre,matrix/env_p0.json,5,True
+cpu/C3_branch/v_post,C,"(16, 32, 32, 16)",branch,v_post,"[42, 1729, 2026]",matrix/ir/C3_branch/v_post,matrix/env_p0.json,5,True
+cpu/C3_branch/pre_pre,C,"(16, 32, 32, 16)",branch,pre_pre,"[42, 1729, 2026]",matrix/ir/C3_branch/pre_pre,matrix/env_p0.json,5,True
+cpu/C3_branch/pre_post,C,"(16, 32, 32, 16)",branch,pre_post,"[42, 1729, 2026]",matrix/ir/C3_branch/pre_post,matrix/env_p0.json,5,True
+cpu/C3_branch/post_pre,C,"(16, 32, 32, 16)",branch,post_pre,"[42, 1729, 2026]",matrix/ir/C3_branch/post_pre,matrix/env_p0.json,5,True
+cpu/C3_branch/post_post,C,"(16, 32, 32, 16)",branch,post_post,"[42, 1729, 2026]",matrix/ir/C3_branch/post_post,matrix/env_p0.json,5,True
+cpu/R1/base,R1,"(1, 56, 56, 64)",official,base,"[42, 1729, 2026]",external/ir/R1/base,external/env_p0.json,5,True
+cpu/R1/u_pre,R1,"(1, 56, 56, 64)",official,u_pre,"[42, 1729, 2026]",external/ir/R1/u_pre,external/env_p0.json,5,True
+cpu/R1/u_post,R1,"(1, 56, 56, 64)",official,u_post,"[42, 1729, 2026]",external/ir/R1/u_post,external/env_p0.json,5,True
+cpu/R1/v_pre,R1,"(1, 56, 56, 64)",official,v_pre,"[42, 1729, 2026]",external/ir/R1/v_pre,external/env_p0.json,5,True
+cpu/R1/v_post,R1,"(1, 56, 56, 64)",official,v_post,"[42, 1729, 2026]",external/ir/R1/v_post,external/env_p0.json,5,True
+cpu/R1/pre_pre,R1,"(1, 56, 56, 64)",official,pre_pre,"[42, 1729, 2026]",external/ir/R1/pre_pre,external/env_p0.json,5,True
+cpu/R1/pre_post,R1,"(1, 56, 56, 64)",official,pre_post,"[42, 1729, 2026]",external/ir/R1/pre_post,external/env_p0.json,5,True
+cpu/R1/post_pre,R1,"(1, 56, 56, 64)",official,post_pre,"[42, 1729, 2026]",external/ir/R1/post_pre,external/env_p0.json,5,True
+cpu/R1/post_post,R1,"(1, 56, 56, 64)",official,post_post,"[42, 1729, 2026]",external/ir/R1/post_post,external/env_p0.json,5,True
+cpu/R2/base,R2,"(1, 56, 56, 64)",official,base,"[42, 1729, 2026]",external/ir/R2/base,external/env_p0.json,5,True
+cpu/R2/u_pre,R2,"(1, 56, 56, 64)",official,u_pre,"[42, 1729, 2026]",external/ir/R2/u_pre,external/env_p0.json,5,True
+cpu/R2/u_post,R2,"(1, 56, 56, 64)",official,u_post,"[42, 1729, 2026]",external/ir/R2/u_post,external/env_p0.json,5,True
+cpu/R2/v_pre,R2,"(1, 56, 56, 64)",official,v_pre,"[42, 1729, 2026]",external/ir/R2/v_pre,external/env_p0.json,5,True
+cpu/R2/v_post,R2,"(1, 56, 56, 64)",official,v_post,"[42, 1729, 2026]",external/ir/R2/v_post,external/env_p0.json,5,True
+cpu/R2/pre_pre,R2,"(1, 56, 56, 64)",official,pre_pre,"[42, 1729, 2026]",external/ir/R2/pre_pre,external/env_p0.json,5,True
+cpu/R2/pre_post,R2,"(1, 56, 56, 64)",official,pre_post,"[42, 1729, 2026]",external/ir/R2/pre_post,external/env_p0.json,5,True
+cpu/R2/post_pre,R2,"(1, 56, 56, 64)",official,post_pre,"[42, 1729, 2026]",external/ir/R2/post_pre,external/env_p0.json,5,True
+cpu/R2/post_post,R2,"(1, 56, 56, 64)",official,post_post,"[42, 1729, 2026]",external/ir/R2/post_post,external/env_p0.json,5,True

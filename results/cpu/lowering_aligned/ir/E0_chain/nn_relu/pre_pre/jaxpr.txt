@@ -1,0 +1,53 @@
+let relu = { lambda ; a:f32[16,256]. let
+    b:f32[16,256] = max a 0.0:f32[]
+  in (b,) } in
+{ lambda ; c:f32[16,256] d:f32[256] e:f32[256] f:f32[256] g:f32[256]. let
+    h:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] d
+    i:f32[16,256] = mul c h
+    j:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] e
+    k:f32[16,256] = add i j
+    l:f32[16,256] = custom_jvp_call[
+      name=relu
+      call_jaxpr={ lambda ; m:f32[16,256]. let
+          n:f32[16,256] = jit[name=relu jaxpr=relu] m
+        in (n,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] k
+    o:bool[16,256] = gt k 0.0:f32[]
+    p:i32[16,256] = convert_element_type[new_dtype=int32 weak_type=False] o
+    q:i32[] = reduce_sum[axes=(0, 1) out_sharding=None] p
+    r:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] f
+    s:f32[16,256] = mul l r
+    t:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] g
+    u:f32[16,256] = add s t
+    v:f32[16,256] = custom_jvp_call[
+      name=relu
+      call_jaxpr={ lambda ; w:f32[16,256]. let
+          x:f32[16,256] = jit[name=relu jaxpr=relu] w
+        in (x,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] u
+    y:bool[16,256] = gt u 0.0:f32[]
+    z:i32[16,256] = convert_element_type[new_dtype=int32 weak_type=False] y
+    ba:i32[] = reduce_sum[axes=(0, 1) out_sharding=None] z
+    bb:f32[16,256] = mul v 0.75:f32[]
+    bc:f32[16,256] = add bb 0.125:f32[]
+  in (bc, q, ba) }

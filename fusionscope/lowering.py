@@ -10,19 +10,19 @@ from .hlo import Module
 
 
 def variant(case,mode,use_nn):
-    def workload(x,p):
+    def workload(x,params):
         observed=[]
         if case=="R1":
             site_names=iter(("u","v"))
             def act(z):
                 return activation(z,next(site_names),mode,observed,official=use_nn)
             with jax.named_scope("block0"):
-                y=resnet_block(act).apply(p[0],x)
+                y=resnet_block(act).apply(params[0],x)
         else:
-            z0=first_stage("E",x,p)
+            z0=first_stage("E",x,params)
             a=activation(z0,"u",mode,observed,official=use_nn)
             with jax.named_scope("v_z"):
-                z1=layer("E",a,p[2],p[3])
+                z1=layer("E",a,params[2],params[3])
             a2=activation(z1,"v",mode,observed,official=use_nn)
             with jax.named_scope("readout"):
                 y=a2*jnp.float32(.75)+jnp.float32(.125)
@@ -31,9 +31,18 @@ def variant(case,mode,use_nn):
 
 
 def run(root):
+    for explicit in (False,True):
+        dest=root/("lowering_aligned" if explicit else "lowering")
+        if not (dest/"comparison.csv").exists():
+            cross_control(root,dest,explicit)
+
+
+def cross_control(root,dest,explicit):
     rows=[]
     for case in ("E0_chain","R1"):
         args={seed:inputs(case,seed) for seed in SPEC["input_seeds"]}
+        if explicit:
+            args=jax.device_put(args,jax.devices()[0])
         jax.block_until_ready(args)
         timed=args[SPEC["timed_seed"]]
         native_phase="external" if case=="R1" else "matrix"
@@ -42,7 +51,7 @@ def run(root):
                 fn=variant(case,mode,name=="nn_relu")
                 low=jax.jit(fn).lower(*timed)
                 compiled=low.compile()
-                folder=root/"lowering/ir"/case/name/mode
+                folder=dest/"ir"/case/name/mode
                 dump(folder/"hashes.json",write_ir(folder,fn,timed,low,compiled))
                 ref=jax.jit(program(case,mode))
                 checks=[]
@@ -64,4 +73,4 @@ def run(root):
                     row[site+"_relation"]=probe["relation"]
                     row[site+"_source"]=probe["source"]
                 rows.append(row)
-    table(root/"lowering/comparison.csv",rows)
+    table(dest/"comparison.csv",rows)

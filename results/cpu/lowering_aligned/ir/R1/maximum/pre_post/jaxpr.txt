@@ -1,0 +1,88 @@
+{ lambda ; a:f32[1,56,56,64] b:f32[64] c:f32[64] d:f32[64] e:f32[64] f:f32[64] g:f32[64]
+    h:f32[64] i:f32[64] j:f32[3,3,64,64] k:f32[3,3,64,64]. let
+    l:f32[1,56,56,64] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] a j
+    m:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] b
+    n:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] c
+    o:f32[1,56,56,64] = sub l m
+    p:f32[1,1,1,64] = add n 9.999999747378752e-06:f32[]
+    q:f32[1,1,1,64] = rsqrt p
+    r:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] g
+    s:f32[1,1,1,64] = mul q r
+    t:f32[1,56,56,64] = mul o s
+    u:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] f
+    v:f32[1,56,56,64] = add t u
+    w:f32[1,56,56,64] = max v 0.0:f32[]
+    x:bool[1,56,56,64] = gt v 0.0:f32[]
+    y:i32[1,56,56,64] = convert_element_type[new_dtype=int32 weak_type=False] x
+    z:i32[] = reduce_sum[axes=(0, 1, 2, 3) out_sharding=None] y
+    ba:f32[1,56,56,64] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] w k
+    bb:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] d
+    bc:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] e
+    bd:f32[1,56,56,64] = sub ba bb
+    be:f32[1,1,1,64] = add bc 9.999999747378752e-06:f32[]
+    bf:f32[1,1,1,64] = rsqrt be
+    bg:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] i
+    bh:f32[1,1,1,64] = mul bf bg
+    bi:f32[1,56,56,64] = mul bd bh
+    bj:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] h
+    bk:f32[1,56,56,64] = add bi bj
+    bl:f32[1,56,56,64] = add a bk
+    bm:f32[1,56,56,64] = max bl 0.0:f32[]
+    bn:bool[1,56,56,64] = gt bm 0.0:f32[]
+    bo:i32[1,56,56,64] = convert_element_type[new_dtype=int32 weak_type=False] bn
+    bp:i32[] = reduce_sum[axes=(0, 1, 2, 3) out_sharding=None] bo
+  in (bm, z, bp) }
