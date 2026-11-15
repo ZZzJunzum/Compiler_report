@@ -1,0 +1,419 @@
+[
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      541084,
+      537843
+    ],
+    "reference_counts": [
+      541084,
+      537843
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      537843
+    ],
+    "reference_counts": [
+      537843
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      537843
+    ],
+    "reference_counts": [
+      537843
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      541084
+    ],
+    "reference_counts": [
+      541084
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      541084
+    ],
+    "reference_counts": [
+      541084
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      541084,
+      537843
+    ],
+    "reference_counts": [
+      541084,
+      537843
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      541084,
+      537843
+    ],
+    "reference_counts": [
+      541084,
+      537843
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 42,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      541084,
+      537843
+    ],
+    "reference_counts": [
+      541084,
+      537843
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540973,
+      537932
+    ],
+    "reference_counts": [
+      540973,
+      537932
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      537932
+    ],
+    "reference_counts": [
+      537932
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      537932
+    ],
+    "reference_counts": [
+      537932
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540973
+    ],
+    "reference_counts": [
+      540973
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540973
+    ],
+    "reference_counts": [
+      540973
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540973,
+      537932
+    ],
+    "reference_counts": [
+      540973,
+      537932
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540973,
+      537932
+    ],
+    "reference_counts": [
+      540973,
+      537932
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 1729,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540973,
+      537932
+    ],
+    "reference_counts": [
+      540973,
+      537932
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540904,
+      537560
+    ],
+    "reference_counts": [
+      540904,
+      537560
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      537560
+    ],
+    "reference_counts": [
+      537560
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      537560
+    ],
+    "reference_counts": [
+      537560
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540904
+    ],
+    "reference_counts": [
+      540904
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540904
+    ],
+    "reference_counts": [
+      540904
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540904,
+      537560
+    ],
+    "reference_counts": [
+      540904,
+      537560
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540904,
+      537560
+    ],
+    "reference_counts": [
+      540904,
+      537560
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "E3_chain",
+    "seed": 2026,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      540904,
+      537560
+    ],
+    "reference_counts": [
+      540904,
+      537560
+    ],
+    "aux_pass": true,
+    "valid": true
+  }
+]

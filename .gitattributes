@@ -3,3 +3,4 @@
 *.npz binary
 *.npy binary
 *.png binary
+results/**/*.json -text

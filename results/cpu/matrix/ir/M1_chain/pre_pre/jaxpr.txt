@@ -1,0 +1,32 @@
+{ lambda ; a:f32[16,256] b:f32[256,256] c:f32[256] d:f32[256,256] e:f32[256]. let
+    f:f32[16,256] = dot_general[
+      dimension_numbers=(([1], [0]), ([], []))
+      preferred_element_type=float32
+    ] a b
+    g:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] c
+    h:f32[16,256] = add f g
+    i:f32[16,256] = max h 0.0:f32[]
+    j:bool[16,256] = gt h 0.0:f32[]
+    k:i32[16,256] = convert_element_type[new_dtype=int32 weak_type=False] j
+    l:i32[] = reduce_sum[axes=(0, 1) out_sharding=None] k
+    m:f32[16,256] = dot_general[
+      dimension_numbers=(([1], [0]), ([], []))
+      preferred_element_type=float32
+    ] i d
+    n:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] e
+    o:f32[16,256] = add m n
+    p:f32[16,256] = max o 0.0:f32[]
+    q:bool[16,256] = gt o 0.0:f32[]
+    r:i32[16,256] = convert_element_type[new_dtype=int32 weak_type=False] q
+    s:i32[] = reduce_sum[axes=(0, 1) out_sharding=None] r
+    t:f32[16,256] = mul p 0.75:f32[]
+    u:f32[16,256] = add t 0.125:f32[]
+  in (u, l, s) }

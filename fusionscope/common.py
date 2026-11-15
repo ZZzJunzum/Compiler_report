@@ -36,7 +36,8 @@ def sites(mode):
 def dump(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(path.suffix + ".partial")
-    temp.write_text(json.dumps(data, indent=2, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
+    temp.write_text(json.dumps(data, indent=2, ensure_ascii=False, allow_nan=False) + "\n",
+                    encoding="utf-8", newline="\n")
     temp.replace(path)
 
 

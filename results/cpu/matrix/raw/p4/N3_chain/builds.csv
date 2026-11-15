@@ -1,0 +1,10 @@
+case,mode,process,lower_ns,compile_ns,split_setup_ns
+N3_chain,u_post,4,10889300,119677000,
+N3_chain,pre_pre,4,8630900,135234800,
+N3_chain,post_pre,4,9153400,136618100,
+N3_chain,base,4,8112300,79079300,
+N3_chain,post_post,4,8679000,137841000,
+N3_chain,pre_post,4,9769200,141915100,
+N3_chain,v_pre,4,8688200,138916100,
+N3_chain,v_post,4,9202400,133422400,
+N3_chain,u_pre,4,8279500,124713100,
