@@ -1,0 +1,419 @@
+[
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      64544
+    ],
+    "reference_counts": [
+      64544
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65870
+    ],
+    "reference_counts": [
+      65870
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65870,
+      64544
+    ],
+    "reference_counts": [
+      65870,
+      64544
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      64544
+    ],
+    "reference_counts": [
+      64544
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65870
+    ],
+    "reference_counts": [
+      65870
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65870,
+      64544
+    ],
+    "reference_counts": [
+      65870,
+      64544
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65870,
+      64544
+    ],
+    "reference_counts": [
+      65870,
+      64544
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 42,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65870,
+      64544
+    ],
+    "reference_counts": [
+      65870,
+      64544
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      64494
+    ],
+    "reference_counts": [
+      64494
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65645
+    ],
+    "reference_counts": [
+      65645
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65645,
+      64494
+    ],
+    "reference_counts": [
+      65645,
+      64494
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      64494
+    ],
+    "reference_counts": [
+      64494
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65645
+    ],
+    "reference_counts": [
+      65645
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65645,
+      64494
+    ],
+    "reference_counts": [
+      65645,
+      64494
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65645,
+      64494
+    ],
+    "reference_counts": [
+      65645,
+      64494
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 1729,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65645,
+      64494
+    ],
+    "reference_counts": [
+      65645,
+      64494
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      64287
+    ],
+    "reference_counts": [
+      64287
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65389
+    ],
+    "reference_counts": [
+      65389
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65389,
+      64287
+    ],
+    "reference_counts": [
+      65389,
+      64287
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      64287
+    ],
+    "reference_counts": [
+      64287
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65389
+    ],
+    "reference_counts": [
+      65389
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65389,
+      64287
+    ],
+    "reference_counts": [
+      65389,
+      64287
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65389,
+      64287
+    ],
+    "reference_counts": [
+      65389,
+      64287
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "C2_chain",
+    "seed": 2026,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      65389,
+      64287
+    ],
+    "reference_counts": [
+      65389,
+      64287
+    ],
+    "aux_pass": true,
+    "valid": true
+  }
+]

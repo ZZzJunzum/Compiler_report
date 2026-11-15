@@ -50,6 +50,9 @@ def main():
         elif args.worker == "validation":
             from fusionscope.reference import check
             check(args.out)
+        elif args.worker == "external_singles":
+            from fusionscope.external import calibrate
+            calibrate(args.out, args.cases, args.process)
         else:
             from fusionscope.bench import worker
             worker(args.out, args.worker, args.cases, args.process, args.backend)
@@ -79,6 +82,9 @@ def main():
             if stage == "confirm":
                 launch(args, "confirm", conditions(), count["confirmation_processes"])
             elif stage == "external":
+                from fusionscope.external import seal
+                launch(args, "external_singles", ["R1","R2"], count["confirmation_processes"])
+                seal(args.out)
                 launch(args, "external", ["R1","R2"], count["external_processes"])
             else:
                 launch(args, "boundary", lock["boundary_cases"], count["boundary_processes"])

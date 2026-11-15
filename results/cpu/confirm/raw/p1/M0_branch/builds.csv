@@ -1,0 +1,10 @@
+case,mode,process,lower_ns,compile_ns,split_setup_ns
+M0_branch,u_pre,1,8100900,63516600,
+M0_branch,pre_pre,1,7613000,62666900,
+M0_branch,base,1,6421200,30211400,
+M0_branch,v_pre,1,6675600,59968500,
+M0_branch,post_pre,1,6982700,64936000,
+M0_branch,pre_post,1,7078900,70123100,
+M0_branch,v_post,1,6721900,68740300,
+M0_branch,post_post,1,7241400,63257100,
+M0_branch,u_post,1,6890700,81727100,

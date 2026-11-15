@@ -1,0 +1,419 @@
+[
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8475,
+      8401
+    ],
+    "reference_counts": [
+      8475,
+      8401
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8401
+    ],
+    "reference_counts": [
+      8401
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8475,
+      8401
+    ],
+    "reference_counts": [
+      8475,
+      8401
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8475
+    ],
+    "reference_counts": [
+      8475
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8475
+    ],
+    "reference_counts": [
+      8475
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8475,
+      8401
+    ],
+    "reference_counts": [
+      8475,
+      8401
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8401
+    ],
+    "reference_counts": [
+      8401
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 42,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8475,
+      8401
+    ],
+    "reference_counts": [
+      8475,
+      8401
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8509,
+      8382
+    ],
+    "reference_counts": [
+      8509,
+      8382
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8382
+    ],
+    "reference_counts": [
+      8382
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8509,
+      8382
+    ],
+    "reference_counts": [
+      8509,
+      8382
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8509
+    ],
+    "reference_counts": [
+      8509
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8509
+    ],
+    "reference_counts": [
+      8509
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8509,
+      8382
+    ],
+    "reference_counts": [
+      8509,
+      8382
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8382
+    ],
+    "reference_counts": [
+      8382
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 1729,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8509,
+      8382
+    ],
+    "reference_counts": [
+      8509,
+      8382
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "pre_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8416,
+      8387
+    ],
+    "reference_counts": [
+      8416,
+      8387
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "v_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8387
+    ],
+    "reference_counts": [
+      8387
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "pre_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8416,
+      8387
+    ],
+    "reference_counts": [
+      8416,
+      8387
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "u_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8416
+    ],
+    "reference_counts": [
+      8416
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "u_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8416
+    ],
+    "reference_counts": [
+      8416
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "post_post",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8416,
+      8387
+    ],
+    "reference_counts": [
+      8416,
+      8387
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "base",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [],
+    "reference_counts": [],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "v_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8387
+    ],
+    "reference_counts": [
+      8387
+    ],
+    "aux_pass": true,
+    "valid": true
+  },
+  {
+    "case": "N1_chain",
+    "seed": 2026,
+    "mode": "post_pre",
+    "y_max_abs": 0.0,
+    "y_pass": true,
+    "counts": [
+      8416,
+      8387
+    ],
+    "reference_counts": [
+      8416,
+      8387
+    ],
+    "aux_pass": true,
+    "valid": true
+  }
+]

@@ -1,0 +1,48 @@
+{ lambda ; a:f32[16,32,32,16] b:f32[3,3,16,16] c:f32[16] d:f32[3,3,16,16] e:f32[16]. let
+    f:f32[16,32,32,16] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] a b
+    g:f32[1,1,1,16] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 16)
+      sharding=None
+    ] c
+    h:f32[16,32,32,16] = add f g
+    i:f32[16,32,32,16] = max h 0.0:f32[]
+    j:f32[16,32,32,16] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] i d
+    k:f32[1,1,1,16] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 16)
+      sharding=None
+    ] e
+    l:f32[16,32,32,16] = add j k
+    m:f32[16,32,32,16] = add l a
+    n:f32[16,32,32,16] = max m 0.0:f32[]
+    o:bool[16,32,32,16] = gt m 0.0:f32[]
+    p:i32[16,32,32,16] = convert_element_type[new_dtype=int32 weak_type=False] o
+    q:i32[] = reduce_sum[axes=(0, 1, 2, 3) out_sharding=None] p
+    r:f32[16,32,32,16] = mul n 0.75:f32[]
+    s:f32[16,32,32,16] = add r 0.125:f32[]
+    t:f32[16,32,32,16] = mul i 0.25:f32[]
+    u:f32[16,32,32,16] = add s t
+  in (u, q) }

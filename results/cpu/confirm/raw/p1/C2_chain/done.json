@@ -1,0 +1,42 @@
+{
+  "signature": {
+    "protocol": "34dd7c283ce42aa45251b2edc124fc672c190b0cecdb7e88d694fcfee473466a",
+    "graphs": "bf984836f40d0c2b6420ab214c62e8e2fee229dbf4367773844bef18cde1c06c",
+    "worker": "07103dbbde46d0a5c200838b9db408fe678523ac56d628ac407f380992c9f6ea",
+    "env": {
+      "backend": "cpu",
+      "devices": [
+        "TFRT_CPU_0"
+      ],
+      "device_kind": "cpu",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "os": "Windows-11-10.0.26300-SP0",
+      "python": "3.12.5",
+      "jax": "0.9.0.1",
+      "jaxlib": "0.9.0.1",
+      "numpy": "2.3.5",
+      "logical_cpus": 12,
+      "physical_cpus": 8,
+      "ram_bytes": 16888094720,
+      "affinity": [
+        0
+      ],
+      "flags": {
+        "JAX_PLATFORMS": "cpu",
+        "JAX_ENABLE_X64": "false",
+        "JAX_ENABLE_COMPILATION_CACHE": "false",
+        "XLA_FLAGS": "",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
+    }
+  },
+  "pid": 19148,
+  "input_preparation_ns": 4795600,
+  "files": {
+    "times.csv": "a079e3ae260a6d5790794f1bf9a809bc1041ae14577a8c354b09837f27b2bd32",
+    "builds.csv": "7f21a05550d061ad5c313b134a2a7163a1e1f485d9a412bcd83b2ccffeff8471",
+    "checks.json": "a1e67f0843d553f14265c4272b75287c296b27ea25bc2e0f88139f931374418d"
+  }
+}
