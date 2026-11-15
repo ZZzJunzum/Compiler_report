@@ -1,0 +1,96 @@
+HloModule jit_workload, is_scheduled=true, entry_computation_layout={(f32[16,256]{1,0}, f32[256]{0}, f32[256]{0})->(f32[16,256]{1,0}, f32[])}, allow_spmd_sharding_propagation_to_parameters={false,false,false}, allow_spmd_sharding_propagation_to_output={true,true}, frontend_attributes={xla.sdy.meshes={empty_mesh = #sdy.mesh<[]>}}
+
+FileNames
+1 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\run.py"
+2 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\fusionscope\\bench.py"
+3 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\fusionscope\\graphs.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "worker"
+4 "measure_case"
+5 "pilot.<locals>.workload"
+6 "pilot.<locals>.workload.<locals>.<lambda>"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=97 end_line=97 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=55 end_line=55 column=12 end_column=81}
+3 {file_name_id=2 function_name_id=3 line=177 end_line=177 column=8 end_column=62}
+4 {file_name_id=2 function_name_id=4 line=151 end_line=151 column=22 end_column=46}
+5 {file_name_id=3 function_name_id=5 line=103 end_line=103 column=16 end_column=46}
+6 {file_name_id=3 function_name_id=5 line=101 end_line=101 column=16 end_column=24}
+7 {file_name_id=3 function_name_id=5 line=107 end_line=107 column=18 end_column=101}
+8 {file_name_id=3 function_name_id=6 line=107 end_line=107 column=62 end_column=73}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=5}
+7 {file_location_id=7 parent_frame_id=5}
+8 {file_location_id=8 parent_frame_id=8}
+
+
+%region_0.1.clone (reduce_sum.0: f32[], reduce_sum.1: f32[]) -> f32[] {
+  %reduce_sum.0 = f32[] parameter(0), metadata={op_name="reduce_sum"}
+  %reduce_sum.1 = f32[] parameter(1), metadata={op_name="reduce_sum"}
+  ROOT %reduce_sum.2 = f32[] add(%reduce_sum.0, %reduce_sum.1), metadata={op_name="jit(workload)/pilot_probe/reduce_sum" stack_frame_id=8}
+}
+
+%fused_computation (param_0.2: f32[1,8]) -> f32[] {
+  %param_0.2 = f32[1,8]{1,0} parameter(0)
+  %constant.2 = f32[] constant(0)
+  %reduce_sum.6 = f32[] reduce(%param_0.2, %constant.2), dimensions={0,1}, to_apply=%region_0.1.clone, metadata={op_name="jit(workload)/pilot_probe/reduce_sum" stack_frame_id=8}
+  %constant.1 = f32[] constant(0.000244140625)
+  ROOT %multiply.1 = f32[] multiply(%reduce_sum.6, %constant.1), metadata={op_name="jit(workload)/pilot_probe/div" stack_frame_id=8}
+}
+
+%fused_computation.1 (param_0.5: f32[256], param_1.7: f32[16,256], param_2.2: f32[256]) -> f32[16,256] {
+  %param_1.7 = f32[16,256]{1,0} parameter(1)
+  %param_2.2 = f32[256]{0} parameter(2)
+  %mul.1 = f32[16,256]{1,0} broadcast(%param_2.2), dimensions={1}, metadata={op_name="jit(workload)/u_z/mul" stack_frame_id=6}
+  %mul.0 = f32[16,256]{1,0} multiply(%param_1.7, %mul.1), metadata={op_name="jit(workload)/u_z/mul" stack_frame_id=6}
+  %param_0.5 = f32[256]{0} parameter(0)
+  %add.1 = f32[16,256]{1,0} broadcast(%param_0.5), dimensions={1}, metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+  %add.0 = f32[16,256]{1,0} add(%mul.0, %add.1), metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+  %constant.6 = f32[] constant(0)
+  %max.1 = f32[16,256]{1,0} broadcast(%constant.6), dimensions={}, metadata={op_name="jit(workload)/u_relu/max" stack_frame_id=5}
+  ROOT %max.0 = f32[16,256]{1,0} maximum(%add.0, %max.1), metadata={op_name="jit(workload)/u_relu/max" stack_frame_id=5}
+}
+
+%fused_computation.2 (param_0.7: f32[256], param_1.10: f32[16,256], param_2.4: f32[256]) -> f32[16,256] {
+  %param_1.10 = f32[16,256]{1,0} parameter(1)
+  %param_2.4 = f32[256]{0} parameter(2)
+  %mul.3 = f32[16,256]{1,0} broadcast(%param_2.4), dimensions={1}, metadata={op_name="jit(workload)/u_z/mul" stack_frame_id=6}
+  %mul.2 = f32[16,256]{1,0} multiply(%param_1.10, %mul.3), metadata={op_name="jit(workload)/u_z/mul" stack_frame_id=6}
+  %param_0.7 = f32[256]{0} parameter(0)
+  %add.3 = f32[16,256]{1,0} broadcast(%param_0.7), dimensions={1}, metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+  ROOT %add.2 = f32[16,256]{1,0} add(%mul.2, %add.3), metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+}
+
+%region_0.1 (reduce_sum.3: f32[], reduce_sum.4: f32[]) -> f32[] {
+  %reduce_sum.3 = f32[] parameter(0), metadata={op_name="reduce_sum"}
+  %reduce_sum.4 = f32[] parameter(1), metadata={op_name="reduce_sum"}
+  ROOT %reduce_sum.5 = f32[] add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="jit(workload)/pilot_probe/reduce_sum" stack_frame_id=8}
+}
+
+%wrapped_reduce-window_computation (param_0.8: f32[16,256], param_1.11: f32[]) -> f32[1,8] {
+  %param_0.8 = f32[16,256]{1,0} parameter(0)
+  %param_1.11 = f32[] parameter(1)
+  ROOT %reduce-window.1 = f32[1,8]{1,0} reduce-window(%param_0.8, %param_1.11), window={size=16x32 stride=16x32}, to_apply=%region_0.1
+}
+
+ENTRY %main.2 (x.1: f32[16,256], p_0_.1: f32[256], p_1_.1: f32[256]) -> (f32[16,256], f32[]) {
+  %x.1 = f32[16,256]{1,0} parameter(0), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}, {}]>"}, metadata={op_name="x"}
+  %p_0_.1 = f32[256]{0} parameter(1), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}]>"}, metadata={op_name="p[0]"}
+  %p_1_.1 = f32[256]{0} parameter(2), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}]>"}, metadata={op_name="p[1]"}
+  %constant.3 = f32[] constant(0)
+  %broadcast_add_fusion = f32[16,256]{1,0} fusion(%p_1_.1, %x.1, %p_0_.1), kind=kLoop, calls=%fused_computation.2, metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+  %broadcast_maximum_fusion = f32[16,256]{1,0} fusion(%p_1_.1, %x.1, %p_0_.1), kind=kLoop, calls=%fused_computation.1, metadata={op_name="jit(workload)/u_relu/max" stack_frame_id=5}
+  %wrapped_reduce-window = f32[1,8]{1,0} fusion(%broadcast_add_fusion, %constant.3), kind=kLoop, calls=%wrapped_reduce-window_computation
+  %reduce_multiply_fusion = f32[] fusion(%wrapped_reduce-window), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(workload)/pilot_probe/div" stack_frame_id=8}
+  ROOT %tuple.1 = (f32[16,256]{1,0}, f32[]) tuple(%broadcast_maximum_fusion, %reduce_multiply_fusion)
+}

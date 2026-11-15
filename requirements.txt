@@ -1,6 +1,7 @@
 jax==0.9.0.1
 jaxlib==0.9.0.1
 flax==0.12.3
+orbax-checkpoint==0.11.25
 numpy==2.3.5
 matplotlib==3.10.8
 psutil==7.2.1

@@ -1,0 +1,50 @@
+HloModule jit_workload, is_scheduled=true, entry_computation_layout={(f32[16,256]{1,0}, f32[256]{0}, f32[256]{0})->f32[16,256]{1,0}}, allow_spmd_sharding_propagation_to_parameters={false,false,false}, allow_spmd_sharding_propagation_to_output={true}, frontend_attributes={xla.sdy.meshes={empty_mesh = #sdy.mesh<[]>}}
+
+FileNames
+1 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\run.py"
+2 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\fusionscope\\bench.py"
+3 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\fusionscope\\graphs.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "worker"
+4 "measure_case"
+5 "pilot.<locals>.workload"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=97 end_line=97 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=55 end_line=55 column=12 end_column=81}
+3 {file_name_id=2 function_name_id=3 line=177 end_line=177 column=8 end_column=62}
+4 {file_name_id=2 function_name_id=4 line=151 end_line=151 column=22 end_column=46}
+5 {file_name_id=3 function_name_id=5 line=103 end_line=103 column=16 end_column=46}
+6 {file_name_id=3 function_name_id=5 line=101 end_line=101 column=16 end_column=24}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=5}
+
+
+%fused_computation (param_0.2: f32[256], param_1.4: f32[16,256], param_2.1: f32[256]) -> f32[16,256] {
+  %param_1.4 = f32[16,256]{1,0} parameter(1)
+  %param_2.1 = f32[256]{0} parameter(2)
+  %mul.1 = f32[16,256]{1,0} broadcast(%param_2.1), dimensions={1}, metadata={op_name="jit(workload)/u_z/mul" stack_frame_id=6}
+  %mul.0 = f32[16,256]{1,0} multiply(%param_1.4, %mul.1), metadata={op_name="jit(workload)/u_z/mul" stack_frame_id=6}
+  %param_0.2 = f32[256]{0} parameter(0)
+  %add.1 = f32[16,256]{1,0} broadcast(%param_0.2), dimensions={1}, metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+  %add.0 = f32[16,256]{1,0} add(%mul.0, %add.1), metadata={op_name="jit(workload)/u_z/add" stack_frame_id=6}
+  %constant.0 = f32[] constant(0)
+  %max.1 = f32[16,256]{1,0} broadcast(%constant.0), dimensions={}, metadata={op_name="jit(workload)/u_relu/max" stack_frame_id=5}
+  ROOT %max.0 = f32[16,256]{1,0} maximum(%add.0, %max.1), metadata={op_name="jit(workload)/u_relu/max" stack_frame_id=5}
+}
+
+ENTRY %main.1 (x.1: f32[16,256], p_0_.1: f32[256], p_1_.1: f32[256]) -> f32[16,256] {
+  %x.1 = f32[16,256]{1,0} parameter(0), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}, {}]>"}, metadata={op_name="x"}
+  %p_0_.1 = f32[256]{0} parameter(1), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}]>"}, metadata={op_name="p[0]"}
+  %p_1_.1 = f32[256]{0} parameter(2), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}]>"}, metadata={op_name="p[1]"}
+  ROOT %broadcast_maximum_fusion = f32[16,256]{1,0} fusion(%p_1_.1, %x.1, %p_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(workload)/u_relu/max" stack_frame_id=5}
+}

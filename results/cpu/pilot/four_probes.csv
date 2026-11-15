@@ -1,0 +1,5 @@
+mode,latency_us,delta_us,auxiliary_bytes,valid
+only_y,27.55,0.0,0,True
+sample,28.75,1.3999999999999986,4,True
+mean,32.45,4.650000000000006,4,True
+full,30.200000000000003,2.3000000000000007,16384,True

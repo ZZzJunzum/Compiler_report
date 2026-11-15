@@ -1,0 +1,15 @@
+{ lambda ; a:f32[16,256] b:f32[256] c:f32[256] d:f32[256] e:f32[256]. let
+    f:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] b
+    g:f32[16,256] = mul a f
+    h:f32[1,256] = broadcast_in_dim[
+      broadcast_dimensions=(1,)
+      shape=(1, 256)
+      sharding=None
+    ] c
+    i:f32[16,256] = add g h
+    j:f32[16,256] = max i 0.0:f32[]
+  in (j,) }
