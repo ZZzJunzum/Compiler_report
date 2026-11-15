@@ -1,7 +1,6 @@
 """Conservative reader for scheduled XLA HLO. Anchors are one-based text lines."""
 from collections import defaultdict, deque
 from dataclasses import dataclass
-from functools import cache
 import hashlib
 import json
 import re
@@ -164,8 +163,11 @@ class Module:
         return hashlib.sha256(json.dumps(canonical,separators=(",",":")).encode()).hexdigest()
 
     def relu(self, site):
-        matches = [v for v in self.main if v.op.kind=="maximum" and f"/{site}_relu/" in v.op.scope]
+        matches = self.relu_candidates(site)
         return matches[0] if len(matches)==1 else None
+
+    def relu_candidates(self, site):
+        return [v for v in self.main if v.op.kind=="maximum" and f"/{site}_relu/" in v.op.scope]
 
     def producer(self, relu):
         if relu is None:
@@ -206,14 +208,16 @@ class Module:
         a = self.relu(site)
         z = self.producer(a)
         main_kids = self.children[a] if a is not None else []
-        missing = "no unique tagged maximum on y path or producer hidden" if a is None or z is None else ""
+        matches = self.relu_candidates(site)
+        missing = f"{len(matches)} tagged maxima on y path; producer mapping ambiguous" if a is None else (
+                  "producer hidden" if z is None else "")
         def anchors(values):
             return " | ".join(v.anchor() for v in sorted(set(values),key=lambda x:(x.op.line,x.group)))
         def row(edge, state, start, end, detail="", repeat="", multi=""):
             return {"site":site,"edge":edge,"relation":state,"source":anchors(start),
                     "target":anchors(end),"detail":detail,"repeated_hlo_expression":repeat,
                     "multioutput_fusion_shared_with_y":multi,"opaque_lines":",".join(map(str,self.opaque))}
-        aa, zz = ([a] if a else []), ([z] if z else [])
+        aa, zz = matches, ([z] if z else [])
         rows = [row("z_to_relu",relation(z,a),zz,aa,missing)]
         state = "entry_output" if a is self.outputs[0] else "|".join(sorted({relation(a,c) for c in main_kids})) or "unknown"
         rows.append(row("relu_to_main",state,aa,main_kids,missing))

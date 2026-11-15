@@ -32,7 +32,7 @@ def launch(args, phase, cases, repeats):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", choices=["first","pilot","matrix","model","confirm","external",
-                                           "controls","report","all","recommend","verify"], default="pilot")
+                                           "controls","lowering","report","all","recommend","verify"], default="pilot")
     parser.add_argument("--backend", choices=["cpu","gpu"], default="cpu")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--case", default="R2")
@@ -53,14 +53,19 @@ def main():
         elif args.worker == "external_singles":
             from fusionscope.external import calibrate
             calibrate(args.out, args.cases, args.process)
+        elif args.worker == "lowering":
+            from fusionscope.lowering import run
+            run(args.out)
         else:
             from fusionscope.bench import worker
             worker(args.out, args.worker, args.cases, args.process, args.backend)
         return
-    stages = ["pilot","matrix","model","confirm","external","controls","report","verify"] if args.stage == "all" else [args.stage]
+    stages = ["pilot","matrix","model","confirm","external","controls","lowering","report","verify"] if args.stage == "all" else [args.stage]
     count = SPEC["timing"]
     for stage in stages:
         if stage in ("first","pilot"):
+            from fusionscope.hardware import snapshot
+            snapshot(args.out)
             launch(args, "validation", ["E0_chain"], 1)
             launch(args, "probe4", ["E0_chain"], count["pilot_processes"])
             launch(args, "pilot", ["E0_chain"], count["pilot_processes"])
@@ -88,6 +93,8 @@ def main():
                 launch(args, "external", ["R1","R2"], count["external_processes"])
             else:
                 launch(args, "boundary", lock["boundary_cases"], count["boundary_processes"])
+        elif stage == "lowering":
+            launch(args, "lowering", ["E0_chain","R1"], 1)
         elif stage == "report":
             from fusionscope.report import report
             report(args.out)

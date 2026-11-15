@@ -1,0 +1,54 @@
+HloModule jit__unknown, is_scheduled=true, entry_computation_layout={(f32[4096,256]{1,0}, f32[256]{0}, f32[256]{0})->f32[4096,256]{1,0}}, allow_spmd_sharding_propagation_to_parameters={false,false,false}, allow_spmd_sharding_propagation_to_output={true}, frontend_attributes={xla.sdy.meshes={empty_mesh = #sdy.mesh<[]>}}
+
+FileNames
+1 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\run.py"
+2 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\fusionscope\\bench.py"
+3 "D:\\\347\274\226\350\257\221\345\216\237\347\220\206\\report\\fusionscope\\graphs.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "worker"
+4 "measure_case"
+5 "split_executable"
+6 "first_stage"
+7 "layer"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=103 end_line=103 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=58 end_line=58 column=12 end_column=81}
+3 {file_name_id=2 function_name_id=3 line=177 end_line=177 column=8 end_column=62}
+4 {file_name_id=2 function_name_id=4 line=142 end_line=142 column=31 end_column=69}
+5 {file_name_id=3 function_name_id=5 line=89 end_line=89 column=12 end_column=62}
+6 {file_name_id=3 function_name_id=6 line=47 end_line=47 column=15 end_column=43}
+7 {file_name_id=3 function_name_id=7 line=41 end_line=41 column=12 end_column=17}
+8 {file_name_id=3 function_name_id=7 line=42 end_line=42 column=11 end_column=16}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+7 {file_location_id=7 parent_frame_id=7}
+8 {file_location_id=8 parent_frame_id=7}
+
+
+%fused_computation (param_0.1: f32[256], param_1.2: f32[4096,256], param_2.1: f32[256]) -> f32[4096,256] {
+  %param_1.2 = f32[4096,256]{1,0} parameter(1)
+  %param_2.1 = f32[256]{0} parameter(2)
+  %mul.1 = f32[4096,256]{1,0} broadcast(%param_2.1), dimensions={1}, metadata={op_name="jit(<unknown>)/u_z/mul" stack_frame_id=7}
+  %mul.0 = f32[4096,256]{1,0} multiply(%param_1.2, %mul.1), metadata={op_name="jit(<unknown>)/u_z/mul" stack_frame_id=7}
+  %param_0.1 = f32[256]{0} parameter(0)
+  %add.1 = f32[4096,256]{1,0} broadcast(%param_0.1), dimensions={1}, metadata={op_name="jit(<unknown>)/u_z/add" stack_frame_id=8}
+  ROOT %add.0 = f32[4096,256]{1,0} add(%mul.0, %add.1), metadata={op_name="jit(<unknown>)/u_z/add" stack_frame_id=8}
+}
+
+ENTRY %main.1 (x.1: f32[4096,256], p_0_.1: f32[256], p_1_.1: f32[256]) -> f32[4096,256] {
+  %x.1 = f32[4096,256]{1,0} parameter(0), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}, {}]>"}, metadata={op_name="x"}
+  %p_0_.1 = f32[256]{0} parameter(1), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}]>"}, metadata={op_name="p[0]"}
+  %p_1_.1 = f32[256]{0} parameter(2), sharding={replicated}, frontend_attributes={xla.sdy.sharding="#sdy.sharding<@empty_mesh, [{}]>"}, metadata={op_name="p[1]"}
+  ROOT %broadcast_add_fusion = f32[4096,256]{1,0} fusion(%p_1_.1, %x.1, %p_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(<unknown>)/u_z/add" stack_frame_id=8}, backend_config={"outer_dimension_partitions":["4"]}
+}
+

@@ -1,0 +1,199 @@
+let relu = { lambda ; a:f32[1,56,56,64]. let
+    b:f32[1,56,56,64] = max a 0.0:f32[]
+  in (b,) } in
+{ lambda ; c:f32[1,56,56,64] d:f32[64] e:f32[64] f:f32[64] g:f32[64] h:f32[64] i:f32[64]
+    j:f32[64] k:f32[64] l:f32[3,3,64,64] m:f32[3,3,64,64] n:f32[64] o:f32[64] p:f32[64]
+    q:f32[64] r:f32[64] s:f32[64] t:f32[64] u:f32[64] v:f32[3,3,64,64] w:f32[3,3,64,64]. let
+    x:f32[1,56,56,64] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] c l
+    y:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] d
+    z:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] e
+    ba:f32[1,56,56,64] = sub x y
+    bb:f32[1,1,1,64] = add z 9.999999747378752e-06:f32[]
+    bc:f32[1,1,1,64] = rsqrt bb
+    bd:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] i
+    be:f32[1,1,1,64] = mul bc bd
+    bf:f32[1,56,56,64] = mul ba be
+    bg:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] h
+    bh:f32[1,56,56,64] = add bf bg
+    bi:f32[1,56,56,64] = custom_jvp_call[
+      name=relu
+      call_jaxpr={ lambda ; bj:f32[1,56,56,64]. let
+          bk:f32[1,56,56,64] = jit[name=relu jaxpr=relu] bj
+        in (bk,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] bh
+    bl:bool[1,56,56,64] = gt bi 0.0:f32[]
+    bm:i32[1,56,56,64] = convert_element_type[new_dtype=int32 weak_type=False] bl
+    bn:i32[] = reduce_sum[axes=(0, 1, 2, 3) out_sharding=None] bm
+    bo:f32[1,56,56,64] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] bi m
+    bp:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] f
+    bq:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] g
+    br:f32[1,56,56,64] = sub bo bp
+    bs:f32[1,1,1,64] = add bq 9.999999747378752e-06:f32[]
+    bt:f32[1,1,1,64] = rsqrt bs
+    bu:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] k
+    bv:f32[1,1,1,64] = mul bt bu
+    bw:f32[1,56,56,64] = mul br bv
+    bx:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] j
+    by:f32[1,56,56,64] = add bw bx
+    bz:f32[1,56,56,64] = add c by
+    ca:f32[1,56,56,64] = custom_jvp_call[
+      name=relu
+      call_jaxpr={ lambda ; cb:f32[1,56,56,64]. let
+          cc:f32[1,56,56,64] = jit[name=relu jaxpr=relu] cb
+        in (cc,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] bz
+    cd:f32[1,56,56,64] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] ca v
+    ce:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] n
+    cf:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] o
+    cg:f32[1,56,56,64] = sub cd ce
+    ch:f32[1,1,1,64] = add cf 9.999999747378752e-06:f32[]
+    ci:f32[1,1,1,64] = rsqrt ch
+    cj:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] s
+    ck:f32[1,1,1,64] = mul ci cj
+    cl:f32[1,56,56,64] = mul cg ck
+    cm:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] r
+    cn:f32[1,56,56,64] = add cl cm
+    co:f32[1,56,56,64] = custom_jvp_call[
+      name=relu
+      call_jaxpr={ lambda ; cp:f32[1,56,56,64]. let
+          cq:f32[1,56,56,64] = jit[name=relu jaxpr=relu] cp
+        in (cq,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] cn
+    cr:f32[1,56,56,64] = conv_general_dilated[
+      batch_group_count=1
+      dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+      feature_group_count=1
+      lhs_dilation=(1, 1)
+      out_sharding=None
+      padding=((1, 1), (1, 1))
+      precision=None
+      preferred_element_type=None
+      rhs_dilation=(1, 1)
+      window_strides=(1, 1)
+    ] co w
+    cs:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] p
+    ct:f32[1,1,1,64] = broadcast_in_dim[
+      broadcast_dimensions=(3,)
+      shape=(1, 1, 1, 64)
+      sharding=None
+    ] q
+    cu:f32[1,56,56,64] = sub cr cs
+    cv:f32[1,1,1,64] = add ct 9.999999747378752e-06:f32[]
+    cw:f32[1,1,1,64] = rsqrt cv
+    cx:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] u
+    cy:f32[1,1,1,64] = mul cw cx
+    cz:f32[1,56,56,64] = mul cu cy
+    da:f32[1,1,1,64] = reshape[
+      dimensions=None
+      new_sizes=(1, 1, 1, 64)
+      sharding=None
+    ] t
+    db:f32[1,56,56,64] = add cz da
+    dc:f32[1,56,56,64] = add ca db
+    dd:f32[1,56,56,64] = custom_jvp_call[
+      name=relu
+      call_jaxpr={ lambda ; de:f32[1,56,56,64]. let
+          df:f32[1,56,56,64] = jit[name=relu jaxpr=relu] de
+        in (df,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] dc
+    dg:bool[1,56,56,64] = gt dd 0.0:f32[]
+    dh:i32[1,56,56,64] = convert_element_type[new_dtype=int32 weak_type=False] dg
+    di:i32[] = reduce_sum[axes=(0, 1, 2, 3) out_sharding=None] dh
+  in (dd, bn, di) }

@@ -1,0 +1,17 @@
+[
+  {
+    "seed": 42,
+    "max_abs": 0.0,
+    "passed": true
+  },
+  {
+    "seed": 1729,
+    "max_abs": 0.0,
+    "passed": true
+  },
+  {
+    "seed": 2026,
+    "max_abs": 0.0,
+    "passed": true
+  }
+]
