@@ -1,0 +1,14 @@
+{
+  "jax_version": "0.9.0.1",
+  "jax_devices": [
+    "TFRT_CPU_0"
+  ],
+  "xla_flags": "",
+  "tensor_size": 1024,
+  "chain_depth": 1,
+  "entry_fusion_call_lines": [
+    "ROOT %broadcast_maximum_fusion = f32[1024]{0} fusion(%x.1), kind=kLoop, calls=%fused_computation, metadata={op_name=\"jit(workload)/max\" stack_frame_id=3}"
+  ],
+  "max_absolute_error_vs_numpy": 2.384185791015625e-07,
+  "notes": "Fusion instructions in CPU HLO do NOT prove the number of GPU kernels. Inspect the called fusion computations and the backend-specific output."
+}

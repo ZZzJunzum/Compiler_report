@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "query": "positive_count",
+  "dtype": "float32",
+  "placements": ["base", "u_pre", "u_post", "v_pre", "v_post", "pre_pre", "pre_post", "post_pre", "post_post"],
+  "input_seeds": [42, 1729, 2026],
+  "timed_seed": 42,
+  "shapes": {
+    "E": [[16,256],[128,256],[1024,256],[4096,256]],
+    "M": [[4,256],[16,256],[64,256],[256,256]],
+    "N": [[16,256],[64,256],[256,256],[1024,256]],
+    "C": [[1,32,32,16],[4,32,32,16],[8,32,32,16],[16,32,32,16]]
+  },
+  "topologies": ["chain","branch"],
+  "external": {
+    "R1": [1,56,56,64], "R2": [1,56,56,64],
+    "upstream_commit": "0fde6365a958e39af1b243f490bad92244894be6",
+    "file_sha256": "cd354ca3990ae35c3529e680b7d6e91f273508aa3cc087f03fdf41699063fb50",
+    "sites": "first activation in the first ResNetBlock, final activation in the last ResNetBlock",
+    "weights": "Flax initialization with fixed key 31, inference batch stats, nonzero final BN scales set to one. Random Gaussian inputs. No accuracy claims."
+  },
+  "timing": {"warmup": 6, "rounds": 20, "pilot_processes": 3, "matrix_processes": 5, "confirmation_processes": 3, "external_processes": 5, "boundary_processes": 5, "order_seed": 63127, "cpu_affinity": "first permitted logical CPU, set before JAX import", "aa_labels": ["A0","A1","A2","A3"]},
+  "tolerances": {"E": [0.00001,0.000002], "M": [0.0001,0.00002], "N": [0.0001,0.00002], "C": [0.0001,0.00003], "R1": [0.0002,0.00005], "R2": [0.0002,0.00005]},
+  "validity": "For all three seeds match y vs base in shape/dtype and (rtol,atol), all finite. Each requested scalar int32 count must exactly match a host count from a diagnostic returning the corresponding preactivation. Keep failed input(s). Offline validation only; never change the prediction.",
+  "noise": "Per condition use the 95th percentile of absolute within-process differences of medians of A/A labels, and the analogous balanced four-label pseudo-interactions. Confirmation rankings are unresolved when the top-two gap is below this floor or the fastest fails to win a strict majority of processes.",
+  "learning": {"target": "log(Tc/T0), process-paired medians", "training": "four double placements from eligible training conditions; equal row weight, leave-one-whole-family-out; training-only mean/scale; fixed ridge alpha 1 for all; no tuning", "tie_order": ["pre_pre","pre_post","post_pre","post_post"], "fallback": "M1/M2 delegate to B2 if either ReLU cannot be located on the baseline main output path", "test": "lock predictions using baseline IR only before collecting independent confirmation and external candidate times"},
+  "controls": "For the confirmation weak/strong cases take the smallest/largest four-position latency spread among fully valid discovery conditions, lexicographic condition ID breaks ties. Split after the first producer z; compare both pre_pre and post_pre against the corresponding monolithic versions. Baseline A/A used for noise.",
+  "scope": "CPU primary. GPU is conditional on a compatible device. No disabled-fusion configuration in the formal matrix."
+}
