@@ -1,0 +1,239 @@
+{
+  "source": {
+    "sites": {
+      "u": {
+        "pre": {
+          "log2_elements": 10.0,
+          "rank": 2,
+          "source_users": 1,
+          "shape": [
+            4,
+            256
+          ],
+          "source_eqn": 4
+        },
+        "post": {
+          "log2_elements": 10.0,
+          "rank": 2,
+          "source_users": 1,
+          "shape": [
+            4,
+            256
+          ],
+          "source_eqn": 4
+        }
+      },
+      "v": {
+        "pre": {
+          "log2_elements": 10.0,
+          "rank": 2,
+          "source_users": 1,
+          "shape": [
+            4,
+            256
+          ],
+          "source_eqn": 8
+        },
+        "post": {
+          "log2_elements": 10.0,
+          "rank": 2,
+          "source_users": 1,
+          "shape": [
+            4,
+            256
+          ],
+          "source_eqn": 8
+        }
+      }
+    },
+    "dot_count": 2,
+    "conv_count": 0,
+    "reduce_count": 0,
+    "source_distance": 3
+  },
+  "features": {
+    "pre_pre": {
+      "B1": {
+        "scalar_count": 2,
+        "auxiliary_bytes": 8,
+        "u_log2_elements": 10.0,
+        "u_rank": 2,
+        "v_log2_elements": 10.0,
+        "v_rank": 2
+      },
+      "B2": {
+        "dot_count": 2,
+        "conv_count": 0,
+        "reduce_count": 0,
+        "source_distance": 3,
+        "u_post": 0,
+        "u_source_users": 1,
+        "v_post": 0,
+        "v_source_users": 1
+      },
+      "M1": {
+        "u_located": 1,
+        "u_in_fusion": 1,
+        "u_fusion_output": 0,
+        "u_users": 1,
+        "u_same_next": 1,
+        "u_near_reduce": 0,
+        "u_near_dot_conv_call": 1,
+        "u_entry_output": 0,
+        "v_located": 1,
+        "v_in_fusion": 1,
+        "v_fusion_output": 0,
+        "v_users": 1,
+        "v_same_next": 1,
+        "v_near_reduce": 0,
+        "v_near_dot_conv_call": 1,
+        "v_entry_output": 0
+      },
+      "M2": {
+        "same_fusion": 0,
+        "group_crossings": 2,
+        "shared_parent": 0,
+        "pair_known": 1,
+        "both_post_same_fusion": 0
+      }
+    },
+    "pre_post": {
+      "B1": {
+        "scalar_count": 2,
+        "auxiliary_bytes": 8,
+        "u_log2_elements": 10.0,
+        "u_rank": 2,
+        "v_log2_elements": 10.0,
+        "v_rank": 2
+      },
+      "B2": {
+        "dot_count": 2,
+        "conv_count": 0,
+        "reduce_count": 0,
+        "source_distance": 3,
+        "u_post": 0,
+        "u_source_users": 1,
+        "v_post": 1,
+        "v_source_users": 1
+      },
+      "M1": {
+        "u_located": 1,
+        "u_in_fusion": 1,
+        "u_fusion_output": 0,
+        "u_users": 1,
+        "u_same_next": 1,
+        "u_near_reduce": 0,
+        "u_near_dot_conv_call": 1,
+        "u_entry_output": 0,
+        "v_located": 1,
+        "v_in_fusion": 1,
+        "v_fusion_output": 0,
+        "v_users": 1,
+        "v_same_next": 1,
+        "v_near_reduce": 0,
+        "v_near_dot_conv_call": 1,
+        "v_entry_output": 0
+      },
+      "M2": {
+        "same_fusion": 0,
+        "group_crossings": 2,
+        "shared_parent": 0,
+        "pair_known": 1,
+        "both_post_same_fusion": 0
+      }
+    },
+    "post_pre": {
+      "B1": {
+        "scalar_count": 2,
+        "auxiliary_bytes": 8,
+        "u_log2_elements": 10.0,
+        "u_rank": 2,
+        "v_log2_elements": 10.0,
+        "v_rank": 2
+      },
+      "B2": {
+        "dot_count": 2,
+        "conv_count": 0,
+        "reduce_count": 0,
+        "source_distance": 3,
+        "u_post": 1,
+        "u_source_users": 1,
+        "v_post": 0,
+        "v_source_users": 1
+      },
+      "M1": {
+        "u_located": 1,
+        "u_in_fusion": 1,
+        "u_fusion_output": 1,
+        "u_users": 1,
+        "u_same_next": 0,
+        "u_near_reduce": 0,
+        "u_near_dot_conv_call": 1,
+        "u_entry_output": 0,
+        "v_located": 1,
+        "v_in_fusion": 1,
+        "v_fusion_output": 0,
+        "v_users": 1,
+        "v_same_next": 1,
+        "v_near_reduce": 0,
+        "v_near_dot_conv_call": 1,
+        "v_entry_output": 0
+      },
+      "M2": {
+        "same_fusion": 0,
+        "group_crossings": 2,
+        "shared_parent": 0,
+        "pair_known": 1,
+        "both_post_same_fusion": 0
+      }
+    },
+    "post_post": {
+      "B1": {
+        "scalar_count": 2,
+        "auxiliary_bytes": 8,
+        "u_log2_elements": 10.0,
+        "u_rank": 2,
+        "v_log2_elements": 10.0,
+        "v_rank": 2
+      },
+      "B2": {
+        "dot_count": 2,
+        "conv_count": 0,
+        "reduce_count": 0,
+        "source_distance": 3,
+        "u_post": 1,
+        "u_source_users": 1,
+        "v_post": 1,
+        "v_source_users": 1
+      },
+      "M1": {
+        "u_located": 1,
+        "u_in_fusion": 1,
+        "u_fusion_output": 1,
+        "u_users": 1,
+        "u_same_next": 0,
+        "u_near_reduce": 0,
+        "u_near_dot_conv_call": 1,
+        "u_entry_output": 0,
+        "v_located": 1,
+        "v_in_fusion": 1,
+        "v_fusion_output": 0,
+        "v_users": 1,
+        "v_same_next": 1,
+        "v_near_reduce": 0,
+        "v_near_dot_conv_call": 1,
+        "v_entry_output": 0
+      },
+      "M2": {
+        "same_fusion": 0,
+        "group_crossings": 2,
+        "shared_parent": 0,
+        "pair_known": 1,
+        "both_post_same_fusion": 0
+      }
+    }
+  },
+  "fallback": false,
+  "baseline_lower_compile_ns": 36816200,
+  "feature_extraction_ns": 774700
+}

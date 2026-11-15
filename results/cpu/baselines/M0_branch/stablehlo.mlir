@@ -1,0 +1,29 @@
+module @jit_workload attributes {mhlo.num_partitions = 1 : i32, mhlo.num_replicas = 1 : i32} {
+  func.func public @main(%arg0: tensor<4x256xf32>, %arg1: tensor<256x256xf32>, %arg2: tensor<256xf32>, %arg3: tensor<256x256xf32>, %arg4: tensor<256xf32>) -> (tensor<4x256xf32> {jax.result_info = "result"}) {
+    %0 = stablehlo.dot_general %arg0, %arg1, contracting_dims = [1] x [0], precision = [DEFAULT, DEFAULT] : (tensor<4x256xf32>, tensor<256x256xf32>) -> tensor<4x256xf32>
+    %1 = stablehlo.broadcast_in_dim %arg2, dims = [1] : (tensor<256xf32>) -> tensor<1x256xf32>
+    %2 = stablehlo.broadcast_in_dim %1, dims = [0, 1] : (tensor<1x256xf32>) -> tensor<4x256xf32>
+    %3 = stablehlo.add %0, %2 : tensor<4x256xf32>
+    %cst = stablehlo.constant dense<0.000000e+00> : tensor<f32>
+    %4 = stablehlo.broadcast_in_dim %cst, dims = [] : (tensor<f32>) -> tensor<4x256xf32>
+    %5 = stablehlo.maximum %3, %4 : tensor<4x256xf32>
+    %6 = stablehlo.dot_general %5, %arg3, contracting_dims = [1] x [0], precision = [DEFAULT, DEFAULT] : (tensor<4x256xf32>, tensor<256x256xf32>) -> tensor<4x256xf32>
+    %7 = stablehlo.broadcast_in_dim %arg4, dims = [1] : (tensor<256xf32>) -> tensor<1x256xf32>
+    %8 = stablehlo.broadcast_in_dim %7, dims = [0, 1] : (tensor<1x256xf32>) -> tensor<4x256xf32>
+    %9 = stablehlo.add %6, %8 : tensor<4x256xf32>
+    %cst_0 = stablehlo.constant dense<0.000000e+00> : tensor<f32>
+    %10 = stablehlo.broadcast_in_dim %cst_0, dims = [] : (tensor<f32>) -> tensor<4x256xf32>
+    %11 = stablehlo.maximum %9, %10 : tensor<4x256xf32>
+    %cst_1 = stablehlo.constant dense<7.500000e-01> : tensor<f32>
+    %12 = stablehlo.broadcast_in_dim %cst_1, dims = [] : (tensor<f32>) -> tensor<4x256xf32>
+    %13 = stablehlo.multiply %11, %12 : tensor<4x256xf32>
+    %cst_2 = stablehlo.constant dense<1.250000e-01> : tensor<f32>
+    %14 = stablehlo.broadcast_in_dim %cst_2, dims = [] : (tensor<f32>) -> tensor<4x256xf32>
+    %15 = stablehlo.add %13, %14 : tensor<4x256xf32>
+    %cst_3 = stablehlo.constant dense<2.500000e-01> : tensor<f32>
+    %16 = stablehlo.broadcast_in_dim %cst_3, dims = [] : (tensor<f32>) -> tensor<4x256xf32>
+    %17 = stablehlo.multiply %5, %16 : tensor<4x256xf32>
+    %18 = stablehlo.add %15, %17 : tensor<4x256xf32>
+    return %18 : tensor<4x256xf32>
+  }
+}

@@ -1,0 +1,2768 @@
+{
+  "locked_utc": "2026-11-15T15:56:08.267373+00:00",
+  "protocol_sha256": "34dd7c283ce42aa45251b2edc124fc672c190b0cecdb7e88d694fcfee473466a",
+  "model_sha256": "163799a7924e6795615ada13e508fdf637be3a1cd20d3347543a97f5bc5dc08d",
+  "feature_input": "baseline Jaxpr and baseline optimized HLO",
+  "baseline_feature_hashes": {
+    "E0_chain": "ffcbee30a1987c3804184854e1c0abd6b16b9c1b39c387be9106f44f95d26b25",
+    "E0_branch": "606fc8e067deba045ac7d0e0a9d1c8708d484fbdbb35b9f8b1fd499009048172",
+    "E1_chain": "e7fd7579725bc0c8eee449b0ffae604ba2619b47bc279155031a7c0601ca6360",
+    "E1_branch": "d0df7fd54ea20b3c0f5659ed57dcfafc440f8a405529a2df31398a7675f4927a",
+    "E2_chain": "df25358b3502fa9b8f0e1a875824b3a92e0639a1529d0e08fb9abcac995e67b6",
+    "E2_branch": "4c8d2f4e4ec91870ad8dc6edaf27546b42afc82d3330ceae238b949c7a683879",
+    "E3_chain": "2270c792256bf9707e430dfb7597c458c74729fca64487666c3816cb11f76372",
+    "E3_branch": "606aaef24425a7b01548df9e06c690914b4db2faaa6068b22d6d8292206d29df",
+    "M0_chain": "9c465357a96a6d14883ea959bccf6fe4515a49fbc5f91b49f65c0cda15ea0fd8",
+    "M0_branch": "eea9da0c743947617d65ad37727f15dac5f4258bfd071c918bf8dee0a0769b35",
+    "M1_chain": "5f1eaea5168687c6a5fc8b928a59d40db4c01024989171c4c04b7a4c4b081290",
+    "M1_branch": "6c548bf93a35a333f0d39ac3d5255e1ad88e3f21b01361137c9216fa66c0b44e",
+    "M2_chain": "bd6d5b40ed2d4fe83d7955d56c05be81287b78918f5e90d86456f43ecdbd76b7",
+    "M2_branch": "d9b55c98b2154ba4984b1f488b2d14e4d0ac797a4d72aa2bb03733fddc0efe42",
+    "M3_chain": "1ef5fdd0f8162b8613a4ef3c4575374f175ab6cf6af324f16caecb4883449969",
+    "M3_branch": "377fadff5eccd2362fa6d3c3073b38160adfc0a586b8349520ef4e985f883326",
+    "N0_chain": "4a77bfcda22eeaea87098ed64c715194bac96875b55878b70a449d62f4d45862",
+    "N0_branch": "ff889378de4f4c7eb5dc82e4e2a30585eb115b328b0b56a9bde421f84fa31133",
+    "N1_chain": "83129f4b1a6a2636f967e34a3690abb4df170ea2e6fc4a74e292809dc6082e75",
+    "N1_branch": "cc68dc5e554a0c61df1ec51f04dfcb2b5ed92019f8fd298f8b4cc57f997f2a62",
+    "N2_chain": "c53a05f15f0d33913d183811ad45cf589860d636fa988ad3ac266701de27517d",
+    "N2_branch": "556c784bf9cfd4040113afe28aa59658e4d390cce69475d0c76509bdc87d5aa3",
+    "N3_chain": "c128df4442dd90604b1f1715f7c66472ebf7764c95686c214450da8124cf34e4",
+    "N3_branch": "08d2d505bfd82692afc251cf65667b5ef2c8fb07bca99a59b0025db67a91048b",
+    "C0_chain": "8ca52bab309ae45afa3de12400537077d9e2ddafa4423c828697262ab0e03931",
+    "C0_branch": "a922191aec13d030ae7d8c31b9e74530e83ffb46bd7c361a4bd50ea888dde4f9",
+    "C1_chain": "77de8266405bea903d7a797f93e13aec41d8b92f2671a39d2e4f8f48bf381f0e",
+    "C1_branch": "49b9aa269019197ff0928fb9aaa16c55e2bd771969da9e041aeaf32904626be1",
+    "C2_chain": "a9e2233db60d4773b682afc04d1ebe71c75f8db5cf6b0ee3ac51f158c2c8012c",
+    "C2_branch": "c5dff7f6e345613cf8590a9c5d71bf7b86a66e400c3757a07a9818a79b006a8a",
+    "C3_chain": "097ce3431beafe1a908752595795f986ff7ee9448ec81ac15a7015b7c3ebf0d5",
+    "C3_branch": "66a99a8bf4f89196692d79d4cc9b581f90c65623b5b35deafbbf41da58a950c3",
+    "R1": "f0b83e574bfbabb7f8c78d0c1be7a5d427e78953640c736e789f389ad386944a",
+    "R2": "cfdef377b2f5f1bd477c580fbd811ea5a16336c3f9e8cc826e57c7fb99cfb644"
+  },
+  "boundary_cases": [
+    "M0_chain",
+    "E3_chain"
+  ],
+  "predictions": {
+    "E0_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.15538594077219522,
+          "pre_post": 0.15538594077219522,
+          "post_pre": 0.15538594077219522,
+          "post_post": 0.15538594077219522
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.12348031003236573,
+          "pre_post": 0.12466268864601784,
+          "post_pre": 0.12186031438030806,
+          "post_post": 0.12304269299396017
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.12681867934760307,
+          "pre_post": 0.12840115466777924,
+          "post_pre": 0.11777698328240435,
+          "post_post": 0.11935945860258051
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.12634244068491188,
+          "pre_post": 0.12792490775481352,
+          "post_pre": 0.11728241295900546,
+          "post_post": 0.1188648800289071
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 1.165861513687601,
+          "pre_post": 1.169657422512235,
+          "post_pre": 1.1662234042553192,
+          "post_post": 1.1545893719806768
+        },
+        "log_ratios": {
+          "pre_pre": 0.15346031045223785,
+          "pre_post": 0.15671090466340898,
+          "post_pre": 0.15377066842234327,
+          "post_post": 0.143744758666142
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E0_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.15538594077219522,
+          "pre_post": 0.15538594077219522,
+          "post_pre": 0.15538594077219522,
+          "post_post": 0.15538594077219522
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.12348031003236573,
+          "pre_post": 0.12466268864601784,
+          "post_pre": 0.11994005852820794,
+          "post_post": 0.12112243714186005
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.12681867934760307,
+          "pre_post": 0.12840115466777924,
+          "post_pre": 0.1259049981045334,
+          "post_post": 0.1274874734247096
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.12634244068491188,
+          "pre_post": 0.12792490775481352,
+          "post_pre": 0.12463177767489161,
+          "post_post": 0.12621424474479326
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.089297023432552,
+          "pre_post": 1.06475300400534,
+          "post_pre": 1.0794392523364484,
+          "post_post": 1.0678191489361706
+        },
+        "log_ratios": {
+          "pre_pre": 0.08553255555185649,
+          "pre_post": 0.06274285114177963,
+          "post_pre": 0.07644169549994191,
+          "post_post": 0.0656183899969222
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E1_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.2890353427570812,
+          "pre_post": 0.2890353427570812,
+          "post_pre": 0.2890353427570812,
+          "post_post": 0.2890353427570812
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.20749694904997001,
+          "pre_post": 0.20867932766362213,
+          "post_pre": 0.20587695339791234,
+          "post_post": 0.20705933201156446
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.21083801949326847,
+          "pre_post": 0.21242049481344463,
+          "post_pre": 0.20179632342806975,
+          "post_post": 0.20337879874824594
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.2103617817540986,
+          "pre_post": 0.2119442488240002,
+          "post_pre": 0.20130175402819217,
+          "post_post": 0.2028842210980938
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_pre",
+        "ratios": {
+          "pre_pre": 1.6184397163120567,
+          "pre_post": 1.6210374639769451,
+          "post_pre": 1.6170212765957446,
+          "post_post": 1.6364883401920436
+        },
+        "log_ratios": {
+          "pre_pre": 0.481462547049807,
+          "pre_post": 0.48306635413171595,
+          "post_pre": 0.4805857385762724,
+          "post_post": 0.4925526900892578
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E1_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.2890353427570812,
+          "pre_post": 0.2890353427570812,
+          "post_pre": 0.2890353427570812,
+          "post_post": 0.2890353427570812
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.20749694904997001,
+          "pre_post": 0.20867932766362213,
+          "post_pre": 0.20395669754581222,
+          "post_post": 0.20513907615946433
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.21083801949326847,
+          "pre_post": 0.21242049481344463,
+          "post_pre": 0.20992433825019882,
+          "post_post": 0.21150681357037499
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.2103617817540986,
+          "pre_post": 0.2119442488240002,
+          "post_pre": 0.20865111874407832,
+          "post_post": 0.21023358581397994
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_pre",
+        "ratios": {
+          "pre_pre": 1.18277010947168,
+          "pre_post": 1.2160377358490566,
+          "post_pre": 1.1825471698113208,
+          "post_post": 1.2273584905660377
+        },
+        "log_ratios": {
+          "pre_pre": 0.16785923768572858,
+          "pre_post": 0.19559781583307456,
+          "post_pre": 0.1676707304922353,
+          "post_post": 0.20486429140639245
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E2_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.42268474474196716,
+          "pre_post": 0.42268474474196716,
+          "post_pre": 0.42268474474196716,
+          "post_post": 0.42268474474196716
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.29151358806757427,
+          "pre_post": 0.2926959666812264,
+          "post_pre": 0.2898935924155166,
+          "post_post": 0.2910759710291687
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.2948573596389339,
+          "pre_post": 0.29643983495911,
+          "post_pre": 0.28581566357373517,
+          "post_post": 0.2873981388939113
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.2943811228232852,
+          "pre_post": 0.2959635898931869,
+          "post_pre": 0.2853210950973788,
+          "post_post": 0.28690356216728047
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 3.725051264524949,
+          "pre_post": 3.664417074405263,
+          "post_pre": 3.751476294921545,
+          "post_post": 3.674877678420785
+        },
+        "log_ratios": {
+          "pre_pre": 1.3150806140254003,
+          "pre_post": 1.2986692706844825,
+          "post_pre": 1.3221494411569585,
+          "post_post": 1.3015198473273895
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E2_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.42268474474196716,
+          "pre_post": 0.42268474474196716,
+          "post_pre": 0.42268474474196716,
+          "post_post": 0.42268474474196716
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.29151358806757427,
+          "pre_post": 0.2926959666812264,
+          "post_pre": 0.2879733365634165,
+          "post_post": 0.2891557151770686
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.2948573596389339,
+          "pre_post": 0.29643983495911,
+          "post_pre": 0.2939436783958642,
+          "post_post": 0.2955261537160404
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.2943811228232852,
+          "pre_post": 0.2959635898931869,
+          "post_pre": 0.292670459813265,
+          "post_post": 0.2942529268831666
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 3.581219059405941,
+          "pre_post": 3.685798267326733,
+          "post_pre": 3.670018564356435,
+          "post_post": 3.774597772277228
+        },
+        "log_ratios": {
+          "pre_pre": 1.275703261836175,
+          "pre_post": 1.3044871283214716,
+          "post_pre": 1.300196720461433,
+          "post_post": 1.3282938266339537
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E3_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.5117843460652245,
+          "pre_post": 0.5117843460652245,
+          "post_pre": 0.5117843460652245,
+          "post_post": 0.5117843460652245
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.34752468074597714,
+          "pre_post": 0.34870705935962926,
+          "post_pre": 0.3459046850939195,
+          "post_post": 0.3470870637075716
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.35087025306937747,
+          "pre_post": 0.35245272838955366,
+          "post_pre": 0.3418285570041787,
+          "post_post": 0.3434110323243549
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.35039401686940974,
+          "pre_post": 0.35197648393931136,
+          "post_pre": 0.3413339891435033,
+          "post_post": 0.34291645621340494
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 3.7981602022701604,
+          "pre_post": 4.0843296116984495,
+          "post_pre": 3.9552520442088244,
+          "post_post": 4.095148700721274
+        },
+        "log_ratios": {
+          "pre_pre": 1.3345167921930257,
+          "pre_post": 1.4071576051011472,
+          "post_pre": 1.3750443271811923,
+          "post_post": 1.4098030293981885
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "E3_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.5117843460652245,
+          "pre_post": 0.5117843460652245,
+          "post_pre": 0.5117843460652245,
+          "post_post": 0.5117843460652245
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.34752468074597714,
+          "pre_post": 0.34870705935962926,
+          "post_pre": 0.3439844292418194,
+          "post_post": 0.3451668078554715
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.35087025306937747,
+          "pre_post": 0.35245272838955366,
+          "post_pre": 0.3499565718263078,
+          "post_post": 0.351539047146484
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.35039401686940974,
+          "pre_post": 0.35197648393931136,
+          "post_pre": 0.3486833538593895,
+          "post_post": 0.35026582092929115
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_pre",
+        "ratios": {
+          "pre_pre": 3.9278954947541656,
+          "pre_post": 4.078152043669286,
+          "post_pre": 3.7934362934362946,
+          "post_post": 4.0108840367461065
+        },
+        "log_ratios": {
+          "pre_pre": 1.3681037849331434,
+          "pre_post": 1.4056439553388667,
+          "post_pre": 1.333272282043879,
+          "post_post": 1.3890116750625978
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M0_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": -0.14425639312080285,
+          "pre_post": -0.14425639312080285,
+          "post_pre": -0.14425639312080285,
+          "post_post": -0.14425639312080285
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.01645278467096678,
+          "pre_post": 0.01669284748194666,
+          "post_pre": 0.036632099724430156,
+          "post_post": 0.036872162535410036
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": -0.07617643713503991,
+          "pre_post": -0.07578649484436811,
+          "post_pre": -0.08808963745843396,
+          "post_post": -0.08769969516776216
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_post",
+        "log_ratios": {
+          "pre_pre": -0.15271780732486817,
+          "pre_post": -0.15675092510671285,
+          "post_pre": -0.16388362666554934,
+          "post_post": -0.1679167444473939
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.119753086419753,
+          "pre_post": 1.125,
+          "post_pre": 1.1397727272727274,
+          "post_post": 1.1272727272727272
+        },
+        "log_ratios": {
+          "pre_pre": 0.113108202448652,
+          "pre_post": 0.11778303565638346,
+          "post_pre": 0.13082888048968347,
+          "post_post": 0.11980119981262058
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M0_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": -0.14425639312080285,
+          "pre_post": -0.14425639312080285,
+          "post_pre": -0.14425639312080285,
+          "post_post": -0.14425639312080285
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.01645278467096678,
+          "pre_post": 0.01669284748194666,
+          "post_pre": 0.0102440836904088,
+          "post_post": 0.01048414650138868
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.01645278467096678,
+          "pre_post": 0.01669284748194666,
+          "post_pre": 0.0102440836904088,
+          "post_post": 0.01048414650138868
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.01645278467096678,
+          "pre_post": 0.01669284748194666,
+          "post_pre": 0.0102440836904088,
+          "post_post": 0.01048414650138868
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_pre",
+        "ratios": {
+          "pre_pre": 1.106728538283063,
+          "pre_post": 1.104637336504162,
+          "post_pre": 1.1044083526682134,
+          "post_post": 1.1105826397146257
+        },
+        "log_ratios": {
+          "pre_pre": 0.1014084007845937,
+          "pre_post": 0.09951707884089069,
+          "post_pre": 0.09930976412767212,
+          "post_post": 0.10488477825589478
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M1_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.11474738951436353,
+          "pre_post": 0.11474738951436353,
+          "post_pre": 0.11474738951436353,
+          "post_post": 0.11474738951436353
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.25862867465134454,
+          "pre_post": 0.2588687374623244,
+          "post_pre": 0.2788079897048079,
+          "post_post": 0.2790480525157878
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.16595137739805088,
+          "pre_post": 0.16634131968872268,
+          "post_pre": 0.1540381770746569,
+          "post_post": 0.15442811936532863
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_post",
+        "log_ratios": {
+          "pre_pre": 0.08937774716923264,
+          "pre_post": 0.08534462938738796,
+          "post_pre": 0.07821192782855158,
+          "post_post": 0.07417881004670701
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.0914051841746246,
+          "pre_post": 1.0975443383356067,
+          "post_pre": 1.0948158253751703,
+          "post_post": 1.1009549795361524
+        },
+        "log_ratios": {
+          "pre_pre": 0.08746602578127562,
+          "pre_post": 0.09307526454578606,
+          "post_pre": 0.09058615311751923,
+          "post_post": 0.09617796638329694
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M1_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.11474738951436353,
+          "pre_post": 0.11474738951436353,
+          "post_pre": 0.11474738951436353,
+          "post_post": 0.11474738951436353
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.25862867465134454,
+          "pre_post": 0.2588687374623244,
+          "post_pre": 0.2524199736707866,
+          "post_post": 0.2526600364817665
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.25862867465134454,
+          "pre_post": 0.2588687374623244,
+          "post_pre": 0.2524199736707866,
+          "post_post": 0.2526600364817665
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.25862867465134454,
+          "pre_post": 0.2588687374623244,
+          "post_pre": 0.2524199736707866,
+          "post_post": 0.2526600364817665
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 1.0951760104302475,
+          "pre_post": 1.0932203389830508,
+          "post_pre": 1.0993055555555553,
+          "post_post": 1.0925684485006517
+        },
+        "log_ratios": {
+          "pre_pre": 0.09091509047010289,
+          "pre_post": 0.08912777989600733,
+          "post_pre": 0.09467866731096562,
+          "post_post": 0.0885312991148267
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M2_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.3737511721495299,
+          "pre_post": 0.3737511721495299,
+          "post_pre": 0.3737511721495299,
+          "post_post": 0.3737511721495299
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.5008045646317223,
+          "pre_post": 0.5010446274427022,
+          "post_pre": 0.5209838796851857,
+          "post_post": 0.5212239424961655
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.4080791919311418,
+          "pre_post": 0.4084691342218135,
+          "post_pre": 0.3961659916077477,
+          "post_post": 0.3965559338984195
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_post",
+        "log_ratios": {
+          "pre_pre": 0.3314733016633331,
+          "pre_post": 0.32744018388148854,
+          "post_pre": 0.32030748232265216,
+          "post_post": 0.3162743645408076
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.07982688146189,
+          "pre_post": 1.0875386199794026,
+          "post_pre": 1.0812114714553738,
+          "post_post": 1.0887232507814382
+        },
+        "log_ratios": {
+          "pre_pre": 0.07680073334482658,
+          "pre_post": 0.0839169959748818,
+          "post_pre": 0.07808214529299913,
+          "post_post": 0.08500568014010748
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M2_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.3737511721495299,
+          "pre_post": 0.3737511721495299,
+          "post_pre": 0.3737511721495299,
+          "post_post": 0.3737511721495299
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.5008045646317223,
+          "pre_post": 0.5010446274427022,
+          "post_pre": 0.49459586365116437,
+          "post_post": 0.49483592646214425
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.5008045646317223,
+          "pre_post": 0.5010446274427022,
+          "post_pre": 0.49459586365116437,
+          "post_post": 0.49483592646214425
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.5008045646317223,
+          "pre_post": 0.5010446274427022,
+          "post_pre": 0.49459586365116437,
+          "post_post": 0.49483592646214425
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.0475129918337047,
+          "pre_post": 1.0537299112497003,
+          "post_pre": 1.055880917520742,
+          "post_post": 1.0603204524033931
+        },
+        "log_ratios": {
+          "pre_pre": 0.046418775442450204,
+          "pre_post": 0.052336166094982775,
+          "post_pre": 0.05437541142603987,
+          "post_post": 0.058571176024537465
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M3_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.6327549547846962,
+          "pre_post": 0.6327549547846962,
+          "post_pre": 0.6327549547846962,
+          "post_post": 0.6327549547846962
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.7429804546121,
+          "pre_post": 0.7432205174230799,
+          "post_pre": 0.7631597696655634,
+          "post_post": 0.7633998324765433
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.6502070064642327,
+          "pre_post": 0.6505969487549045,
+          "post_pre": 0.6382938061408386,
+          "post_post": 0.6386837484315103
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_post",
+        "log_ratios": {
+          "pre_pre": 0.5735688561574338,
+          "pre_post": 0.5695357383755892,
+          "post_pre": 0.5624030368167529,
+          "post_post": 0.5583699190349082
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.1193054631254158,
+          "pre_post": 1.118574448807007,
+          "post_pre": 1.1199999999999999,
+          "post_post": 1.1222094500574744
+        },
+        "log_ratios": {
+          "pre_pre": 0.11270837074224901,
+          "pre_post": 0.11205506102664586,
+          "post_pre": 0.11332868530700307,
+          "post_post": 0.11529946530932476
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "M3_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.6327549547846962,
+          "pre_post": 0.6327549547846962,
+          "post_pre": 0.6327549547846962,
+          "post_post": 0.6327549547846962
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7429804546121,
+          "pre_post": 0.7432205174230799,
+          "post_pre": 0.7367717536315421,
+          "post_post": 0.7370118164425219
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7429804546121,
+          "pre_post": 0.7432205174230799,
+          "post_pre": 0.7367717536315421,
+          "post_post": 0.7370118164425219
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7429804546121,
+          "pre_post": 0.7432205174230799,
+          "post_pre": 0.7367717536315421,
+          "post_post": 0.7370118164425219
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.1438292268012948,
+          "pre_post": 1.107698779974758,
+          "post_pre": 1.1702793173462105,
+          "post_post": 1.1874554134884485
+        },
+        "log_ratios": {
+          "pre_pre": 0.1343816045430499,
+          "pre_post": 0.10228469213611535,
+          "post_pre": 0.15724245309206938,
+          "post_post": 0.17181270968572704
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N0_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.10150489145211022,
+          "pre_post": 0.10150489145211022,
+          "post_pre": 0.10150489145211022,
+          "post_post": 0.10150489145211022
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.15978509917540906,
+          "pre_post": 0.16247181599106697,
+          "post_pre": 0.1344687766311048,
+          "post_post": 0.1371554934467627
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.15978509917540906,
+          "pre_post": 0.16247181599106697,
+          "post_pre": 0.1344687766311048,
+          "post_post": 0.1371554934467627
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.15978509917540906,
+          "pre_post": 0.16247181599106697,
+          "post_pre": 0.1344687766311048,
+          "post_post": 0.1371554934467627
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 1.091577162238553,
+          "pre_post": 1.069005847953216,
+          "post_pre": 1.084793668739401,
+          "post_post": 1.0656136087484813
+        },
+        "log_ratios": {
+          "pre_pre": 0.08762358826872935,
+          "pre_post": 0.0667291025173895,
+          "post_pre": 0.0813898018479149,
+          "post_post": 0.06355079169511338
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N0_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.10150489145211022,
+          "pre_post": 0.10150489145211022,
+          "post_pre": 0.10150489145211022,
+          "post_post": 0.10150489145211022
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.15978509917540906,
+          "pre_post": 0.16247181599106697,
+          "post_pre": 0.08928556592244064,
+          "post_post": 0.09197228273809854
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.15978509917540906,
+          "pre_post": 0.16247181599106697,
+          "post_pre": 0.08928556592244064,
+          "post_post": 0.09197228273809854
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.15978509917540906,
+          "pre_post": 0.16247181599106697,
+          "post_pre": 0.08928556592244064,
+          "post_post": 0.09197228273809854
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 1.0747549019607843,
+          "pre_post": 1.080101716465353,
+          "post_pre": 1.0785077951002224,
+          "post_post": 1.0712694877505566
+        },
+        "log_ratios": {
+          "pre_pre": 0.07209263740807599,
+          "pre_post": 0.07705521861365439,
+          "post_pre": 0.0755784145448507,
+          "post_post": 0.06884438236350675
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N1_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.35708432111015176,
+          "pre_post": 0.35708432111015176,
+          "post_pre": 0.35708432111015176,
+          "post_post": 0.35708432111015176
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.364456074228885,
+          "pre_post": 0.36714279104454284,
+          "post_pre": 0.3391397516845807,
+          "post_post": 0.34182646850023857
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.364456074228885,
+          "pre_post": 0.36714279104454284,
+          "post_pre": 0.3391397516845807,
+          "post_post": 0.34182646850023857
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.364456074228885,
+          "pre_post": 0.36714279104454284,
+          "post_pre": 0.3391397516845807,
+          "post_post": 0.34182646850023857
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.654917319408181,
+          "pre_post": 1.6773778920308482,
+          "post_pre": 1.6706948640483383,
+          "post_post": 1.6692340607616603
+        },
+        "log_ratios": {
+          "pre_pre": 0.5037510495195586,
+          "pre_post": 0.5172317955784022,
+          "post_pre": 0.5132396261452719,
+          "post_post": 0.5123648749677986
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N1_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.35708432111015176,
+          "pre_post": 0.35708432111015176,
+          "post_pre": 0.35708432111015176,
+          "post_post": 0.35708432111015176
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.364456074228885,
+          "pre_post": 0.36714279104454284,
+          "post_pre": 0.29395654097591656,
+          "post_post": 0.29664325779157447
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.364456074228885,
+          "pre_post": 0.36714279104454284,
+          "post_pre": 0.29395654097591656,
+          "post_post": 0.29664325779157447
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.364456074228885,
+          "pre_post": 0.36714279104454284,
+          "post_pre": 0.29395654097591656,
+          "post_post": 0.29664325779157447
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.6899224806201547,
+          "pre_post": 1.6960608773500445,
+          "post_pre": 1.697674418604651,
+          "post_post": 1.7004103967168263
+        },
+        "log_ratios": {
+          "pre_pre": 0.5246826584274167,
+          "pre_post": 0.5283084313894546,
+          "post_pre": 0.5292593254548287,
+          "post_post": 0.5308696317609326
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N2_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.6126637507681931,
+          "pre_post": 0.6126637507681931,
+          "post_pre": 0.6126637507681931,
+          "post_post": 0.6126637507681931
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.569127049282361,
+          "pre_post": 0.5718137660980189,
+          "post_pre": 0.5438107267380566,
+          "post_post": 0.5464974435537145
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.569127049282361,
+          "pre_post": 0.5718137660980189,
+          "post_pre": 0.5438107267380566,
+          "post_post": 0.5464974435537145
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.569127049282361,
+          "pre_post": 0.5718137660980189,
+          "post_pre": 0.5438107267380566,
+          "post_post": 0.5464974435537145
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.647637323099065,
+          "pre_post": 1.6517150395778366,
+          "post_pre": 1.6775624562222742,
+          "post_post": 1.6637870651412565
+        },
+        "log_ratios": {
+          "pre_pre": 0.49934233633308506,
+          "pre_post": 0.5018141660176723,
+          "post_pre": 0.5173418208977544,
+          "post_post": 0.5090963685504106
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N2_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.6126637507681931,
+          "pre_post": 0.6126637507681931,
+          "post_pre": 0.6126637507681931,
+          "post_post": 0.6126637507681931
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.569127049282361,
+          "pre_post": 0.5718137660980189,
+          "post_pre": 0.4986275160293925,
+          "post_post": 0.5013142328450504
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.569127049282361,
+          "pre_post": 0.5718137660980189,
+          "post_pre": 0.4986275160293925,
+          "post_post": 0.5013142328450504
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.569127049282361,
+          "pre_post": 0.5718137660980189,
+          "post_pre": 0.4986275160293925,
+          "post_post": 0.5013142328450504
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.6334970276557248,
+          "pre_post": 1.617472215042647,
+          "post_pre": 1.648746446110106,
+          "post_post": 1.6327216334970283
+        },
+        "log_ratios": {
+          "pre_pre": 0.49072313244039,
+          "pre_post": 0.4808645695283147,
+          "post_pre": 0.5000152695414424,
+          "post_post": 0.4902483361981878
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N3_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.8682431804262347,
+          "pre_post": 0.8682431804262347,
+          "post_pre": 0.8682431804262347,
+          "post_post": 0.8682431804262347
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7737980243358369,
+          "pre_post": 0.7764847411514948,
+          "post_pre": 0.7484817017915326,
+          "post_post": 0.7511684186071905
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7737980243358369,
+          "pre_post": 0.7764847411514948,
+          "post_pre": 0.7484817017915326,
+          "post_post": 0.7511684186071905
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7737980243358369,
+          "pre_post": 0.7764847411514948,
+          "post_pre": 0.7484817017915326,
+          "post_post": 0.7511684186071905
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 2.0041220115416327,
+          "pre_post": 1.9501236603462497,
+          "post_pre": 1.9596042868920034,
+          "post_post": 1.9261883672866846
+        },
+        "log_ratios": {
+          "pre_pre": 0.6952060653720734,
+          "pre_post": 0.667892786127153,
+          "post_pre": 0.6727425584161438,
+          "post_post": 0.6555431109231329
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "N3_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.8682431804262347,
+          "pre_post": 0.8682431804262347,
+          "post_pre": 0.8682431804262347,
+          "post_post": 0.8682431804262347
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7737980243358369,
+          "pre_post": 0.7764847411514948,
+          "post_pre": 0.7032984910828683,
+          "post_post": 0.7059852078985263
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7737980243358369,
+          "pre_post": 0.7764847411514948,
+          "post_pre": 0.7032984910828683,
+          "post_post": 0.7059852078985263
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7737980243358369,
+          "pre_post": 0.7764847411514948,
+          "post_pre": 0.7032984910828683,
+          "post_post": 0.7059852078985263
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 2.0213880401571367,
+          "pre_post": 1.9992677211482135,
+          "post_pre": 2.0257158743397268,
+          "post_post": 2.0086877953850424
+        },
+        "log_ratios": {
+          "pre_pre": 0.7037844240272565,
+          "pre_post": 0.6927809740886467,
+          "post_pre": 0.7059231562781271,
+          "post_post": 0.6974816707624951
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C0_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.32982388639928684,
+          "pre_post": 0.32982388639928684,
+          "post_pre": 0.32982388639928684,
+          "post_post": 0.32982388639928684
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.41924801232654973,
+          "pre_post": 0.4224330599096473,
+          "post_pre": 0.44245767799105146,
+          "post_post": 0.445642725574149
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.25714112516703236,
+          "pre_post": 0.36788512023070535,
+          "post_pre": 0.25461129718620606,
+          "post_post": 0.36535529224987906
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.25667482261043717,
+          "pre_post": 0.3336677765945176,
+          "post_pre": 0.25535660553201767,
+          "post_post": 0.332349559516098
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_pre",
+        "ratios": {
+          "pre_pre": 1.009809036836064,
+          "pre_post": 1.034316412674049,
+          "post_pre": 1.0042784096838153,
+          "post_post": 1.0374621725973079
+        },
+        "log_ratios": {
+          "pre_pre": 0.009761240537180395,
+          "pre_post": 0.03374073766404861,
+          "post_pre": 0.004269283310752842,
+          "post_post": 0.03677751231085587
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C0_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.32982388639928684,
+          "pre_post": 0.32982388639928684,
+          "post_pre": 0.32982388639928684,
+          "post_post": 0.32982388639928684
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.41924801232654973,
+          "pre_post": 0.4224330599096473,
+          "post_pre": 0.4136844658053451,
+          "post_post": 0.4168695133884427
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.41924801232654973,
+          "pre_post": 0.4224330599096473,
+          "post_pre": 0.4136844658053451,
+          "post_post": 0.4168695133884427
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.41924801232654973,
+          "pre_post": 0.4224330599096473,
+          "post_pre": 0.4136844658053451,
+          "post_post": 0.4168695133884427
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 1.036962139085496,
+          "pre_post": 1.0396584653409728,
+          "post_pre": 1.033832976445396,
+          "post_post": 1.032313509797181
+        },
+        "log_ratios": {
+          "pre_pre": 0.036295418537966286,
+          "pre_post": 0.03889226050801332,
+          "post_pre": 0.03327323155447894,
+          "post_post": 0.03180240948812844
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C1_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.5775948072228159,
+          "pre_post": 0.5775948072228159,
+          "post_pre": 0.5775948072228159,
+          "post_post": 0.5775948072228159
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.623555874821461,
+          "pre_post": 0.6267409224045586,
+          "post_pre": 0.6467655404859627,
+          "post_post": 0.6499505880690604
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.460841628646758,
+          "pre_post": 0.571585623710431,
+          "post_pre": 0.45831180066593175,
+          "post_post": 0.5690557957296047
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.46027423958709,
+          "pre_post": 0.5372671935711704,
+          "post_pre": 0.45895602250867046,
+          "post_post": 0.5359489764927508
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.0017263111744397,
+          "pre_post": 0.9988430011373891,
+          "post_pre": 1.0027258108797117,
+          "post_post": 1.0035963613285381
+        },
+        "log_ratios": {
+          "pre_pre": 0.0017248228119758106,
+          "pre_post": -0.001157668702514117,
+          "post_pre": 0.002722102594430135,
+          "post_post": 0.0035899098843249684
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C1_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.5775948072228159,
+          "pre_post": 0.5775948072228159,
+          "post_pre": 0.5775948072228159,
+          "post_post": 0.5775948072228159
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.623555874821461,
+          "pre_post": 0.6267409224045586,
+          "post_pre": 0.6179923283002564,
+          "post_post": 0.621177375883354
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.623555874821461,
+          "pre_post": 0.6267409224045586,
+          "post_pre": 0.6179923283002564,
+          "post_post": 0.621177375883354
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.623555874821461,
+          "pre_post": 0.6267409224045586,
+          "post_pre": 0.6179923283002564,
+          "post_post": 0.621177375883354
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.0869165049320717,
+          "pre_post": 1.04312015503876,
+          "post_pre": 1.0891374377238443,
+          "post_post": 1.0644470677684632
+        },
+        "log_ratios": {
+          "pre_pre": 0.08334479279885125,
+          "pre_post": 0.04221637076291007,
+          "post_pre": 0.08538604142729701,
+          "post_post": 0.06245547914415685
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C2_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.7014802676345804,
+          "pre_post": 0.7014802676345804,
+          "post_pre": 0.7014802676345804,
+          "post_post": 0.7014802676345804
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.7257098060689167,
+          "pre_post": 0.7288948536520142,
+          "post_pre": 0.7489194717334184,
+          "post_post": 0.752104519316516
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.5626918803866208,
+          "pre_post": 0.6734358754502938,
+          "post_pre": 0.5601620524057946,
+          "post_post": 0.6709060474694676
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.5620739480754164,
+          "pre_post": 0.6390669020594967,
+          "post_pre": 0.5607557309969968,
+          "post_post": 0.6377486849810772
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_post",
+        "ratios": {
+          "pre_pre": 1.0462870045158055,
+          "pre_post": 1.0416614400401405,
+          "post_pre": 1.0434175865529352,
+          "post_post": 1.0387920220772704
+        },
+        "log_ratios": {
+          "pre_pre": 0.04524771090892662,
+          "pre_post": 0.040816976946202004,
+          "post_pre": 0.042501466508135126,
+          "post_post": 0.038058520835947324
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C2_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.7014802676345804,
+          "pre_post": 0.7014802676345804,
+          "post_pre": 0.7014802676345804,
+          "post_post": 0.7014802676345804
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7257098060689167,
+          "pre_post": 0.7288948536520142,
+          "post_pre": 0.7201462595477122,
+          "post_post": 0.7233313071308096
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7257098060689167,
+          "pre_post": 0.7288948536520142,
+          "post_pre": 0.7201462595477122,
+          "post_post": 0.7233313071308096
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.7257098060689167,
+          "pre_post": 0.7288948536520142,
+          "post_pre": 0.7201462595477122,
+          "post_post": 0.7233313071308096
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_post",
+        "ratios": {
+          "pre_pre": 1.0845521849042976,
+          "pre_post": 1.0468656757844483,
+          "post_pre": 1.0656976594484642,
+          "post_post": 1.0634541286640982
+        },
+        "log_ratios": {
+          "pre_pre": 0.08116716898769549,
+          "pre_post": 0.04580062927826641,
+          "post_pre": 0.06362966398493852,
+          "post_post": 0.061522222301124925
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C3_chain": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.8253657280463449,
+          "pre_post": 0.8253657280463449,
+          "post_pre": 0.8253657280463449,
+          "post_post": 0.8253657280463449
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.8278637373163722,
+          "pre_post": 0.8310487848994698,
+          "post_pre": 0.851073402980874,
+          "post_post": 0.8542584505639715
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.6645421321264837,
+          "pre_post": 0.7752861271901567,
+          "post_pre": 0.6620123041456574,
+          "post_post": 0.7727562992093304
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.6638736565637428,
+          "pre_post": 0.7408666105478232,
+          "post_pre": 0.6625554394853232,
+          "post_post": 0.7395483934694036
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "pre_pre",
+        "ratios": {
+          "pre_pre": 1.046776798707841,
+          "pre_post": 1.0562960805855959,
+          "post_pre": 1.0775486691177718,
+          "post_post": 1.074397248436997
+        },
+        "log_ratios": {
+          "pre_pre": 0.04571572741202741,
+          "pre_post": 0.05476852532754781,
+          "post_pre": 0.07468871053047396,
+          "post_post": 0.07175980520071207
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "C3_branch": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.8253657280463449,
+          "pre_post": 0.8253657280463449,
+          "post_pre": 0.8253657280463449,
+          "post_post": 0.8253657280463449
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.8278637373163722,
+          "pre_post": 0.8310487848994698,
+          "post_pre": 0.8223001907951677,
+          "post_post": 0.8254852383782652
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.8278637373163722,
+          "pre_post": 0.8310487848994698,
+          "post_pre": 0.8223001907951677,
+          "post_post": 0.8254852383782652
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "M2": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.8278637373163722,
+          "pre_post": 0.8310487848994698,
+          "post_pre": 0.8223001907951677,
+          "post_post": 0.8254852383782652
+        },
+        "fallback": true,
+        "used": "B2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "single_add": {
+        "chosen": "post_pre",
+        "ratios": {
+          "pre_pre": 1.0476750760203535,
+          "pre_post": 1.0922784551808582,
+          "post_pre": 1.0190806591500434,
+          "post_post": 1.0301026021543893
+        },
+        "log_ratios": {
+          "pre_pre": 0.04657349586059205,
+          "pre_post": 0.08826584040373091,
+          "post_pre": 0.018900906309200365,
+          "post_post": 0.0296584110225506
+        },
+        "fallback": false,
+        "used": "measured_singles"
+      }
+    },
+    "R1": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.2120585643209377,
+          "pre_post": 0.2120585643209377,
+          "post_pre": 0.2120585643209377,
+          "post_post": 0.2120585643209377
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": -0.19120357113346687,
+          "pre_post": -0.1893753076583543,
+          "post_pre": -0.1756325905465953,
+          "post_post": -0.17380432707148274
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": 0.19134927453087008,
+          "pre_post": 0.19256417165811485,
+          "post_pre": 0.0007239903636682699,
+          "post_post": 0.0019388874909130327
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_post",
+        "log_ratios": {
+          "pre_pre": 0.18293961906580974,
+          "pre_post": 0.18199691372224985,
+          "post_pre": 0.08932371850757745,
+          "post_post": 0.08838101316401761
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      }
+    },
+    "R2": {
+      "B1": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": 0.2120585643209377,
+          "pre_post": 0.2120585643209377,
+          "post_pre": 0.2120585643209377,
+          "post_post": 0.2120585643209377
+        },
+        "fallback": false,
+        "used": "B1"
+      },
+      "B2": {
+        "chosen": "pre_pre",
+        "log_ratios": {
+          "pre_pre": -0.7397131031387224,
+          "pre_post": -0.7378848396636098,
+          "post_pre": -0.7241421225518508,
+          "post_post": -0.7223138590767383
+        },
+        "fallback": false,
+        "used": "B2"
+      },
+      "M1": {
+        "chosen": "post_pre",
+        "log_ratios": {
+          "pre_pre": -0.1387650778542876,
+          "pre_post": -0.13755018072704284,
+          "post_pre": -0.3293903620214894,
+          "post_post": -0.32817546489424465
+        },
+        "fallback": false,
+        "used": "M1"
+      },
+      "M2": {
+        "chosen": "post_post",
+        "log_ratios": {
+          "pre_pre": -0.044862677494639125,
+          "pre_post": -0.045805382838199016,
+          "post_pre": -0.1384785780528714,
+          "post_post": -0.13942128339643123
+        },
+        "fallback": false,
+        "used": "M2"
+      },
+      "B0_pre": {
+        "chosen": "pre_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_post": {
+        "chosen": "post_post",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      },
+      "B0_train": {
+        "chosen": "post_pre",
+        "log_ratios": {},
+        "fallback": false,
+        "used": "fixed"
+      }
+    }
+  }
+}
