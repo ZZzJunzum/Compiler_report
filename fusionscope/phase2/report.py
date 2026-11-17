@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from fusionscope.common import ROOT, conditions, records
-from .analysis import evaluate, make_tables
+from .analysis import evaluate, make_tables, screen_replay
 from .audit_ir import ARCHIVE, PLAN
 from .experiment import PHASES
 from .stats import metrics
@@ -162,6 +162,20 @@ def report(out):
     best_desc="，".join(f"{c} 选 {index[c,'ridge']['chosen']}，实测最快 {index[c,'oracle']['best']}，差 {number(index[c,'ridge']['gap_us'])} µs"
                       for c in PLAN["external"] if index[c,"ridge"]["chosen_valid"])
     unresolved_external=[c for c in PLAN["external"] if not (timing(c,"V2")["resolved_gain"] or timing(c,"V2")["resolved_loss"])]
+    replay=screen_replay(out,data["screen"],data["confirm"])
+    replay_text=""
+    if replay:
+        repeated={(r["case"],r["variant"]):r for r in replay}
+        matched=sum(r["same_compiled_components"] for r in replay)
+        passed=sum(r["passed_checks"] for r in replay)
+        tested=sum(r["checks"] for r in replay)
+        replay_text=(f"另从 GitHub 干净克隆后重新编译并运行五个预先指定的筛选案例。"
+                     f"{matched}/{len(replay)} 个配置的优化后 HLO 指纹与首次筛选一致，"
+                     f"另有 {passed}/{tested} 项输出校验通过。E3 分支的联合归约为 "
+                     f"{number(repeated[e,'V2']['replay_speedup'],2)}×，C3 每块 2 个样本为 "
+                     f"{number(repeated[cc,'V4_t2']['replay_speedup'],2)}×。这批计时独立于模型训练、选块和正式确认。"
+                     "[逐项复跑对照](../screening/replay/comparison.csv) · "
+                     "[干净克隆来源与原始包哈希](../screening/replay/provenance.json)\n")
     md=f"""# 降低 XLA 激活观测开销：两处精确计数的执行代价
 
 在同一段推理程序中，除主输出 y 外，每次还要返回两层 ReLU 的正激活数 q₁、q₂。第一阶段只改变计数在 ReLU 前还是后，32 个合成条件各自的四种双点位置都生成了相同的优化后 HLO。第二阶段固定计数语义，改变两次归约、上游计算和中间张量的组织。实验在 {processor} 上运行，每个进程绑定单个逻辑 CPU。[第一阶段报告]({link(ROOT/'results/cpu/report/REPORT.md')}) · [第二阶段预登记]({link(ARCHIVE/'protocol.json')})
@@ -192,6 +206,7 @@ def report(out):
 
 每个进程用 42、1729、2026 三个种子核对输出。y 必须同形、有限、FP32 且满足第一阶段逐图族容差，q₁、q₂ 必须为标量 int32 并逐个等于独立返回激活后在宿主计算的整数。计时种子固定为 42。共 **{valid:,}/{total:,}** 项配置 × 种子 × 进程校验通过。{processes} 个进程合计记录 **{candidates*PLAN['rounds']:,}** 次正式候选调用（含 V0）、**{aa*PLAN['rounds']:,}** 次正式 A/A 调用，另存 **{(candidates+aa)*PLAN['warmups']:,}** 次预热。[正确性全表](../analysis/correctness.csv) · [原始确认记录](../confirmation/raw/) · [原始外测记录](../external/raw/)
 
+{replay_text}
 表中延迟是各进程中位数的中位数，加速比是同进程 V1/候选时间之比的中位数，超过 1 表示更快。对 V0 和 V1 各设四个标签调用相同可执行文件，分别取同一进程标签中位数差绝对值的第 95 百分位，再取两者较大值作为 A/A 波动阈值。在过半进程方向一致且配对时间差超过阈值时才判定改善或退化。噪声阈值是本机实测分辨率。Recovery 用配对节省时间除以配对的 V1−V0。只有后者超过阈值并且过半进程为正才报告。32 个确认条件中有 {floor_scope} 个满足该前提。[编译、执行、增量、Recovery 与波动](../analysis/timings.csv)
 
 {chr(10).join(table)}
@@ -226,7 +241,9 @@ def report(out):
 
 {rank_table(frows)}
 
-解析模型在 {analytic_joint}/32 个合成条件选了 V2，选择损失中位数为 {percent(summary_map['synthetic','analytic']['median_regret'])}，与固定 V2 的 {percent(summary_map['synthetic','fixed_V2']['median_regret'])} 相同。其非负开销项总是偏向不物化完整掩码、只做一次联合归约的方案，未能刻画部分块大小带来的局部性收益。岭回归将合成候选的绝对时间 MAE 降至 {number(summary_map['synthetic','ridge']['mae_us'])} µs，但实际选择损失中位数升至 {percent(summary_map['synthetic','ridge']['median_regret'])}。发现批实测选块在 {summary_map['synthetic','measured_tile']['within_aa']}/32 个条件中距确认最快方案小于 A/A 阈值，代价是需要逐一测量这些配置。[逐候选误差](../model/prediction_errors.csv) · [方案选择](../model/policy_summary.csv)
+解析模型在 {analytic_joint}/32 个合成条件选了 V2，选择损失中位数为 {percent(summary_map['synthetic','analytic']['median_regret'])}，与固定 V2 的 {percent(summary_map['synthetic','fixed_V2']['median_regret'])} 相同。其非负开销项总是偏向不物化完整掩码、只做一次联合归约的方案，未能刻画部分块大小带来的局部性收益。Li 等的 CPU 融合模型在不同插入位置分列每次切片容量、调用次数和累计访问量，这区分了本解析估计中混合的两个量。[oneDNN Graph Compiler 图 3](https://arxiv.org/pdf/2301.01333)
+
+岭回归将合成候选的绝对时间 MAE 降至 {number(summary_map['synthetic','ridge']['mae_us'])} µs，但实际选择损失中位数升至 {percent(summary_map['synthetic','ridge']['median_regret'])}。发现批实测选块在 {summary_map['synthetic','measured_tile']['within_aa']}/32 个条件中距确认最快方案小于 A/A 阈值，代价是需要逐一测量这些配置。[逐候选误差](../model/prediction_errors.csv) · [方案选择](../model/policy_summary.csv)
 
 岭回归最大的合成图选择损失在 {worst['case']}，推荐 {worst['chosen']}（{number(worst['chosen_us'])} µs），最快为 {worst['best']}（{number(worst['best_us'])} µs），相差 {percent(worst['regret'])}。外测中，{best_desc}。其中有 {len(unresolved_external)}/2 张子图的 V2 相对 V1 配对差异落在 A/A 波动范围内。外测只有两张 batch=1 子图，主要检验从合成图迁移到官方残差块时的误差。[独立测试逐案决策](../model/heldout_results.csv)
 

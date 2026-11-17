@@ -5,7 +5,7 @@
 | 阶段 | 研究问题 | 报告与证据 |
 |---|---|---|
 | 一 · 观测位置 | ReLU 前后计数会改变融合边界和耗时吗？ | [中文报告](results/cpu/report/REPORT.md) · [九配置先导](results/cpu/pilot/first_report.md) · [独立复跑](results/reproducibility/README.md) |
-| 二 · 重复计算与分块 | 两层的计数怎样共享计算，块大小改变什么？ | **[中文报告](results/phase2/report/REPORT.md)** · [五例 HLO 审计](results/phase2/analysis/PHASE0.md) · [六篇原始论文的依据](docs/phase2-literature.md) |
+| 二 · 重复计算与分块 | 两层的计数怎样共享计算，块大小改变什么？ | **[中文报告](results/phase2/report/REPORT.md)** · [五例 HLO 审计](results/phase2/analysis/PHASE0.md) · [七篇原始论文的依据](docs/phase2-literature.md) |
 
 ## 第二阶段结果
 
@@ -14,6 +14,8 @@
 在整图族留出的独立确认中，解析模型对 32 个合成条件全部选择了联合归约，与固定联合归约的选择损失中位数同为 **10.9%**。岭回归的该项损失为 **31.0%**。先在发现批实测各个块大小，再把最快的块用于确认批，有 **26/32** 个条件距最快合法方案在波动阈值内。这项对照需要额外的编译和测量预算。[测试前封存的推荐](results/phase2/model/prediction_lock.json) · [策略全表](results/phase2/model/policy_summary.csv)
 
 ![独立复测的分块趋势](results/phase2/figures/tile-sweep.png)
+
+从 GitHub 干净克隆后，另用 3 个新进程重跑五个筛选案例。43 个配置的优化后 HLO 指纹全部复现，387 项输出校验通过。大逐元素分支的联合归约再次加速 2.92×，大卷积每块 2 个样本再次降至 0.42×。[独立复跑逐项结果](results/phase2/screening/replay/comparison.csv)
 
 ## 第一阶段结果
 

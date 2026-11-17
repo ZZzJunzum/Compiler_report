@@ -27,9 +27,10 @@ def csv_member(archive, member):
     return list(csv.DictReader(io.StringIO(archive.read(member).decode("utf8"))))
 
 
-def check_process(out, phase, process, ir_refs, refs_by_seed):
+def check_process(out, phase, process, ir_refs, refs_by_seed, raw_dir=None):
     cases=cases_for(phase)
-    path=out/PHASES[phase]/"raw"/f"p{process}.zip"
+    folder=raw_dir if raw_dir is not None else out/PHASES[phase]/"raw"
+    path=folder/f"p{process}.zip"
     with ZipFile(path) as z:
         require(z.testzip() is None,path)
         meta=json.loads(z.read("environment.json"))
@@ -194,6 +195,33 @@ def verify(out):
         require(len(pids)==len(set(pids)),f"{phase} process independence")
         phase_counts[phase]=dict(processes=len(pids),**tally)
         totals.update(tally)
+    replay=None
+    folder=out/"screening/replay"
+    if folder.exists():
+        info=read(folder/"provenance.json")
+        hashes=info["raw_sha256"]
+        tally=Counter()
+        pids=set()
+        for i in range(PLAN["processes"]["screen"]):
+            path=folder/"raw"/f"p{i}.zip"
+            require(sha(path)==hashes[path.name],path)
+            counts,pid=check_process(out,"screen",i,refs,refs_by_seed,folder/"raw")
+            pids.add(pid)
+            tally.update(counts)
+        require(len(pids)==PLAN["processes"]["screen"] and len(info["checkout_commit"])==40,"clean replay")
+        rows=records(folder/"comparison.csv")
+        require({(r["case"],r["variant"]) for r in rows}==
+                {(c,v) for c in PLAN["screen_cases"] for v in options(c)},"replay coverage")
+        verified=cohort(out,"screen",folder/"raw")
+        initial=cohort(out,"screen")
+        for r in rows:
+            c,v=r["case"],r["variant"]
+            require(math.isclose(float(r["replay_speedup"]),metrics(verified[c],v)["speedup"]),r)
+            hashes_seen=[{(b["component"],b["hlo_digest"]) for b in group[c]["builds"] if b["variant"]==v}
+                         for group in (initial,verified)]
+            require((r["same_compiled_components"]=="True")==(hashes_seen[0]==hashes_seen[1]),r)
+        replay=dict(checkout_commit=info["checkout_commit"],processes=len(pids),configurations=len(rows),
+                    matching_ir_configurations=sum(r["same_compiled_components"]=="True" for r in rows),**tally)
     check_ir(out,refs)
     check_statistics(out)
     predictions=check_predictions(out)
@@ -209,6 +237,8 @@ def verify(out):
                frozen_candidate_predictions=predictions,
                prediction_lock_sha256=sha(out/"model/prediction_lock.json"),
                checks="All scheduled rows, output references, IR fingerprints, phase-zero files, train/test split, frozen predictions, selection regret, and report links verified.")
+    if replay is not None:
+        audit["additional_clean_clone_screening"]=replay
     dump(out/"report/audit.json",audit)
     print(json.dumps(audit["totals"],sort_keys=True))
     return audit

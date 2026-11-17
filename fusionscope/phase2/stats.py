@@ -8,10 +8,11 @@ from .audit_ir import PLAN
 from .experiment import PHASES, zip_rows
 
 
-def cohort(out,phase):
+def cohort(out,phase,raw_dir=None):
     all_cases=defaultdict(lambda:{"p":[],"aa0":[],"aa1":[],"invalid":set(),"builds":[],"checks":[]})
+    folder=raw_dir if raw_dir is not None else out/PHASES[phase]/"raw"
     for pid in range(PLAN["processes"][phase]):
-        archive=out/PHASES[phase]/"raw"/f"p{pid}.zip"
+        archive=folder/f"p{pid}.zip"
         groups=defaultdict(lambda:defaultdict(list))
         for row in zip_rows(archive,"timings.csv"):
             if int(row["round"])>=0:

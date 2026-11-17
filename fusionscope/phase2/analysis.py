@@ -112,3 +112,27 @@ def evaluate(out,data):
     for name,rows in (("heldout_results",decisions),("prediction_errors",errors),("policy_summary",summaries)):
         table(out/"model"/(name+".csv"),rows)
     return decisions,errors,summaries
+
+
+def screen_replay(out,discovery,confirm):
+    """Compare the separate clean-clone screening cohort, when it accompanies the study."""
+    folder=out/"screening/replay"
+    if not folder.exists():
+        return []
+    replay=cohort(out,"screen",folder/"raw")
+    rows=[]
+    for case in PLAN["screen_cases"]:
+        new=replay[case]
+        c=confirm[case]
+        for v in sorted(new["t"]):
+            old=discovery[case]
+            def digests(group):
+                return {(r["component"],r["hlo_digest"]) for r in group["builds"] if r["variant"]==v}
+            rows.append(dict(case=case,variant=v,same_compiled_components=digests(new)==digests(old),
+                passed_checks=sum(r["valid"]=="True" for r in new["checks"] if r["variant"]==v),
+                checks=sum(r["variant"]==v for r in new["checks"]),published_screen_speedup=metrics(old,v)["speedup"],
+                independent_confirmation_speedup=metrics(c,v)["speedup"],replay_speedup=metrics(new,v)["speedup"],
+                replay_latency_us=new["t"][v],replay_aa_floor_us=new["noise"],
+                replay_resolved_gain=metrics(new,v)["resolved_gain"],replay_resolved_loss=metrics(new,v)["resolved_loss"]))
+    table(folder/"comparison.csv",rows)
+    return rows

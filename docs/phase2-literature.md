@@ -20,6 +20,8 @@
 
 ## 成本模型与后端依据
 
+**Li 等，oneDNN Graph Compiler，CGO 2024。** 作者预印本的图 3 在同一个 CPU 微内核模板的不同融合位置，分别列出单核一次接触的切片大小、调用次数和总元素访问量。往内层移动可以压小临时区，也可能多次执行相同的前置计算。图 4 展示 GEMM 前后的布局转换与 ReLU 在不同位置生成。图 8 及表 1 在 32 核 Xeon Platinum 8358 上比较 MLP 和注意力子图并做融合消融。本项目的 V4 同样需要区分“一块有多少字节”和“所有块累计读写多少”。解析模型只用容量代理搬运量，在合成条件上全部选了联合归约，遗漏了归一化图中实测较快的分块。这篇工作说明了访问次数能给模型增加什么信息，本项目的缓存命中率仍未测量。[作者预印本图 3、4、8](https://arxiv.org/pdf/2301.01333) · [CGO 会议记录](https://2024.cgo.org/details/cgo-2024-main-conference/26/oneDNN-Graph-Compiler-A-Hybrid-Approach-for-High-Performance-Deep-Learning-Compilati)
+
 **Williams、Waterman、Patterson，Roofline。** 该模型将浮点计算吞吐、内存带宽与算术强度联系起来，给出计算受限或带宽受限的性能界限。我们借用计算时间与搬运时间取较大者的形式，外加宿主调用、局部循环与归约项，并在三个训练图族上校准各系数。本文特征使用基线 IR 估计的逻辑工作量和字节数，系数是有效拟合量；估计真实 DRAM 流量与硬件峰值需要独立计数器或微基准。[Berkeley 原始技术报告](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html) · [后续论文记录](https://escholarship.org/uc/item/5tz795vq)
 
 **OpenXLA 与 JAX。** OpenXLA 的 GPU 流程文档区分成本驱动的 PriorityFusion 和可为其他消费者额外导出结果的 Multi-Output Fusion，并讨论依赖环。V4 表示应用用 map 明确返回每块 y、q₁、q₂ 的执行组织。它能否呈现为一个多输出 HLO fusion，须逐案检查。V2 的多输入 reduce、V4 的 map 语义按 JAX 接口实现；性能计时等待全部返回值就绪。[GPU fusion passes](https://openxla.org/xla/hlo_to_thunks#fusion-passes) · [PriorityFusion 源码](https://github.com/openxla/xla/blob/main/xla/backends/gpu/transforms/priority_fusion.h) · [JAX reduce](https://docs.jax.dev/en/latest/_autosummary/jax.lax.reduce.html) · [JAX map](https://docs.jax.dev/en/latest/_autosummary/jax.lax.map.html) · [JAX 计时](https://docs.jax.dev/en/latest/benchmarking.html)
