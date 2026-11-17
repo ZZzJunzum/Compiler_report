@@ -9,6 +9,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from zipfile import ZIP_DEFLATED, ZipFile
 
 from fusionscope.common import ROOT, describe, dump, read, sha, table
 from fusionscope.hlo import Module, REF, ancestors
@@ -92,7 +93,7 @@ def capture(out):
     if actual != Module(target.read_text(encoding="utf8")).fingerprint():
         raise ValueError("CPU dump does not match the archived optimized computation")
     out.mkdir(parents=True,exist_ok=True)
-    files = list(Path("dump").glob("*jit_workload*"))
+    files = [p for p in Path("dump").glob("*jit_workload.*") if p.is_file()]
     kept = {}
     for p in files:
         if p.name.endswith(("buffer-assignment.txt","memory-usage-report.txt")) or (
@@ -100,6 +101,20 @@ def capture(out):
             name = p.name.split("jit_workload.",1)[1]
             (out/name).write_bytes(p.read_bytes().replace(b"\r\n",b"\n"))
             kept[name] = sha(out/name)
+    passes=[]
+    with ZipFile(out/"fusion-pass-snapshots.zip","w",ZIP_DEFLATED) as snapshots:
+        for p in sorted(files):
+            name=p.name.split("jit_workload.",1)[1]
+            if re.match(r"\d+\.",name) and name.endswith(".txt"):
+                txt=p.read_text(encoding="utf8")
+                snapshots.writestr(name,txt)
+                passes.append(dict(snapshot=name,fusion_instruction_count=len(re.findall(r"\bfusion\(",txt)),
+                                   sha256=hashlib.sha256(txt.encode()).hexdigest()))
+    if not passes:
+        raise ValueError("No CPU fusion-pass snapshots were emitted")
+    table(out/"pipeline_steps.csv",passes)
+    for name in ("fusion-pass-snapshots.zip","pipeline_steps.csv"):
+        kept[name]=sha(out/name)
     if not any("buffer-assignment" in p for p in kept):
         raise ValueError("Missing buffer assignment")
     info = exe.memory_analysis()
@@ -151,7 +166,8 @@ def run(out):
     figure(out/"figures/phase0-paths.png",tables[0])
     with tempfile.TemporaryDirectory(prefix="fsxla-") as tmp:
         env=worker_env("cpu")
-        env.update(XLA_FLAGS="--xla_dump_to=dump --xla_dump_hlo_as_text=true",PYTHONPATH=str(ROOT))
+        env.update(XLA_FLAGS="--xla_dump_to=dump --xla_dump_hlo_as_text=true --xla_dump_hlo_pass_re=.*fusion.*",
+                   PYTHONPATH=str(ROOT))
         subprocess.run([sys.executable,"-m","fusionscope.phase2.audit_ir","--capture","--out",
                         str((out/"ir/diagnostic/E3_branch").resolve())],cwd=tmp,env=env,check=True)
 

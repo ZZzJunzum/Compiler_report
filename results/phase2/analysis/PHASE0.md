@@ -22,4 +22,6 @@
 
 在相同 CPU 设置下重编译 E3，规范化 HLO 与冻结模块一致。缓冲区分配第 58–62 行将两块 4 MiB 的结果安排在同一临时区的 4,194,304 和 0 偏移，临时区总计 8,392,704 字节。两份优化后 LLVM 分别在第 62–63、82–83 行含向量 int32 存储。这支持“生成代码确实向缓冲区写掩码”。其缓存命中率、DRAM 字节和各条指令对延迟的贡献仍需单独的硬件测量。[缓冲区分配](../ir/diagnostic/E3_branch/cpu_after_optimizations-buffer-assignment.txt) · [q₁ LLVM](../ir/diagnostic/E3_branch/compare_convert_fusion.1_kernel_module.ir-with-opt.ll) · [q₂ LLVM](../ir/diagnostic/E3_branch/compare_convert_fusion_kernel_module.ir-with-opt.ll)
 
-后续比较联合归约、显式传递第一层激活、按行生成局部计数三种安排。计时前能提出的假设是缩小或消除全尺寸掩码可能降低开销；同时分段调用、循环和较小的矩阵乘法也可能抵消收益。
+同一 CPU 模块在布局分配后的三个转储中依次有 0、3、9 条 `fusion` 指令。第一份位于 `fusion` 前，第二份在 `fusion` 后，第三份在 `fusion-wrapper` 后。定位重复生产者与掩码边界使用最终 HLO 的操作数和调用链。三个中间快照可单独解压核查。[实际 CPU pass 名称与哈希](../ir/diagnostic/E3_branch/pipeline_steps.csv) · [三个中间模块](../ir/diagnostic/E3_branch/fusion-pass-snapshots.zip)
+
+后续比较联合归约、显式传递第一层激活、按行生成局部计数三种安排。计时前能提出的假设是缩小或消除全尺寸掩码可能降低开销，同时分段调用、循环和较小的矩阵乘法也可能抵消收益。

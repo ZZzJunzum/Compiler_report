@@ -4,7 +4,9 @@
     "compare_convert_fusion.1_kernel_module.ir-with-opt.ll": "3da905394e4052a060a187aa59939380222cbb87d52e87e5fdb9e41a30abce21",
     "compare_convert_fusion_kernel_module.ir-with-opt.ll": "1a4a877c480a863c09a073e613cdef19adf25bdd46758807817aa3c507ffc769",
     "cpu_after_optimizations-buffer-assignment.txt": "1d335852a581569ed83adf58f06fbae8a60a0311f14c6777fbb18e79dccc4e6d",
-    "cpu_after_optimizations-memory-usage-report.txt": "3ab7f2101f1443f008a9aa8eb0f5c1d1ec5315a72b19f8faa6ed86bcebcf2241"
+    "cpu_after_optimizations-memory-usage-report.txt": "3ab7f2101f1443f008a9aa8eb0f5c1d1ec5315a72b19f8faa6ed86bcebcf2241",
+    "fusion-pass-snapshots.zip": "782b26c70266361c5554bb2558d48c1de5588dd7f6f61da774e303265e8a68bc",
+    "pipeline_steps.csv": "cfbb288a811d8be1e93d6fcf8d17e8b2045dc82ea07294896dd8f91535655cfe"
   },
   "temp_bytes": 8392704,
   "argument_bytes": 4198400,

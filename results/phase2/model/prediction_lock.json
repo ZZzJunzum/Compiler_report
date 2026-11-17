@@ -1,0 +1,254 @@
+{
+  "locked_utc": "2026-11-17T02:39:31.102383+00:00",
+  "inputs": {
+    "model/model.json": "a014c2012daa92d4ab78b5a21eda77e8a1722dfc79907b8bc138f919954430cd",
+    "model/features.csv": "299ce98fafc3ca400e3b99ba2a35eac54af6fe66f55a7f7bb42104eaf316909b",
+    "model/predictions.csv": "7f795a415bcca598420167499b188fd365d279dbe980e724d9af56a65c59d0eb",
+    "matrix/raw/p0.zip": "3aaaa1fe2fef8b36c8fe89791032efa2cb36e3bcaf8dffb8841d8b991a955ad7",
+    "matrix/raw/p1.zip": "0b9f0a0ea8ee39175255af146ca8bb045d4679779f1e9d35ae9ea68359503b17",
+    "matrix/raw/p2.zip": "84201a261b982207fb29b4902dda3193bec90878f1151eb032151ed8d64865a4",
+    "matrix/raw/p3.zip": "32330c9a0841c1610e8c9a14f8f0377bd015a1fe0e6f378ba9c09d8905f8a716",
+    "matrix/raw/p4.zip": "452925a62376719f85ad4bb13e082b83de1dec27395789e8ae8e5d00a7e1ac73"
+  },
+  "protocol_sha256": "61d40c56c6db7a6baa6e4010425e87f2248af26caf5d0b2e6368e61502005915",
+  "choices": {
+    "E0_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "E0_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "E1_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "E1_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "E2_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "E2_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "E3_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "E3_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "M0_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t4",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "M0_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t4",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "M1_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "M1_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "M2_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "M2_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t1"
+    },
+    "M3_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "M3_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "N0_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t16"
+    },
+    "N0_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V4_t16"
+    },
+    "N1_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "N1_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "N2_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "N2_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "N3_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "N3_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C0_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t1",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C0_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t1",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C1_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t4",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C1_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t4",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C2_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t8",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C2_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t8",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C3_chain": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "C3_branch": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V4_t16",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "R1": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V1",
+      "analytic": "V2",
+      "ridge": "V2"
+    },
+    "R2": {
+      "fixed_V1": "V1",
+      "fixed_V2": "V2",
+      "fixed_tile": "V1",
+      "analytic": "V2",
+      "ridge": "V2"
+    }
+  }
+}
