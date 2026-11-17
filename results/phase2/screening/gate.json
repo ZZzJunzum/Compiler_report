@@ -1,0 +1,37 @@
+{
+  "structural_change": true,
+  "evidence": [
+    {
+      "case": "C3_chain",
+      "variant": "V2",
+      "joint_reduce_lines": "111",
+      "ir_archive": "ir/C3_chain-a5dccd89f149a3c1.zip"
+    },
+    {
+      "case": "E0_chain",
+      "variant": "V2",
+      "joint_reduce_lines": "113",
+      "ir_archive": "ir/E0_chain-5e8d0654da031282.zip"
+    },
+    {
+      "case": "E3_branch",
+      "variant": "V2",
+      "joint_reduce_lines": "117",
+      "ir_archive": "ir/E3_branch-4d21c48773c9a5ef.zip"
+    },
+    {
+      "case": "M3_chain",
+      "variant": "V2",
+      "joint_reduce_lines": "107",
+      "ir_archive": "ir/M3_chain-387a2a5d75db56fb.zip"
+    },
+    {
+      "case": "N3_chain",
+      "variant": "V2",
+      "joint_reduce_lines": "131",
+      "ir_archive": "ir/N3_chain-3c78d5e1f533c449.zip"
+    }
+  ],
+  "invalid": [],
+  "checked_config_seed_process_rows": 387
+}
