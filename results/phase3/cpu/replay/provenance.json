@@ -1,0 +1,9 @@
+{
+  "commit": "ed3876906c9431baa2f9465d6449c36d94bd9042",
+  "tracked_changes": 0,
+  "source": "clean local clone of the published discovery-lock commit",
+  "repeats": 5,
+  "output_directory": "external to the replay checkout",
+  "interpreter": "3.12.5",
+  "seeds_and_order": "same protocol and randomized sequence per repeat; separate fresh OS processes"
+}

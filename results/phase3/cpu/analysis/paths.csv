@@ -1,0 +1,181 @@
+case,variant,path,archive,member,entry_or_anchor,HLO_lines,loop_slice_and_update_lines
+E3_branch,V0,y,ir/E3_branch-20e865ed602effdf.zip,V0/main/optimized_hlo.txt,L97 %add.0 [/L106],77|80|86|87|93|97,
+E3_branch,V0,q1,ir/E3_branch-20e865ed602effdf.zip,V0/main/optimized_hlo.txt,absent,,
+E3_branch,V0,q2,ir/E3_branch-20e865ed602effdf.zip,V0/main/optimized_hlo.txt,absent,,
+E3_branch,V0,first producer,ir/E3_branch-20e865ed602effdf.zip,V0/main/optimized_hlo.txt,see listed instructions,73|74|76|77,
+E3_branch,V0,mask or partial,ir/E3_branch-20e865ed602effdf.zip,V0/main/optimized_hlo.txt,absent,,
+E3_branch,V1,y,ir/E3_branch-20e865ed602effdf.zip,V1/main/optimized_hlo.txt,L138 %add.6 [/L221],118|121|127|128|134|138,
+E3_branch,V1,q1,ir/E3_branch-20e865ed602effdf.zip,V1/main/optimized_hlo.txt,L174 %reduce_sum.20 [/L227],104|174,
+E3_branch,V1,q2,ir/E3_branch-20e865ed602effdf.zip,V1/main/optimized_hlo.txt,L210 %reduce_sum.21 [/L228],83|86|92|210,
+E3_branch,V1,first producer,ir/E3_branch-20e865ed602effdf.zip,V1/main/optimized_hlo.txt,see listed instructions,79|80|82|83|100|101|103|104|114|115|117|118,
+E3_branch,V1,mask or partial,ir/E3_branch-20e865ed602effdf.zip,V1/main/optimized_hlo.txt,see listed instructions,94|108|150|162|174|186|198|210,
+E3_branch,V2,y,ir/E3_branch-20e865ed602effdf.zip,V2/main/optimized_hlo.txt,L148 %add.4 [/L157],128|131|137|138|144|148,
+E3_branch,V2,q1,ir/E3_branch-20e865ed602effdf.zip,V2/main/optimized_hlo.txt,L159 %reduce.12 [/L159],103|108|114|118|159,
+E3_branch,V2,q2,ir/E3_branch-20e865ed602effdf.zip,V2/main/optimized_hlo.txt,L160 %reduce.13 [/L160],103|108|114|118|160,
+E3_branch,V2,first producer,ir/E3_branch-20e865ed602effdf.zip,V2/main/optimized_hlo.txt,see listed instructions,99|100|102|103|124|125|127|128,
+E3_branch,V2,mask or partial,ir/E3_branch-20e865ed602effdf.zip,V2/main/optimized_hlo.txt,see listed instructions,107|116|118,
+E3_branch,B16,y,ir/E3_branch-20e865ed602effdf.zip,B16/main/optimized_hlo.txt,L186 %bitcast.3 [/L186],184|185,100|129|184
+E3_branch,B16,q1,ir/E3_branch-20e865ed602effdf.zip,B16/main/optimized_hlo.txt,absent,,100|129|184
+E3_branch,B16,q2,ir/E3_branch-20e865ed602effdf.zip,B16/main/optimized_hlo.txt,absent,,100|129|184
+E3_branch,B16,first producer,ir/E3_branch-20e865ed602effdf.zip,B16/main/optimized_hlo.txt,see listed instructions,103|104|106|107,
+E3_branch,B16,mask or partial,ir/E3_branch-20e865ed602effdf.zip,B16/main/optimized_hlo.txt,absent,,
+E3_branch,S16,y,ir/E3_branch-20e865ed602effdf.zip,S16/main/optimized_hlo.txt,L362 %bitcast.5 [/L362],357|359,118|125|159|166|185|214|357
+E3_branch,S16,q1,ir/E3_branch-20e865ed602effdf.zip,S16/main/optimized_hlo.txt,L316 %reduce_sum.32 [/L365],316|357|360,118|125|159|166|185|214|357
+E3_branch,S16,q2,ir/E3_branch-20e865ed602effdf.zip,S16/main/optimized_hlo.txt,L340 %reduce_sum.33 [/L364],340|357|358,118|125|159|166|185|214|357
+E3_branch,S16,first producer,ir/E3_branch-20e865ed602effdf.zip,S16/main/optimized_hlo.txt,see listed instructions,128|129|131|132|169|170|172|173|188|189|191|192,
+E3_branch,S16,mask or partial,ir/E3_branch-20e865ed602effdf.zip,S16/main/optimized_hlo.txt,see listed instructions,115|143|156|177|232|244|304|316|328|340,
+E3_branch,J16,y,ir/E3_branch-20e865ed602effdf.zip,J16/main/optimized_hlo.txt,L326 %bitcast.5 [/L326],321|323,121|129|146|175|204|321
+E3_branch,J16,q1,ir/E3_branch-20e865ed602effdf.zip,J16/main/optimized_hlo.txt,L280 %reduce_sum.9 [/L329],280|321|324,121|129|146|175|204|321
+E3_branch,J16,q2,ir/E3_branch-20e865ed602effdf.zip,J16/main/optimized_hlo.txt,L304 %reduce_sum.13 [/L328],304|321|322,121|129|146|175|204|321
+E3_branch,J16,first producer,ir/E3_branch-20e865ed602effdf.zip,J16/main/optimized_hlo.txt,see listed instructions,149|150|152|153|178|179|181|182,
+E3_branch,J16,mask or partial,ir/E3_branch-20e865ed602effdf.zip,J16/main/optimized_hlo.txt,see listed instructions,157|166|167|268|280|292|304,
+E3_branch,B64,y,ir/E3_branch-20e865ed602effdf.zip,B64/main/optimized_hlo.txt,L186 %bitcast.3 [/L186],184|185,100|129|184
+E3_branch,B64,q1,ir/E3_branch-20e865ed602effdf.zip,B64/main/optimized_hlo.txt,absent,,100|129|184
+E3_branch,B64,q2,ir/E3_branch-20e865ed602effdf.zip,B64/main/optimized_hlo.txt,absent,,100|129|184
+E3_branch,B64,first producer,ir/E3_branch-20e865ed602effdf.zip,B64/main/optimized_hlo.txt,see listed instructions,103|104|106|107,
+E3_branch,B64,mask or partial,ir/E3_branch-20e865ed602effdf.zip,B64/main/optimized_hlo.txt,absent,,
+E3_branch,S64,y,ir/E3_branch-20e865ed602effdf.zip,S64/main/optimized_hlo.txt,L362 %bitcast.5 [/L362],357|359,118|125|159|166|185|214|357
+E3_branch,S64,q1,ir/E3_branch-20e865ed602effdf.zip,S64/main/optimized_hlo.txt,L316 %reduce_sum.32 [/L365],316|357|360,118|125|159|166|185|214|357
+E3_branch,S64,q2,ir/E3_branch-20e865ed602effdf.zip,S64/main/optimized_hlo.txt,L340 %reduce_sum.33 [/L364],340|357|358,118|125|159|166|185|214|357
+E3_branch,S64,first producer,ir/E3_branch-20e865ed602effdf.zip,S64/main/optimized_hlo.txt,see listed instructions,128|129|131|132|169|170|172|173|188|189|191|192,
+E3_branch,S64,mask or partial,ir/E3_branch-20e865ed602effdf.zip,S64/main/optimized_hlo.txt,see listed instructions,115|143|156|177|232|244|304|316|328|340,
+E3_branch,J64,y,ir/E3_branch-20e865ed602effdf.zip,J64/main/optimized_hlo.txt,L326 %bitcast.5 [/L326],321|323,121|129|146|175|204|321
+E3_branch,J64,q1,ir/E3_branch-20e865ed602effdf.zip,J64/main/optimized_hlo.txt,L280 %reduce_sum.9 [/L329],280|321|324,121|129|146|175|204|321
+E3_branch,J64,q2,ir/E3_branch-20e865ed602effdf.zip,J64/main/optimized_hlo.txt,L304 %reduce_sum.13 [/L328],304|321|322,121|129|146|175|204|321
+E3_branch,J64,first producer,ir/E3_branch-20e865ed602effdf.zip,J64/main/optimized_hlo.txt,see listed instructions,149|150|152|153|178|179|181|182,
+E3_branch,J64,mask or partial,ir/E3_branch-20e865ed602effdf.zip,J64/main/optimized_hlo.txt,see listed instructions,157|166|167|268|280|292|304,
+M3_chain,V0,y,ir/M3_chain-d87b93868a46826c.zip,V0/main/optimized_hlo.txt,L79 %add.0 [/L101],70|73|79|86|89,
+M3_chain,V0,q1,ir/M3_chain-d87b93868a46826c.zip,V0/main/optimized_hlo.txt,absent,,
+M3_chain,V0,q2,ir/M3_chain-d87b93868a46826c.zip,V0/main/optimized_hlo.txt,absent,,
+M3_chain,V0,first producer,ir/M3_chain-d87b93868a46826c.zip,V0/main/optimized_hlo.txt,see listed instructions,85|86|98,
+M3_chain,V0,mask or partial,ir/M3_chain-d87b93868a46826c.zip,V0/main/optimized_hlo.txt,absent,,
+M3_chain,V1,y,ir/M3_chain-d87b93868a46826c.zip,V1/main/optimized_hlo.txt,L107 %add.4 [/L180],98|101|107|114|117,
+M3_chain,V1,q1,ir/M3_chain-d87b93868a46826c.zip,V1/main/optimized_hlo.txt,L141 %reduce_sum.9 [/L182],87|141,
+M3_chain,V1,q2,ir/M3_chain-d87b93868a46826c.zip,V1/main/optimized_hlo.txt,L165 %reduce_sum.13 [/L184],76|114|117|165,
+M3_chain,V1,first producer,ir/M3_chain-d87b93868a46826c.zip,V1/main/optimized_hlo.txt,see listed instructions,86|87|113|114|175,
+M3_chain,V1,mask or partial,ir/M3_chain-d87b93868a46826c.zip,V1/main/optimized_hlo.txt,see listed instructions,80|91|129|141|153|165,
+M3_chain,V2,y,ir/M3_chain-d87b93868a46826c.zip,V2/main/optimized_hlo.txt,L124 %add.4 [/L146],115|118|124|131|134,
+M3_chain,V2,q1,ir/M3_chain-d87b93868a46826c.zip,V2/main/optimized_hlo.txt,L148 %reduce.12 [/L148],96|104|108|131|134|148,
+M3_chain,V2,q2,ir/M3_chain-d87b93868a46826c.zip,V2/main/optimized_hlo.txt,L149 %reduce.13 [/L149],96|104|108|131|134|149,
+M3_chain,V2,first producer,ir/M3_chain-d87b93868a46826c.zip,V2/main/optimized_hlo.txt,see listed instructions,95|96|130|131|143,
+M3_chain,V2,mask or partial,ir/M3_chain-d87b93868a46826c.zip,V2/main/optimized_hlo.txt,see listed instructions,100|106|108,
+M3_chain,B16,y,ir/M3_chain-d87b93868a46826c.zip,B16/main/optimized_hlo.txt,L188 %bitcast.3 [/L188],186|187,109|126|186
+M3_chain,B16,q1,ir/M3_chain-d87b93868a46826c.zip,B16/main/optimized_hlo.txt,absent,,109|126|186
+M3_chain,B16,q2,ir/M3_chain-d87b93868a46826c.zip,B16/main/optimized_hlo.txt,absent,,109|126|186
+M3_chain,B16,first producer,ir/M3_chain-d87b93868a46826c.zip,B16/main/optimized_hlo.txt,see listed instructions,115|116|149,
+M3_chain,B16,mask or partial,ir/M3_chain-d87b93868a46826c.zip,B16/main/optimized_hlo.txt,absent,,
+M3_chain,S16,y,ir/M3_chain-d87b93868a46826c.zip,S16/main/optimized_hlo.txt,L319 %bitcast.5 [/L319],314|316,114|141|173|190|314
+M3_chain,S16,q1,ir/M3_chain-d87b93868a46826c.zip,S16/main/optimized_hlo.txt,L285 %reduce_sum.18 [/L320],285|314|317,114|141|173|190|314
+M3_chain,S16,q2,ir/M3_chain-d87b93868a46826c.zip,S16/main/optimized_hlo.txt,L297 %reduce_sum.22 [/L318],297|314|315,114|141|173|190|314
+M3_chain,S16,first producer,ir/M3_chain-d87b93868a46826c.zip,S16/main/optimized_hlo.txt,see listed instructions,147|148|179|180|240,
+M3_chain,S16,mask or partial,ir/M3_chain-d87b93868a46826c.zip,S16/main/optimized_hlo.txt,see listed instructions,111|125|138|152|209|221|285|297,
+M3_chain,J16,y,ir/M3_chain-d87b93868a46826c.zip,J16/main/optimized_hlo.txt,L295 %bitcast.5 [/L295],290|292,117|125|175|192|290
+M3_chain,J16,q1,ir/M3_chain-d87b93868a46826c.zip,J16/main/optimized_hlo.txt,L261 %reduce_sum.0 [/L296],261|290|293,117|125|175|192|290
+M3_chain,J16,q2,ir/M3_chain-d87b93868a46826c.zip,J16/main/optimized_hlo.txt,L273 %reduce_sum.1 [/L294],273|290|291,117|125|175|192|290
+M3_chain,J16,first producer,ir/M3_chain-d87b93868a46826c.zip,J16/main/optimized_hlo.txt,see listed instructions,141|142|181|182|217,
+M3_chain,J16,mask or partial,ir/M3_chain-d87b93868a46826c.zip,J16/main/optimized_hlo.txt,see listed instructions,146|152|154|261|273,
+M3_chain,B64,y,ir/M3_chain-d87b93868a46826c.zip,B64/main/optimized_hlo.txt,L188 %bitcast.3 [/L188],186|187,109|126|186
+M3_chain,B64,q1,ir/M3_chain-d87b93868a46826c.zip,B64/main/optimized_hlo.txt,absent,,109|126|186
+M3_chain,B64,q2,ir/M3_chain-d87b93868a46826c.zip,B64/main/optimized_hlo.txt,absent,,109|126|186
+M3_chain,B64,first producer,ir/M3_chain-d87b93868a46826c.zip,B64/main/optimized_hlo.txt,see listed instructions,115|116|149,
+M3_chain,B64,mask or partial,ir/M3_chain-d87b93868a46826c.zip,B64/main/optimized_hlo.txt,absent,,
+M3_chain,S64,y,ir/M3_chain-d87b93868a46826c.zip,S64/main/optimized_hlo.txt,L319 %bitcast.5 [/L319],314|316,114|141|173|190|314
+M3_chain,S64,q1,ir/M3_chain-d87b93868a46826c.zip,S64/main/optimized_hlo.txt,L285 %reduce_sum.18 [/L320],285|314|317,114|141|173|190|314
+M3_chain,S64,q2,ir/M3_chain-d87b93868a46826c.zip,S64/main/optimized_hlo.txt,L297 %reduce_sum.22 [/L318],297|314|315,114|141|173|190|314
+M3_chain,S64,first producer,ir/M3_chain-d87b93868a46826c.zip,S64/main/optimized_hlo.txt,see listed instructions,147|148|179|180|240,
+M3_chain,S64,mask or partial,ir/M3_chain-d87b93868a46826c.zip,S64/main/optimized_hlo.txt,see listed instructions,111|125|138|152|209|221|285|297,
+M3_chain,J64,y,ir/M3_chain-d87b93868a46826c.zip,J64/main/optimized_hlo.txt,L295 %bitcast.5 [/L295],290|292,117|125|175|192|290
+M3_chain,J64,q1,ir/M3_chain-d87b93868a46826c.zip,J64/main/optimized_hlo.txt,L261 %reduce_sum.0 [/L296],261|290|293,117|125|175|192|290
+M3_chain,J64,q2,ir/M3_chain-d87b93868a46826c.zip,J64/main/optimized_hlo.txt,L273 %reduce_sum.1 [/L294],273|290|291,117|125|175|192|290
+M3_chain,J64,first producer,ir/M3_chain-d87b93868a46826c.zip,J64/main/optimized_hlo.txt,see listed instructions,141|142|181|182|217,
+M3_chain,J64,mask or partial,ir/M3_chain-d87b93868a46826c.zip,J64/main/optimized_hlo.txt,see listed instructions,146|152|154|261|273,
+N2_branch,V0,y,ir/N2_branch-90c683963a04b3af.zip,V0/main/optimized_hlo.txt,L115 %add.2 [/L215],92|95|104|105|111|115|127|133|147|150|163|169,
+N2_branch,V0,q1,ir/N2_branch-90c683963a04b3af.zip,V0/main/optimized_hlo.txt,absent,,
+N2_branch,V0,q2,ir/N2_branch-90c683963a04b3af.zip,V0/main/optimized_hlo.txt,absent,,
+N2_branch,V0,first producer,ir/N2_branch-90c683963a04b3af.zip,V0/main/optimized_hlo.txt,see listed instructions,85|86|88|89|91|92|140|141|143|144|146|147|157|163|166|169|170|175|181|209|211,
+N2_branch,V0,mask or partial,ir/N2_branch-90c683963a04b3af.zip,V0/main/optimized_hlo.txt,see listed instructions,127|163|187|199,
+N2_branch,V1,y,ir/N2_branch-90c683963a04b3af.zip,V1/main/optimized_hlo.txt,L165 %add.8 [/L317],142|145|154|155|161|165|177|183|197|200|213|219,
+N2_branch,V1,q1,ir/N2_branch-90c683963a04b3af.zip,V1/main/optimized_hlo.txt,L273 %reduce_sum.23 [/L316],125|213|219|273,
+N2_branch,V1,q2,ir/N2_branch-90c683963a04b3af.zip,V1/main/optimized_hlo.txt,L297 %reduce_sum.27 [/L320],98|101|110|177|183|197|200|213|219|297,
+N2_branch,V1,first producer,ir/N2_branch-90c683963a04b3af.zip,V1/main/optimized_hlo.txt,see listed instructions,91|92|94|95|97|98|118|119|121|122|124|125|135|136|138|139|141|142|190|191|193|194|196|197|207|213|216|219|220|225|231|308|310,
+N2_branch,V1,mask or partial,ir/N2_branch-90c683963a04b3af.zip,V1/main/optimized_hlo.txt,see listed instructions,112|129|177|213|237|249|261|273|285|297,
+N2_branch,V2,y,ir/N2_branch-90c683963a04b3af.zip,V2/main/optimized_hlo.txt,L172 %add.6 [/L272],149|152|161|162|168|172|184|190|204|207|220|226,
+N2_branch,V2,q1,ir/N2_branch-90c683963a04b3af.zip,V2/main/optimized_hlo.txt,L274 %reduce.12 [/L274],118|123|132|136|184|190|204|207|220|226|274,
+N2_branch,V2,q2,ir/N2_branch-90c683963a04b3af.zip,V2/main/optimized_hlo.txt,L275 %reduce.13 [/L275],118|123|132|136|184|190|204|207|220|226|275,
+N2_branch,V2,first producer,ir/N2_branch-90c683963a04b3af.zip,V2/main/optimized_hlo.txt,see listed instructions,111|112|114|115|117|118|142|143|145|146|148|149|197|198|200|201|203|204|214|220|223|226|227|232|238|266|268,
+N2_branch,V2,mask or partial,ir/N2_branch-90c683963a04b3af.zip,V2/main/optimized_hlo.txt,see listed instructions,122|134|136|184|220|244|256,
+N2_branch,B4,y,ir/N2_branch-90c683963a04b3af.zip,B4/main/optimized_hlo.txt,L303 %bitcast.3 [/L303],301|302,112|147|173|213|301
+N2_branch,B4,q1,ir/N2_branch-90c683963a04b3af.zip,B4/main/optimized_hlo.txt,absent,,112|147|173|213|301
+N2_branch,B4,q2,ir/N2_branch-90c683963a04b3af.zip,B4/main/optimized_hlo.txt,absent,,112|147|173|213|301
+N2_branch,B4,first producer,ir/N2_branch-90c683963a04b3af.zip,B4/main/optimized_hlo.txt,see listed instructions,115|116|118|119|121|122|176|177|179|180|182|183|199|202|205|206|215|261|263,
+N2_branch,B4,mask or partial,ir/N2_branch-90c683963a04b3af.zip,B4/main/optimized_hlo.txt,see listed instructions,159|199|233|245,
+N2_branch,S4,y,ir/N2_branch-90c683963a04b3af.zip,S4/main/optimized_hlo.txt,L488 %bitcast.5 [/L488],483|485,130|137|177|184|206|241|267|307|483
+N2_branch,S4,q1,ir/N2_branch-90c683963a04b3af.zip,S4/main/optimized_hlo.txt,L442 %reduce_sum.50 [/L491],442|483|486,130|137|177|184|206|241|267|307|483
+N2_branch,S4,q2,ir/N2_branch-90c683963a04b3af.zip,S4/main/optimized_hlo.txt,L466 %reduce_sum.51 [/L490],466|483|484,130|137|177|184|206|241|267|307|483
+N2_branch,S4,first producer,ir/N2_branch-90c683963a04b3af.zip,S4/main/optimized_hlo.txt,see listed instructions,140|141|143|144|146|147|187|188|190|191|193|194|209|210|212|213|215|216|270|271|273|274|276|277|293|296|299|300|309|382|384,
+N2_branch,S4,mask or partial,ir/N2_branch-90c683963a04b3af.zip,S4/main/optimized_hlo.txt,see listed instructions,127|161|174|198|253|293|327|339|351|363|430|442|454|466,
+N2_branch,J4,y,ir/N2_branch-90c683963a04b3af.zip,J4/main/optimized_hlo.txt,L449 %bitcast.5 [/L449],444|446,133|141|158|193|228|254|294|444
+N2_branch,J4,q1,ir/N2_branch-90c683963a04b3af.zip,J4/main/optimized_hlo.txt,L403 %reduce_sum.32 [/L452],403|444|447,133|141|158|193|228|254|294|444
+N2_branch,J4,q2,ir/N2_branch-90c683963a04b3af.zip,J4/main/optimized_hlo.txt,L427 %reduce_sum.33 [/L451],427|444|445,133|141|158|193|228|254|294|444
+N2_branch,J4,first producer,ir/N2_branch-90c683963a04b3af.zip,J4/main/optimized_hlo.txt,see listed instructions,161|162|164|165|167|168|196|197|199|200|202|203|257|258|260|261|263|264|280|283|286|287|296|344|346,
+N2_branch,J4,mask or partial,ir/N2_branch-90c683963a04b3af.zip,J4/main/optimized_hlo.txt,see listed instructions,172|184|185|240|280|314|326|391|403|415|427,
+N2_branch,B16,y,ir/N2_branch-90c683963a04b3af.zip,B16/main/optimized_hlo.txt,L303 %bitcast.3 [/L303],301|302,112|147|173|213|301
+N2_branch,B16,q1,ir/N2_branch-90c683963a04b3af.zip,B16/main/optimized_hlo.txt,absent,,112|147|173|213|301
+N2_branch,B16,q2,ir/N2_branch-90c683963a04b3af.zip,B16/main/optimized_hlo.txt,absent,,112|147|173|213|301
+N2_branch,B16,first producer,ir/N2_branch-90c683963a04b3af.zip,B16/main/optimized_hlo.txt,see listed instructions,115|116|118|119|121|122|176|177|179|180|182|183|199|202|205|206|215|261|263,
+N2_branch,B16,mask or partial,ir/N2_branch-90c683963a04b3af.zip,B16/main/optimized_hlo.txt,see listed instructions,159|199|233|245,
+N2_branch,S16,y,ir/N2_branch-90c683963a04b3af.zip,S16/main/optimized_hlo.txt,L464 %bitcast.5 [/L464],459|461,130|137|177|184|206|241|267|307|459
+N2_branch,S16,q1,ir/N2_branch-90c683963a04b3af.zip,S16/main/optimized_hlo.txt,L430 %reduce_sum.39 [/L465],430|459|462,130|137|177|184|206|241|267|307|459
+N2_branch,S16,q2,ir/N2_branch-90c683963a04b3af.zip,S16/main/optimized_hlo.txt,L442 %reduce_sum.40 [/L463],442|459|460,130|137|177|184|206|241|267|307|459
+N2_branch,S16,first producer,ir/N2_branch-90c683963a04b3af.zip,S16/main/optimized_hlo.txt,see listed instructions,140|141|143|144|146|147|187|188|190|191|193|194|209|210|212|213|215|216|270|271|273|274|276|277|293|296|299|300|309|382|384,
+N2_branch,S16,mask or partial,ir/N2_branch-90c683963a04b3af.zip,S16/main/optimized_hlo.txt,see listed instructions,127|161|174|198|253|293|327|339|351|363|430|442,
+N2_branch,J16,y,ir/N2_branch-90c683963a04b3af.zip,J16/main/optimized_hlo.txt,L425 %bitcast.5 [/L425],420|422,133|141|158|193|228|254|294|420
+N2_branch,J16,q1,ir/N2_branch-90c683963a04b3af.zip,J16/main/optimized_hlo.txt,L391 %reduce_sum.18 [/L426],391|420|423,133|141|158|193|228|254|294|420
+N2_branch,J16,q2,ir/N2_branch-90c683963a04b3af.zip,J16/main/optimized_hlo.txt,L403 %reduce_sum.22 [/L424],403|420|421,133|141|158|193|228|254|294|420
+N2_branch,J16,first producer,ir/N2_branch-90c683963a04b3af.zip,J16/main/optimized_hlo.txt,see listed instructions,161|162|164|165|167|168|196|197|199|200|202|203|257|258|260|261|263|264|280|283|286|287|296|344|346,
+N2_branch,J16,mask or partial,ir/N2_branch-90c683963a04b3af.zip,J16/main/optimized_hlo.txt,see listed instructions,172|184|185|240|280|314|326|391|403,
+C3_chain,V0,y,ir/C3_chain-ead36438ad60f199.zip,V0/main/optimized_hlo.txt,L83 %add.0 [/L105],72|74|77|83|90|93,
+C3_chain,V0,q1,ir/C3_chain-ead36438ad60f199.zip,V0/main/optimized_hlo.txt,absent,,
+C3_chain,V0,q2,ir/C3_chain-ead36438ad60f199.zip,V0/main/optimized_hlo.txt,absent,,
+C3_chain,V0,first producer,ir/C3_chain-ead36438ad60f199.zip,V0/main/optimized_hlo.txt,see listed instructions,89|90|102,
+C3_chain,V0,mask or partial,ir/C3_chain-ead36438ad60f199.zip,V0/main/optimized_hlo.txt,absent,,
+C3_chain,V1,y,ir/C3_chain-ead36438ad60f199.zip,V1/main/optimized_hlo.txt,L129 %add.5 [/L152],118|120|123|129|136|139,
+C3_chain,V1,q1,ir/C3_chain-ead36438ad60f199.zip,V1/main/optimized_hlo.txt,L111 %reduce_sum.1 [/L150],105|111,
+C3_chain,V1,q2,ir/C3_chain-ead36438ad60f199.zip,V1/main/optimized_hlo.txt,L92 %reduce_sum.0 [/L153],84|86|92|136|139,
+C3_chain,V1,first producer,ir/C3_chain-ead36438ad60f199.zip,V1/main/optimized_hlo.txt,see listed instructions,104|105|135|136|148,
+C3_chain,V1,mask or partial,ir/C3_chain-ead36438ad60f199.zip,V1/main/optimized_hlo.txt,see listed instructions,90|92|109|111,
+C3_chain,V2,y,ir/C3_chain-ead36438ad60f199.zip,V2/main/optimized_hlo.txt,L130 %add.5 [/L152],119|121|124|130|137|140,
+C3_chain,V2,q1,ir/C3_chain-ead36438ad60f199.zip,V2/main/optimized_hlo.txt,L154 %reduce.12 [/L154],98|106|108|112|137|140|154,
+C3_chain,V2,q2,ir/C3_chain-ead36438ad60f199.zip,V2/main/optimized_hlo.txt,L155 %reduce.13 [/L155],98|106|108|112|137|140|155,
+C3_chain,V2,first producer,ir/C3_chain-ead36438ad60f199.zip,V2/main/optimized_hlo.txt,see listed instructions,97|98|136|137|149,
+C3_chain,V2,mask or partial,ir/C3_chain-ead36438ad60f199.zip,V2/main/optimized_hlo.txt,see listed instructions,102|110|112,
+C3_chain,B2,y,ir/C3_chain-ead36438ad60f199.zip,B2/main/optimized_hlo.txt,L194 %bitcast.3 [/L194],192|193,102|115|132|192
+C3_chain,B2,q1,ir/C3_chain-ead36438ad60f199.zip,B2/main/optimized_hlo.txt,absent,,102|115|132|192
+C3_chain,B2,q2,ir/C3_chain-ead36438ad60f199.zip,B2/main/optimized_hlo.txt,absent,,102|115|132|192
+C3_chain,B2,first producer,ir/C3_chain-ead36438ad60f199.zip,B2/main/optimized_hlo.txt,see listed instructions,121|122|155,
+C3_chain,B2,mask or partial,ir/C3_chain-ead36438ad60f199.zip,B2/main/optimized_hlo.txt,absent,,
+C3_chain,S2,y,ir/C3_chain-ead36438ad60f199.zip,S2/main/optimized_hlo.txt,L292 %bitcast.5 [/L292],287|289,118|127|150|162|175|192|287
+C3_chain,S2,q1,ir/C3_chain-ead36438ad60f199.zip,S2/main/optimized_hlo.txt,L258 %reduce_sum.7 [/L293],258|287|290,118|127|150|162|175|192|287
+C3_chain,S2,q2,ir/C3_chain-ead36438ad60f199.zip,S2/main/optimized_hlo.txt,L270 %reduce_sum.8 [/L291],270|287|288,118|127|150|162|175|192|287
+C3_chain,S2,first producer,ir/C3_chain-ead36438ad60f199.zip,S2/main/optimized_hlo.txt,see listed instructions,140|141|181|182|217,
+C3_chain,S2,mask or partial,ir/C3_chain-ead36438ad60f199.zip,S2/main/optimized_hlo.txt,see listed instructions,124|125|145|147|258|270,
+C3_chain,J2,y,ir/C3_chain-ead36438ad60f199.zip,J2/main/optimized_hlo.txt,L306 %bitcast.5 [/L306],301|303,119|127|156|173|186|203|301
+C3_chain,J2,q1,ir/C3_chain-ead36438ad60f199.zip,J2/main/optimized_hlo.txt,L272 %reduce_sum.0 [/L307],272|301|304,119|127|156|173|186|203|301
+C3_chain,J2,q2,ir/C3_chain-ead36438ad60f199.zip,J2/main/optimized_hlo.txt,L284 %reduce_sum.1 [/L305],284|301|302,119|127|156|173|186|203|301
+C3_chain,J2,first producer,ir/C3_chain-ead36438ad60f199.zip,J2/main/optimized_hlo.txt,see listed instructions,143|144|192|193|228,
+C3_chain,J2,mask or partial,ir/C3_chain-ead36438ad60f199.zip,J2/main/optimized_hlo.txt,see listed instructions,148|160|161|272|284,
+C3_chain,B8,y,ir/C3_chain-ead36438ad60f199.zip,B8/main/optimized_hlo.txt,L194 %bitcast.3 [/L194],192|193,102|115|132|192
+C3_chain,B8,q1,ir/C3_chain-ead36438ad60f199.zip,B8/main/optimized_hlo.txt,absent,,102|115|132|192
+C3_chain,B8,q2,ir/C3_chain-ead36438ad60f199.zip,B8/main/optimized_hlo.txt,absent,,102|115|132|192
+C3_chain,B8,first producer,ir/C3_chain-ead36438ad60f199.zip,B8/main/optimized_hlo.txt,see listed instructions,121|122|155,
+C3_chain,B8,mask or partial,ir/C3_chain-ead36438ad60f199.zip,B8/main/optimized_hlo.txt,absent,,
+C3_chain,S8,y,ir/C3_chain-ead36438ad60f199.zip,S8/main/optimized_hlo.txt,L292 %bitcast.5 [/L292],287|289,118|127|150|162|175|192|287
+C3_chain,S8,q1,ir/C3_chain-ead36438ad60f199.zip,S8/main/optimized_hlo.txt,L258 %reduce_sum.7 [/L293],258|287|290,118|127|150|162|175|192|287
+C3_chain,S8,q2,ir/C3_chain-ead36438ad60f199.zip,S8/main/optimized_hlo.txt,L270 %reduce_sum.8 [/L291],270|287|288,118|127|150|162|175|192|287
+C3_chain,S8,first producer,ir/C3_chain-ead36438ad60f199.zip,S8/main/optimized_hlo.txt,see listed instructions,140|141|181|182|217,
+C3_chain,S8,mask or partial,ir/C3_chain-ead36438ad60f199.zip,S8/main/optimized_hlo.txt,see listed instructions,124|125|145|147|258|270,
+C3_chain,J8,y,ir/C3_chain-ead36438ad60f199.zip,J8/main/optimized_hlo.txt,L306 %bitcast.5 [/L306],301|303,119|127|156|173|186|203|301
+C3_chain,J8,q1,ir/C3_chain-ead36438ad60f199.zip,J8/main/optimized_hlo.txt,L272 %reduce_sum.0 [/L307],272|301|304,119|127|156|173|186|203|301
+C3_chain,J8,q2,ir/C3_chain-ead36438ad60f199.zip,J8/main/optimized_hlo.txt,L284 %reduce_sum.1 [/L305],284|301|302,119|127|156|173|186|203|301
+C3_chain,J8,first producer,ir/C3_chain-ead36438ad60f199.zip,J8/main/optimized_hlo.txt,see listed instructions,143|144|192|193|228,
+C3_chain,J8,mask or partial,ir/C3_chain-ead36438ad60f199.zip,J8/main/optimized_hlo.txt,see listed instructions,148|160|161|272|284,

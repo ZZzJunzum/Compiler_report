@@ -1,0 +1,7 @@
+{
+  "event": "Windows QueryProcessCycleTime",
+  "scope": "all threads of this pinned process",
+  "multiplexing": "no PMU multiplexing was configured",
+  "other_events": "retired instructions, cache misses and DRAM bytes unavailable in this interface",
+  "available": true
+}
