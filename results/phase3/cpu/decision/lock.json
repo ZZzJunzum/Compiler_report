@@ -1,0 +1,125 @@
+{
+  "utc": "2026-11-17T05:19:38.426562+00:00",
+  "choices": {
+    "EH0_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "EH0_branch": {
+      "rank_alt": "J16",
+      "fixed_alt": "S16"
+    },
+    "EH1_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "EH1_branch": {
+      "rank_alt": "J64",
+      "fixed_alt": "S16"
+    },
+    "EH2_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "EH2_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MH0_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MH0_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MH1_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MH1_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MH2_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MH2_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "NH0_chain": {
+      "rank_alt": "J16",
+      "fixed_alt": "S16"
+    },
+    "NH0_branch": {
+      "rank_alt": "J16",
+      "fixed_alt": "S16"
+    },
+    "NH1_chain": {
+      "rank_alt": "J64",
+      "fixed_alt": "S16"
+    },
+    "NH1_branch": {
+      "rank_alt": "J64",
+      "fixed_alt": "S16"
+    },
+    "NH2_chain": {
+      "rank_alt": "J64",
+      "fixed_alt": "S16"
+    },
+    "NH2_branch": {
+      "rank_alt": "J64",
+      "fixed_alt": "V2"
+    },
+    "CH0_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "CH0_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "CH1_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "CH1_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "CH2_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "CH2_branch": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "NMH0_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "NMH1_chain": {
+      "rank_alt": "J64",
+      "fixed_alt": "S16"
+    },
+    "MNH0_chain": {
+      "rank_alt": "V2",
+      "fixed_alt": "V2"
+    },
+    "MNH1_chain": {
+      "rank_alt": "J64",
+      "fixed_alt": "V2"
+    }
+  },
+  "inputs": {
+    "static/lock.json": "a0d8ad54164fa48cee07c13b308c5cb05a1dcf26919ee300b5d285055244037e",
+    "discovery/rank_alt/p0.zip": "d565cf2731b0aa68f0dc081eb74fcfa6b47d43d3f4201d9e48e548767331aae6",
+    "discovery/rank_alt/p1.zip": "bade0e5c797a0c9334c000bc2dd8b609de08d453f0a54bf7022124a43ea8e4fa",
+    "discovery/fixed_alt/p0.zip": "cd21b5a8ee7355f9aaddd9fd71077dd8d7dd03b749f125f7eb83233bce7b6252",
+    "discovery/fixed_alt/p1.zip": "d7c8b5705fe60c3cfa53097278c780ec85f44693d3d9a76ba75119a39d264e95",
+    "decision/discovery.csv": "d58863aeda5b878bab66cfef3172cc5123f281192184687f6e4b33199e6db49b"
+  }
+}
