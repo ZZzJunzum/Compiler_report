@@ -1,0 +1,201 @@
+{
+  "environment": {
+    "backend": "cpu",
+    "devices": [
+      "TFRT_CPU_0"
+    ],
+    "device_kind": "cpu",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.5",
+    "jax": "0.9.0.1",
+    "jaxlib": "0.9.0.1",
+    "numpy": "2.3.5",
+    "logical_cpus": 12,
+    "physical_cpus": 8,
+    "ram_bytes": 16888094720,
+    "affinity": [
+      0
+    ],
+    "flags": {
+      "JAX_PLATFORMS": "cpu",
+      "JAX_ENABLE_X64": "false",
+      "JAX_ENABLE_COMPILATION_CACHE": "false",
+      "XLA_FLAGS": "",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  },
+  "dispatch_proxy_us": 4.8,
+  "knee_bytes": 2097152,
+  "small_bytes_ns": 109.22666666666667,
+  "large_bytes_ns": 62.36883271375465,
+  "copy_bytes_per_ns": [
+    [
+      8192,
+      20.48
+    ],
+    [
+      16384,
+      40.96
+    ],
+    [
+      32768,
+      65.536
+    ],
+    [
+      65536,
+      72.81777777777778
+    ],
+    [
+      131072,
+      87.38133333333333
+    ],
+    [
+      262144,
+      109.22666666666667
+    ],
+    [
+      524288,
+      116.50844444444445
+    ],
+    [
+      1048576,
+      113.97565217391305
+    ],
+    [
+      2097152,
+      55.77531914893617
+    ],
+    [
+      4194304,
+      68.53437908496733
+    ],
+    [
+      8388608,
+      68.9285784716516
+    ],
+    [
+      16777216,
+      62.36883271375465
+    ],
+    [
+      33554432,
+      37.553925013989925
+    ]
+  ],
+  "layer_rates": [
+    {
+      "op": "M",
+      "shape": [
+        1,
+        256
+      ],
+      "flops": 131072,
+      "layer_us": 31.25,
+      "mflop_per_us": 0.004955463137996219
+    },
+    {
+      "op": "M",
+      "shape": [
+        4,
+        256
+      ],
+      "flops": 524288,
+      "layer_us": 37.9,
+      "mflop_per_us": 0.0158395166163142
+    },
+    {
+      "op": "M",
+      "shape": [
+        16,
+        256
+      ],
+      "flops": 2097152,
+      "layer_us": 43.55,
+      "mflop_per_us": 0.054120051612903224
+    },
+    {
+      "op": "M",
+      "shape": [
+        64,
+        256
+      ],
+      "flops": 8388608,
+      "layer_us": 99.35,
+      "mflop_per_us": 0.08872139608672659
+    },
+    {
+      "op": "M",
+      "shape": [
+        256,
+        256
+      ],
+      "flops": 33554432,
+      "layer_us": 408.95,
+      "mflop_per_us": 0.08302469875046393
+    },
+    {
+      "op": "C",
+      "shape": [
+        1,
+        32,
+        32,
+        16
+      ],
+      "flops": 4718592,
+      "layer_us": 291.45,
+      "mflop_per_us": 0.01646116169544741
+    },
+    {
+      "op": "C",
+      "shape": [
+        2,
+        32,
+        32,
+        16
+      ],
+      "flops": 9437184,
+      "layer_us": 610.0,
+      "mflop_per_us": 0.01559349636483807
+    },
+    {
+      "op": "C",
+      "shape": [
+        4,
+        32,
+        32,
+        16
+      ],
+      "flops": 18874368,
+      "layer_us": 1011.8,
+      "mflop_per_us": 0.01874316583912612
+    },
+    {
+      "op": "C",
+      "shape": [
+        8,
+        32,
+        32,
+        16
+      ],
+      "flops": 37748736,
+      "layer_us": 1833.05,
+      "mflop_per_us": 0.020647469437987148
+    },
+    {
+      "op": "C",
+      "shape": [
+        16,
+        32,
+        32,
+        16
+      ],
+      "flops": 75497472,
+      "layer_us": 1474.3,
+      "mflop_per_us": 0.051376299421571965
+    }
+  ],
+  "calibration_ns": 713800200
+}

@@ -41,9 +41,14 @@ def prefix(node):
     return {n for n in found if work(n)>0}
 
 
-def baseline_facts(case):
+def baseline_facts(case, *, hlo=None):
     path=ROOT/"results/cpu/baselines"/case/"optimized_hlo.txt"
-    graph=Module(path.read_text(encoding="utf8"))
+    if hlo is None:
+        text, digest = path.read_text(encoding="utf8"), sha(path)
+    else:
+        import hashlib
+        text, digest = hlo, hashlib.sha256(hlo.encode("utf8")).hexdigest()
+    graph=Module(text)
     main=graph.main
     main_flops=sum(work(n) for n in main)
     inputs=[op for op in graph.comps[graph.entry] if op.kind=="parameter"]
@@ -62,11 +67,12 @@ def baseline_facts(case):
                 fanout=sum(len(set(graph.children[n])) for seq in candidates for n in seq),
                 dots=sum(n.op.kind=="dot" for n in main),convs=sum(n.op.kind=="convolution" for n in main),
                 base_reductions=sum(n.op.kind.startswith("reduce") for n in main),
-                baseline_hlo_sha256=sha(path))
+                baseline_hlo_sha256=digest)
 
 
-def features(case,variant,facts):
-    _,shape,_=describe(case)
+def features(case,variant,facts,*,shape=None):
+    if shape is None:
+        _,shape,_=describe(case)
     n=math.prod(shape)
     tiled=variant.startswith("V4")
     tile=int(variant[4:]) if tiled else 0

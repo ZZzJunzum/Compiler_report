@@ -1,0 +1,805 @@
+{
+  "workloads": [
+    {
+      "name": "EH0_chain",
+      "ops": "EE",
+      "shape": [
+        32,
+        192
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 6144
+    },
+    {
+      "name": "EH0_branch",
+      "ops": "EE",
+      "shape": [
+        32,
+        192
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 6144
+    },
+    {
+      "name": "EH1_chain",
+      "ops": "EE",
+      "shape": [
+        128,
+        320
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S128",
+        "J128"
+      ],
+      "elements": 40960
+    },
+    {
+      "name": "EH1_branch",
+      "ops": "EE",
+      "shape": [
+        128,
+        320
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S128",
+        "J128"
+      ],
+      "elements": 40960
+    },
+    {
+      "name": "EH2_chain",
+      "ops": "EE",
+      "shape": [
+        512,
+        640
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 327680
+    },
+    {
+      "name": "EH2_branch",
+      "ops": "EE",
+      "shape": [
+        512,
+        640
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 327680
+    },
+    {
+      "name": "MH0_chain",
+      "ops": "MM",
+      "shape": [
+        32,
+        192
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 6144
+    },
+    {
+      "name": "MH0_branch",
+      "ops": "MM",
+      "shape": [
+        32,
+        192
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 6144
+    },
+    {
+      "name": "MH1_chain",
+      "ops": "MM",
+      "shape": [
+        128,
+        320
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S128",
+        "J128"
+      ],
+      "elements": 40960
+    },
+    {
+      "name": "MH1_branch",
+      "ops": "MM",
+      "shape": [
+        128,
+        320
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S128",
+        "J128"
+      ],
+      "elements": 40960
+    },
+    {
+      "name": "MH2_chain",
+      "ops": "MM",
+      "shape": [
+        512,
+        640
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 327680
+    },
+    {
+      "name": "MH2_branch",
+      "ops": "MM",
+      "shape": [
+        512,
+        640
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 327680
+    },
+    {
+      "name": "NH0_chain",
+      "ops": "NN",
+      "shape": [
+        32,
+        192
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 6144
+    },
+    {
+      "name": "NH0_branch",
+      "ops": "NN",
+      "shape": [
+        32,
+        192
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 6144
+    },
+    {
+      "name": "NH1_chain",
+      "ops": "NN",
+      "shape": [
+        128,
+        320
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S128",
+        "J128"
+      ],
+      "elements": 40960
+    },
+    {
+      "name": "NH1_branch",
+      "ops": "NN",
+      "shape": [
+        128,
+        320
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S128",
+        "J128"
+      ],
+      "elements": 40960
+    },
+    {
+      "name": "NH2_chain",
+      "ops": "NN",
+      "shape": [
+        512,
+        640
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 327680
+    },
+    {
+      "name": "NH2_branch",
+      "ops": "NN",
+      "shape": [
+        512,
+        640
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 327680
+    },
+    {
+      "name": "CH0_chain",
+      "ops": "CC",
+      "shape": [
+        2,
+        24,
+        24,
+        24
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S2",
+        "J2"
+      ],
+      "elements": 27648
+    },
+    {
+      "name": "CH0_branch",
+      "ops": "CC",
+      "shape": [
+        2,
+        24,
+        24,
+        24
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S2",
+        "J2"
+      ],
+      "elements": 27648
+    },
+    {
+      "name": "CH1_chain",
+      "ops": "CC",
+      "shape": [
+        4,
+        40,
+        40,
+        32
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S2",
+        "J2",
+        "S4",
+        "J4"
+      ],
+      "elements": 204800
+    },
+    {
+      "name": "CH1_branch",
+      "ops": "CC",
+      "shape": [
+        4,
+        40,
+        40,
+        32
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S2",
+        "J2",
+        "S4",
+        "J4"
+      ],
+      "elements": 204800
+    },
+    {
+      "name": "CH2_chain",
+      "ops": "CC",
+      "shape": [
+        8,
+        48,
+        48,
+        48
+      ],
+      "top": "chain",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S2",
+        "J2",
+        "S4",
+        "J4",
+        "S8",
+        "J8"
+      ],
+      "elements": 884736
+    },
+    {
+      "name": "CH2_branch",
+      "ops": "CC",
+      "shape": [
+        8,
+        48,
+        48,
+        48
+      ],
+      "top": "branch",
+      "group": "primary",
+      "size": 2,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S2",
+        "J2",
+        "S4",
+        "J4",
+        "S8",
+        "J8"
+      ],
+      "elements": 884736
+    },
+    {
+      "name": "NMH0_chain",
+      "ops": "NM",
+      "shape": [
+        32,
+        320
+      ],
+      "top": "chain",
+      "group": "transfer",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 10240
+    },
+    {
+      "name": "NMH1_chain",
+      "ops": "NM",
+      "shape": [
+        512,
+        192
+      ],
+      "top": "chain",
+      "group": "transfer",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 98304
+    },
+    {
+      "name": "MNH0_chain",
+      "ops": "MN",
+      "shape": [
+        32,
+        320
+      ],
+      "top": "chain",
+      "group": "transfer",
+      "size": 0,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S32",
+        "J32"
+      ],
+      "elements": 10240
+    },
+    {
+      "name": "MNH1_chain",
+      "ops": "MN",
+      "shape": [
+        512,
+        192
+      ],
+      "top": "chain",
+      "group": "transfer",
+      "size": 1,
+      "candidates": [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "S1",
+        "J1",
+        "S4",
+        "J4",
+        "S16",
+        "J16",
+        "S64",
+        "J64",
+        "S256",
+        "J256",
+        "S512",
+        "J512"
+      ],
+      "elements": 98304
+    }
+  ],
+  "weight_seed": 1103,
+  "validation_seeds": [
+    101,
+    4471,
+    8231
+  ],
+  "timed_seed": 101,
+  "processes": {
+    "mechanism": 5,
+    "development": 3,
+    "discovery": 2,
+    "confirmation": 5
+  },
+  "timed_rounds": {
+    "mechanism": 30,
+    "development": 20,
+    "discovery": 8,
+    "confirmation": 30
+  },
+  "warmup_rounds": 6,
+  "bootstrap": {
+    "reps": 10000,
+    "seed": 32041
+  },
+  "margin_ratio": 0.95,
+  "p90_allowance": 0.02,
+  "tie_order": "V2, V1, V3, then separate/joint in ascending legal extent",
+  "primary_selection": "Minimum whole-family outer mean log regret among full-domain static models",
+  "discovery": "Strict majority of two paired processes and median gain above V2 four-alias p95"
+}
