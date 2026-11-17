@@ -24,3 +24,12 @@ reproduction/
 /paper/FusionScope.log
 /paper/FusionScope.out
 /paper/FusionScope.pdf
+/output/pdf/*.log
+/output/pdf/*.out
+/texput.log
+# Historical full archives are retrievable from the immutable Phase II Git revision.
+/results/cpu/
+/results/reproducibility/
+# Local compiler dumps and TeX build directories.
+/dump/
+/paper/build/

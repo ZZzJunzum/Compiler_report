@@ -1,6 +1,0 @@
-case,mode,process,lower_ns,compile_ns,split_setup_ns
-E3_chain,pre_pre,4,8894400,93584500,
-E3_chain,post_pre,4,7358300,104338000,
-E3_chain,split_pre_pre,4,,,157312000
-E3_chain,split_post_pre,4,,,123350600
-E3_chain,base,4,11391000,22332800,
