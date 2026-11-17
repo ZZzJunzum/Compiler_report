@@ -13,3 +13,14 @@ reproduction/
 .pytest_cache/
 .ruff_cache/
 *.pyprof
+# Local LaTeX side files; the released PDF is in output/pdf/.
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+/FusionScope.log
+/FusionScope.out
+/FusionScope.pdf
+/paper/FusionScope.log
+/paper/FusionScope.out
+/paper/FusionScope.pdf

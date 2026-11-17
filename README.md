@@ -2,6 +2,10 @@
 
 推理程序每次都要返回主输出和两层 ReLU 的精确正激活数。第一阶段移动计数的位置，第二阶段保持观测位置固定，改变归约、共享激活和分块的方式，再检验能否用原程序的 IR 选出更快的方案。
 
+**[两阶段英文论文（PDF）](output/pdf/FusionScope.pdf)** · [独立可编译的 LaTeX 源文件](paper/FusionScope.tex) · [第三阶段实验计划（英文）](docs/plans/FusionScope_Phase3_Research_Plan.md)
+
+论文用冻结的预测和特征表逐项检验了模型排序。联合归约在全部 186 次比较的五项估计成本上都不高于对手，其中归约层数严格更少。第三阶段计划据此比较新的成本特征、仅试两个候选的选择方法和各自的编译及试跑成本。[复核诊断的脚本](paper/check_diagnostics.py)
+
 | 阶段 | 研究问题 | 报告与证据 |
 |---|---|---|
 | 一 · 观测位置 | ReLU 前后计数会改变融合边界和耗时吗？ | [中文报告](results/cpu/report/REPORT.md) · [九配置先导](results/cpu/pilot/first_report.md) · [独立复跑](results/reproducibility/README.md) |
@@ -30,6 +34,8 @@ IR 模型 M2 在未见图族上的选择损失中位数为 **0.956%**，固定�
 ![实测四种位置与噪声](results/cpu/report/figures/02-placement-and-noise.png)
 
 ## 在本机运行
+
+论文源文件内含图表、数据点和参考文献，可单独上传 Overleaf，或用 pdfLaTeX 编译两次。在仓库根目录运行 `python paper/check_diagnostics.py` 可用 Python 标准库复核论文新增的模型比较和图中数据。
 
 下面的命令在仓库根目录的 PowerShell 中执行。正式结果使用 Python 3.12.5、JAX/jaxlib 0.9.0.1 和 Flax 0.12.3。Windows 可使用完整依赖锁；其他支持 JAX 的平台可从 `requirements.txt` 安装。[测量环境](results/cpu/matrix/env_p0.json)
 
