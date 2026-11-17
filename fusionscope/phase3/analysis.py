@@ -265,6 +265,16 @@ def analyze(out):
     print(json.dumps(result,indent=2),flush=True)
 
 
+def checked_table(path, rows):
+    """Verify the published derived rows or materialize them for a new experiment."""
+    if path.exists():
+        normalized=[{k:str(v) for k,v in r.items()} for r in rows]
+        if records(path)!=normalized:
+            raise ValueError(f"Stored table differs from the raw cohorts: {path}")
+    else:
+        table(path,rows)
+
+
 def compare_replay(out):
     from fusionscope.hlo import Module
     a,b=cohort(out,"mechanism"),cohort(out/"replay","mechanism")
@@ -283,13 +293,7 @@ def compare_replay(out):
                              original_floor_us=a[c]["floor"],replay_floor_us=b[c]["floor"],
                              original_valid=v not in a[c]["invalid"],replay_valid=v not in b[c]["invalid"],
                              hlo_match=first==second,original_sha="|".join(sorted(first)),replay_sha="|".join(sorted(second))))
-    path=out/"analysis/replay.csv"
-    if path.exists():
-        normalized=[{k:str(v) for k,v in r.items()} for r in rows]
-        if records(path)!=normalized:
-            raise ValueError("Stored replay comparison differs from the two raw cohorts")
-    else:
-        table(path,rows)
+    checked_table(out/"analysis/replay.csv",rows)
     return rows
 
 
@@ -312,7 +316,7 @@ def verify(out):
     stages=[(out,s,"") for s in ("mechanism","development","confirmation")]
     stages.extend((out,"discovery",p) for p in ("rank_alt","fixed_alt"))
     stages.append((out/"replay","mechanism",""))
-    stats=[]
+    stats,process_medians=[],[]
     ir_checked={}
     for root,stage,policy in stages:
         group=stage if root==out else "replay"
@@ -332,11 +336,17 @@ def verify(out):
             options={c.name:(["V2",static["choices"][c.name][policy]] if policy else
                           mechanism_options(c) if stage=="mechanism" else c.options) for c in cs}
             blocks=defaultdict(list)
+            measured=defaultdict(list)
             for r in zip_rows(path,"timings.csv"):
                 if int(r["elapsed_ns"])<=0:
                     raise ValueError("Nonpositive dispatch time")
                 blocks[r["case"],r["block"],int(r["round"])].append((int(r["order"]),r["variant"]))
+                if int(r["round"])>=0:
+                    measured[r["case"],r["block"],r["variant"]].append(int(r["elapsed_ns"]))
                 calls+=1
+            for (case,block,variant),samples in sorted(measured.items()):
+                process_medians.append(dict(stage=group,policy=policy,process=i,case=case,block=block,
+                      variant=variant,samples=len(samples),median_us=median(samples)/1000))
             wanted={}
             for c in cs:
                 lanes=("V2",) if policy else ("V0","V1","V2")
@@ -405,6 +415,7 @@ def verify(out):
             if by_case[c.name]["timed_"+k]["chosen"]!=frozen["choices"][c.name][k]:
                 raise ValueError("Published choice differs from discovery lock")
     replay=compare_replay(out)
+    checked_table(out/"analysis/process_medians.csv",process_medians)
     # Write verification outputs only on first publication. On later runs verify the archived bytes.
     verification=dict(cohorts=stats,unique_ir_components=len(ir_checked),replay_configurations=len(replay),
                       replay_matching=sum(r["hlo_match"] for r in replay),
