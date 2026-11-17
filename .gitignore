@@ -4,9 +4,10 @@ __pycache__/
 .scratch/
 reproduction/
 *.partial
-# Local input copies and the historical starter lab are available at f2df6a2.
+# Original attachments stay local. The versioned research plans live under docs/.
 /FusionScope_*.zip
 /FusionScope_*Plan*.md
+# The archived Phase I starter lab is available in commit f2df6a2.
 /lab01/
 # Backend scratch data and local development caches
 .pytest_cache/

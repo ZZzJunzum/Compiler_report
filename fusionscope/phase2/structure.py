@@ -29,7 +29,7 @@ def inspect(hlo,case,variant):
     for nodes,multiplier in contexts:
         signatures=expression_keys(nodes)
         grouped=defaultdict(list)
-        for n in nodes:
+        for n in sorted(nodes,key=lambda value:(value.op.line,value.group)):
             op=n.op
             if source_stage(op.scope) and op.kind in ARITH:
                 grouped[(op.scope,op.kind,op.shape,signatures[n])].append(n)
@@ -48,7 +48,7 @@ def inspect(hlo,case,variant):
                     flops+=multiplier*extra*math.prod(dims(shape))
     reds=[op for op in ops if op.kind in ("reduce","reduce-window")]
     joint=[op for op in reds if op.kind=="reduce" and op.shape.startswith("(")]
-    return {"static_extra_tagged_ops":copies,"estimated_extra_simple_flops":flops,
+    return {"canonical_hlo_sha256":graph.fingerprint(),"static_extra_tagged_ops":copies,"estimated_extra_simple_flops":flops,
             "duplicate_lines":";".join(matches),"source_scope_coverage":"partial_official" if case.startswith("R") else "synthetic",
             "full_exported_s32_mask_bytes":full_bytes,"exported_s32_bytes_per_body_sum":export_bytes,
             "export_lines":"|".join(export_lines),"reduce_sites":len(reds),
@@ -71,6 +71,10 @@ def components(out,archives):
                 ir=z.read(member).decode()
                 rows.append(dict(case=case,variant=variant,component=part,ir_archive=file,member=member,
                                  **inspect(ir,case,variant)))
+    baseline={r["ir_archive"]:r["canonical_hlo_sha256"] for r in rows if r["variant"]=="V1"}
+    for r in rows:
+        r["same_single_executable_as_V1"]=(r["component"]=="main" and
+                                           r["canonical_hlo_sha256"]==baseline[r["ir_archive"]])
     return rows
 
 

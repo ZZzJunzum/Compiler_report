@@ -1,10 +1,21 @@
-# FusionScope · 用编译器 IR 预测 XLA 中间激活观测的开销
+# FusionScope · XLA 激活观测、算子融合与执行开销
 
-同一个正激活计数可以在 ReLU 前后计算。保持模型输出、输入权重和两个计数完全相同，只移动计数分支，编译器会生成什么？只看原程序的 IR，能提前选出更便宜的位置吗？
+推理程序每次都要返回主输出和两层 ReLU 的精确正激活数。第一阶段移动计数的位置，第二阶段保持观测位置固定，改变归约、共享激活和分块的方式，再检验能否用原程序的 IR 选出更快的方案。
 
-**[阅读中文研究报告](results/cpu/report/REPORT.md)** · [先看第一张九配置实表](results/cpu/pilot/first_report.md) · [独立复跑对照](results/reproducibility/README.md)
+| 阶段 | 研究问题 | 报告与证据 |
+|---|---|---|
+| 一 · 观测位置 | ReLU 前后计数会改变融合边界和耗时吗？ | [中文报告](results/cpu/report/REPORT.md) · [九配置先导](results/cpu/pilot/first_report.md) · [独立复跑](results/reproducibility/README.md) |
+| 二 · 重复计算与分块 | 两层的计数怎样共享计算，块大小改变什么？ | **[中文报告](results/phase2/report/REPORT.md)** · [五例 HLO 审计](results/phase2/analysis/PHASE0.md) · [六篇原始论文的依据](docs/phase2-literature.md) |
 
-## 实测结果
+## 第二阶段结果
+
+在单个逻辑 CPU 上完成 32 个合成条件的 250 个配置和两个官方 Flax ResNet 子图的 8 个配置。共 6,507 项输出校验通过。大逐元素分支的联合归约将两个跨融合体的 4 MiB 掩码消除，相对两次独立计数加速 **3.07×**。按 16 行分块加速 **1.86×**，在大卷积上每块 2 个样本却只达到原速度的 **0.43×**。两个 ResNet 子图中，联合归约相对独立计数的配对时间差都低于 A/A 波动阈值。[测量与判定规则](results/phase2/protocol.json) · [逐案结果](results/phase2/analysis/timings.csv)
+
+在整图族留出的独立确认中，解析模型对 32 个合成条件全部选择了联合归约，与固定联合归约的选择损失中位数同为 **10.9%**。岭回归的该项损失为 **31.0%**。先在发现批实测各个块大小，再把最快的块用于确认批，有 **26/32** 个条件距最快合法方案在波动阈值内。这项对照需要额外的编译和测量预算。[测试前封存的推荐](results/phase2/model/prediction_lock.json) · [策略全表](results/phase2/model/policy_summary.csv)
+
+![独立复测的分块趋势](results/phase2/figures/tile-sweep.png)
+
+## 第一阶段结果
 
 在 Intel Core i5-13420H 上，逐元素、全连接、归一化与卷积四个图族共 32 个条件、288 个编译配置。对每个条件，四种双点位置都生成了相同的优化后 HLO 计算体。三个新进程的独立复测也未能为这 32 个条件的前两名稳定排序。增加计数本身有成本，128 个双点配置的延迟相对基线中位数为 **1.107×**。[配对时延](results/cpu/report/tables/latencies.csv) · [同一可执行文件的 A/A 波动](results/cpu/report/tables/noise.csv)
 
@@ -24,19 +35,33 @@ IR 模型 M2 在未见图族上的选择损失中位数为 **0.956%**，固定�
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-windows-lock.txt
 .\.venv\Scripts\python.exe run.py --stage verify
+.\.venv\Scripts\python.exe -m fusionscope.phase2.experiment --stage verify
 .\.venv\Scripts\python.exe run.py --stage recommend --case R2
 ```
 
 最后一条命令读取未观测 R2 基线的特征和锁定的模型，列出四种候选、预测倍率、选择及回退原因。查询 `minimum_before_relu` 会被明确拒绝。自定义带有 `u_relu`、`v_relu` 标记的基线函数也可直接传给 `recommend_program`。[选择工具接口](docs/METHODS.md#对自己的基线调用选择工具)
 
-从独立目录重做先导，或从头运行整套实验。两条命令共用恢复点。使用新的 `--out` 路径可保留多次运行。
+从仓库根目录重做实验。第一阶段的先导与全量命令共用恢复点，两阶段分别写入自己的输出目录。
 
 ```powershell
 .\.venv\Scripts\python.exe run.py --stage first --out reproduction/cpu
 .\.venv\Scripts\python.exe run.py --stage all --backend cpu --out reproduction/cpu
+.\.venv\Scripts\python.exe -m fusionscope.phase2.experiment --stage all --out reproduction/phase2
 ```
 
-分阶段入口依次为 `pilot`、`matrix`、`model`、`confirm`、`external`、`controls`、`lowering`、`report`、`verify`。计时进程按顺序运行；同一次运行使用同一个输出目录。已有结果可直接重建报告和全表。CPU 是已验证后端。GPU 入口供具备兼容 JAX CUDA 环境的服务器使用，其计时、模型和证据应写入独立设备目录。
+第一阶段入口依次为 `pilot`、`matrix`、`model`、`confirm`、`external`、`controls`、`lowering`、`report`、`verify`。第二阶段为 `audit`、`screen`、`matrix`、`model`、`confirm`、`external`、`report`、`verify`。第二阶段从仓库内已归档的第一阶段基线 HLO 开始，可以独立执行。计时进程按顺序启动，每次运行全程使用同一输出目录。`report` 和 `verify` 默认读取发布结果，运行新实验时使用新的 `--out`。两阶段的实测后端均为 CPU。
+
+## 目录
+
+| 位置 | 内容 |
+|---|---|
+| [docs](docs/) | 两阶段任务书、第一阶段方法和第二阶段论文笔记。[第二阶段原始计划](docs/plans/FusionScope_Phase2_Research_Plan.md) |
+| [fusionscope](fusionscope/) | 共用图定义、计时和 HLO 解析。第二阶段的候选、成本模型及验证器在 [phase2](fusionscope/phase2/) |
+| [results/cpu](results/cpu/) 与 [results/reproducibility](results/reproducibility/) | 第一阶段的正式实验与干净克隆复跑 |
+| [results/phase2](results/phase2/) | `screening`、`matrix`、`confirmation`、`external` 按进程保存原始 ZIP。编译记录指向 [IR 归档](results/phase2/ir/)，[汇总表](results/phase2/analysis/)、[冻结模型](results/phase2/model/)、[图](results/phase2/figures/) 与 [完整性校验](results/phase2/report/audit.json) 分开存放 |
+| [vendor](vendor/) | 固定版本的官方 Flax ResNet 实现与许可 |
+
+本地新跑的数据写入 `reproduction/`，虚拟环境、缓存、原始附件副本和旧 Lab 工作目录由 Git 忽略。第一阶段报告引用的旧任务书保留原路径，历史 Lab 可从冻结提交获取。
 
 ## 从研究问题查数据
 
