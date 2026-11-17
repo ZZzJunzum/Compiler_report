@@ -1,0 +1,75 @@
+Total bytes used: 16785516 (16.01MiB)
+
+Allocations sorted by size:
+
+cumulative_size; total_size - cumulative_size; allocation
+------------------------------------------------------------------------------
+   8.00MiB( 50%);    8.00MiB; allocation 28: size 8.00MiB, preallocated-temp:
+  12.00MiB( 75%);    4.00MiB; allocation 0: size 4.00MiB, maybe-live-out:
+  16.00MiB(100%);     4.1KiB; allocation 1: size 4.00MiB, parameter 0, shape |f32[4096,256]| at ShapeIndex {}:
+  16.00MiB(100%);     3.1KiB; allocation 2: size 1.0KiB, parameter 4, shape |f32[256]| at ShapeIndex {}:
+  16.01MiB(100%);     2.1KiB; allocation 3: size 1.0KiB, parameter 3, shape |f32[256]| at ShapeIndex {}:
+  16.01MiB(100%);     1.1KiB; allocation 4: size 1.0KiB, parameter 2, shape |f32[256]| at ShapeIndex {}:
+  16.01MiB(100%);       108B; allocation 5: size 1.0KiB, parameter 1, shape |f32[256]| at ShapeIndex {}:
+  16.01MiB(100%);        84B; allocation 6: size 24B, output shape is |(f32[4096,256], s32[], s32[])|, maybe-live-out:
+  16.01MiB(100%);        80B; allocation 7: size 4B, maybe-live-out:
+  16.01MiB(100%);        76B; allocation 8: size 4B, maybe-live-out:
+  16.01MiB(100%);        72B; allocation 9: size 4B, constant:
+  16.01MiB(100%);        68B; allocation 10: size 4B, thread-local:
+  16.01MiB(100%);        64B; allocation 11: size 4B, thread-local:
+  16.01MiB(100%);        60B; allocation 12: size 4B, thread-local:
+  16.01MiB(100%);        56B; allocation 13: size 4B, thread-local:
+  16.01MiB(100%);        52B; allocation 14: size 4B, thread-local:
+  16.01MiB(100%);        48B; allocation 15: size 4B, thread-local:
+  16.01MiB(100%);        44B; allocation 16: size 4B, thread-local:
+  16.01MiB(100%);        40B; allocation 17: size 4B, thread-local:
+  16.01MiB(100%);        36B; allocation 18: size 4B, thread-local:
+  16.01MiB(100%);        32B; allocation 19: size 4B, thread-local:
+  16.01MiB(100%);        28B; allocation 20: size 4B, thread-local:
+  16.01MiB(100%);        24B; allocation 21: size 4B, thread-local:
+  16.01MiB(100%);        20B; allocation 22: size 4B, thread-local:
+  16.01MiB(100%);        16B; allocation 23: size 4B, thread-local:
+  16.01MiB(100%);        12B; allocation 24: size 4B, thread-local:
+  16.01MiB(100%);         8B; allocation 25: size 4B, thread-local:
+  16.01MiB(100%);         4B; allocation 26: size 4B, thread-local:
+  16.01MiB(100%);         0B; allocation 27: size 4B, thread-local:
+
+
+Allocations sorted by size with their values:
+allocation 28: size 8.00MiB, preallocated-temp:
+
+	cumulative_size;       size;       offset; used_by_n_values; shapes_list
+	------------------------------------------------------------
+	  4.00MiB( 50%);    4.00MiB;      4194304;                2; s32[128,8], s32[4096,256]
+	  8.00MiB(100%);    4.00MiB;            0;                2; s32[4,1], s32[4096,256]
+	  8.00MiB(100%);     4.0KiB;      8388608;                1; s32[128,8]
+	  8.00MiB(100%);        16B;      4198400;                1; s32[4,1]
+
+allocation 0: size 4.00MiB, maybe-live-out:
+allocation 1: size 4.00MiB, parameter 0, shape |f32[4096,256]| at ShapeIndex {}:
+allocation 2: size 1.0KiB, parameter 4, shape |f32[256]| at ShapeIndex {}:
+allocation 3: size 1.0KiB, parameter 3, shape |f32[256]| at ShapeIndex {}:
+allocation 4: size 1.0KiB, parameter 2, shape |f32[256]| at ShapeIndex {}:
+allocation 5: size 1.0KiB, parameter 1, shape |f32[256]| at ShapeIndex {}:
+allocation 6: size 24B, output shape is |(f32[4096,256], s32[], s32[])|, maybe-live-out:
+allocation 7: size 4B, maybe-live-out:
+allocation 8: size 4B, maybe-live-out:
+allocation 9: size 4B, constant:
+allocation 10: size 4B, thread-local:
+allocation 11: size 4B, thread-local:
+allocation 12: size 4B, thread-local:
+allocation 13: size 4B, thread-local:
+allocation 14: size 4B, thread-local:
+allocation 15: size 4B, thread-local:
+allocation 16: size 4B, thread-local:
+allocation 17: size 4B, thread-local:
+allocation 18: size 4B, thread-local:
+allocation 19: size 4B, thread-local:
+allocation 20: size 4B, thread-local:
+allocation 21: size 4B, thread-local:
+allocation 22: size 4B, thread-local:
+allocation 23: size 4B, thread-local:
+allocation 24: size 4B, thread-local:
+allocation 25: size 4B, thread-local:
+allocation 26: size 4B, thread-local:
+allocation 27: size 4B, thread-local:

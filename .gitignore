@@ -4,3 +4,11 @@ __pycache__/
 .scratch/
 reproduction/
 *.partial
+# Local input copies and the historical starter lab are available at f2df6a2.
+/FusionScope_*.zip
+/FusionScope_*Plan*.md
+/lab01/
+# Backend scratch data and local development caches
+.pytest_cache/
+.ruff_cache/
+*.pyprof

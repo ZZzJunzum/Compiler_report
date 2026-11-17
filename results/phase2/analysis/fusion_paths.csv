@@ -1,0 +1,537 @@
+case,mode,hlo,output,body,call_path,line,opcode,shape,source,dependencies
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,58,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/mul,83
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,59,multiply,"f32[16,256]{1,0}",jit(workload)/u_z/mul,82 58
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,61,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/add,84
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,62,add,"f32[16,256]{1,0}",jit(workload)/u_z/add,59 61
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,63,constant,f32[],,
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,64,broadcast,"f32[16,256]{1,0}",,63
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,65,maximum,"f32[16,256]{1,0}",jit(workload)/u_relu/max,62 64
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,67,broadcast,"f32[16,256]{1,0}",jit(workload)/v_z/mul,85
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,68,multiply,"f32[16,256]{1,0}",jit(workload)/v_z/mul,65 67
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,70,broadcast,"f32[16,256]{1,0}",jit(workload)/v_z/add,86
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,71,add,"f32[16,256]{1,0}",jit(workload)/v_z/add,68 70
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,72,maximum,"f32[16,256]{1,0}",jit(workload)/v_relu/max,71 64
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,73,constant,f32[],,
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,74,broadcast,"f32[16,256]{1,0}",jit(workload)/readout/mul,73
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,75,multiply,"f32[16,256]{1,0}",jit(workload)/readout/mul,72 74
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,76,constant,f32[],,
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,77,broadcast,"f32[16,256]{1,0}",jit(workload)/readout/add,76
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,fused_computation,/L87,78,add,"f32[16,256]{1,0}",jit(workload)/readout/add,75 77
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,main.1,/L82,82,parameter,"f32[16,256]{1,0}",x,
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,main.1,/L83,83,parameter,f32[256]{0},params[0],
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,main.1,/L84,84,parameter,f32[256]{0},params[1],
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,main.1,/L85,85,parameter,f32[256]{0},params[2],
+E0_chain,base,results/cpu/matrix/ir/E0_chain/base/optimized_hlo.txt,y,main.1,/L86,86,parameter,f32[256]{0},params[3],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,64,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/mul,172
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,65,multiply,"f32[16,256]{1,0}",jit(workload)/u_z/mul,171 64
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,67,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/add,173
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,68,add,"f32[16,256]{1,0}",jit(workload)/u_z/add,65 67
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,69,constant,f32[],,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,70,broadcast,"f32[16,256]{1,0}",,69
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,71,maximum,"f32[16,256]{1,0}",jit(workload)/u_relu/max,68 70
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,73,broadcast,"f32[16,256]{1,0}",jit(workload)/v_z/mul,174
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,74,multiply,"f32[16,256]{1,0}",jit(workload)/v_z/mul,71 73
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,76,broadcast,"f32[16,256]{1,0}",jit(workload)/v_z/add,175
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,77,add,"f32[16,256]{1,0}",jit(workload)/v_z/add,74 76
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,78,compare,"pred[16,256]{1,0}",jit(workload)/probe_v/gt,77 70
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L179,79,convert,"s32[16,256]{1,0}",jit(workload)/probe_v/convert_element_type,78
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,85,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/mul,172
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,86,multiply,"f32[16,256]{1,0}",jit(workload)/u_z/mul,171 85
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,88,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/add,173
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,89,add,"f32[16,256]{1,0}",jit(workload)/u_z/add,86 88
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,90,constant,f32[],,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,91,broadcast,"f32[16,256]{1,0}",,90
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,92,compare,"pred[16,256]{1,0}",jit(workload)/probe_u/gt,89 91
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L177,93,convert,"s32[16,256]{1,0}",jit(workload)/probe_u/convert_element_type,92
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,99,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/mul,172
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,100,multiply,"f32[16,256]{1,0}",jit(workload)/u_z/mul,171 99
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,102,broadcast,"f32[16,256]{1,0}",jit(workload)/u_z/add,173
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,103,add,"f32[16,256]{1,0}",jit(workload)/u_z/add,100 102
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,104,constant,f32[],,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,105,broadcast,"f32[16,256]{1,0}",,104
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,106,maximum,"f32[16,256]{1,0}",jit(workload)/u_relu/max,103 105
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,108,broadcast,"f32[16,256]{1,0}",jit(workload)/v_z/mul,174
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,109,multiply,"f32[16,256]{1,0}",jit(workload)/v_z/mul,106 108
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,111,broadcast,"f32[16,256]{1,0}",jit(workload)/v_z/add,175
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,112,add,"f32[16,256]{1,0}",jit(workload)/v_z/add,109 111
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,113,maximum,"f32[16,256]{1,0}",jit(workload)/v_relu/max,112 105
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,114,constant,f32[],,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,115,broadcast,"f32[16,256]{1,0}",jit(workload)/readout/mul,114
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,116,multiply,"f32[16,256]{1,0}",jit(workload)/readout/mul,113 115
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,117,constant,f32[],,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,118,broadcast,"f32[16,256]{1,0}",jit(workload)/readout/add,117
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L178,119,add,"f32[16,256]{1,0}",jit(workload)/readout/add,116 118
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce-window_computation,/L180,131,reduce-window,"s32[1,8]{1,0}",,93 176
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce_computation,/L182,143,reduce,s32[],jit(workload)/probe_u/reduce_sum,131 176
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation.1,/L181,155,reduce-window,"s32[1,8]{1,0}",,79 176
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce_computation.1,/L183,167,reduce,s32[],jit(workload)/probe_v/reduce_sum,155 176
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,main.3,/L171,171,parameter,"f32[16,256]{1,0}",x,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,main.3,/L171,171,parameter,"f32[16,256]{1,0}",x,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,main.3,/L171,171,parameter,"f32[16,256]{1,0}",x,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,main.3,/L172,172,parameter,f32[256]{0},params[0],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,main.3,/L172,172,parameter,f32[256]{0},params[0],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,main.3,/L172,172,parameter,f32[256]{0},params[0],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,main.3,/L173,173,parameter,f32[256]{0},params[1],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,main.3,/L173,173,parameter,f32[256]{0},params[1],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,main.3,/L173,173,parameter,f32[256]{0},params[1],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,main.3,/L174,174,parameter,f32[256]{0},params[2],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,main.3,/L174,174,parameter,f32[256]{0},params[2],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,y,main.3,/L175,175,parameter,f32[256]{0},params[3],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,main.3,/L175,175,parameter,f32[256]{0},params[3],
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,main.3,/L176,176,constant,s32[],,
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,main.3,/L176,176,constant,s32[],,
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,62,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,91
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,63,multiply,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,90 62
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,65,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/add,92
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,66,add,"f32[4096,256]{1,0}",jit(workload)/u_z/add,63 65
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,67,constant,f32[],,
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,68,broadcast,"f32[4096,256]{1,0}",,67
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,69,maximum,"f32[4096,256]{1,0}",jit(workload)/u_relu/max,66 68
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,71,broadcast,"f32[4096,256]{1,0}",jit(workload)/v_z/mul,93
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,72,multiply,"f32[4096,256]{1,0}",jit(workload)/v_z/mul,69 71
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,74,broadcast,"f32[4096,256]{1,0}",jit(workload)/v_z/add,94
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,75,add,"f32[4096,256]{1,0}",jit(workload)/v_z/add,72 74
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,76,maximum,"f32[4096,256]{1,0}",jit(workload)/v_relu/max,75 68
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,77,constant,f32[],,
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,78,broadcast,"f32[4096,256]{1,0}",jit(workload)/readout/mul,77
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,79,multiply,"f32[4096,256]{1,0}",jit(workload)/readout/mul,76 78
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,80,constant,f32[],,
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,81,broadcast,"f32[4096,256]{1,0}",jit(workload)/readout/add,80
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,82,add,"f32[4096,256]{1,0}",jit(workload)/readout/add,79 81
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,83,constant,f32[],,
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,84,broadcast,"f32[4096,256]{1,0}",jit(workload)/readout/mul,83
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,85,multiply,"f32[4096,256]{1,0}",jit(workload)/readout/mul,69 84
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,fused_computation,/L95,86,add,"f32[4096,256]{1,0}",jit(workload)/readout/add,82 85
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,main.1,/L90,90,parameter,"f32[4096,256]{1,0}",x,
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,main.1,/L91,91,parameter,f32[256]{0},params[0],
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,main.1,/L92,92,parameter,f32[256]{0},params[1],
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,main.1,/L93,93,parameter,f32[256]{0},params[2],
+E3_branch,base,results/cpu/matrix/ir/E3_branch/base/optimized_hlo.txt,y,main.1,/L94,94,parameter,f32[256]{0},params[3],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,68,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,204
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,69,multiply,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,203 68
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,71,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/add,205
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,72,add,"f32[4096,256]{1,0}",jit(workload)/u_z/add,69 71
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,73,constant,f32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,74,broadcast,"f32[4096,256]{1,0}",,73
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,75,maximum,"f32[4096,256]{1,0}",jit(workload)/u_relu/max,72 74
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,77,broadcast,"f32[4096,256]{1,0}",jit(workload)/v_z/mul,206
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,78,multiply,"f32[4096,256]{1,0}",jit(workload)/v_z/mul,75 77
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,80,broadcast,"f32[4096,256]{1,0}",jit(workload)/v_z/add,207
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,81,add,"f32[4096,256]{1,0}",jit(workload)/v_z/add,78 80
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,82,compare,"pred[4096,256]{1,0}",jit(workload)/probe_v/gt,81 74
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,fused_computation,/L211,83,convert,"s32[4096,256]{1,0}",jit(workload)/probe_v/convert_element_type,82
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,89,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,204
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,90,multiply,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,203 89
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,92,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/add,205
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,93,add,"f32[4096,256]{1,0}",jit(workload)/u_z/add,90 92
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,94,constant,f32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,95,broadcast,"f32[4096,256]{1,0}",,94
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,96,compare,"pred[4096,256]{1,0}",jit(workload)/probe_u/gt,93 95
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,fused_computation.1,/L209,97,convert,"s32[4096,256]{1,0}",jit(workload)/probe_u/convert_element_type,96
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,103,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,204
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,104,multiply,"f32[4096,256]{1,0}",jit(workload)/u_z/mul,203 103
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,106,broadcast,"f32[4096,256]{1,0}",jit(workload)/u_z/add,205
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,107,add,"f32[4096,256]{1,0}",jit(workload)/u_z/add,104 106
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,108,constant,f32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,109,broadcast,"f32[4096,256]{1,0}",,108
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,110,maximum,"f32[4096,256]{1,0}",jit(workload)/u_relu/max,107 109
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,112,broadcast,"f32[4096,256]{1,0}",jit(workload)/v_z/mul,206
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,113,multiply,"f32[4096,256]{1,0}",jit(workload)/v_z/mul,110 112
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,115,broadcast,"f32[4096,256]{1,0}",jit(workload)/v_z/add,207
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,116,add,"f32[4096,256]{1,0}",jit(workload)/v_z/add,113 115
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,117,maximum,"f32[4096,256]{1,0}",jit(workload)/v_relu/max,116 109
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,118,constant,f32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,119,broadcast,"f32[4096,256]{1,0}",jit(workload)/readout/mul,118
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,120,multiply,"f32[4096,256]{1,0}",jit(workload)/readout/mul,117 119
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,121,constant,f32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,122,broadcast,"f32[4096,256]{1,0}",jit(workload)/readout/add,121
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,123,add,"f32[4096,256]{1,0}",jit(workload)/readout/add,120 122
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,124,constant,f32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,125,broadcast,"f32[4096,256]{1,0}",jit(workload)/readout/mul,124
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,126,multiply,"f32[4096,256]{1,0}",jit(workload)/readout/mul,110 125
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,fused_computation.2,/L210,127,add,"f32[4096,256]{1,0}",jit(workload)/readout/add,123 126
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,wrapped_reduce-window_computation,/L212,139,reduce-window,"s32[128,8]{1,0}",,97 208
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,wrapped_reduce-window_computation.1,/L214,151,reduce-window,"s32[4,1]{1,0}",,139 208
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,wrapped_reduce_computation,/L216,163,reduce,s32[],jit(workload)/probe_u/reduce_sum,151 208
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation.2,/L213,175,reduce-window,"s32[128,8]{1,0}",,83 208
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation.3,/L215,187,reduce-window,"s32[4,1]{1,0}",,175 208
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,wrapped_reduce_computation.1,/L217,199,reduce,s32[],jit(workload)/probe_v/reduce_sum,187 208
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,main.3,/L203,203,parameter,"f32[4096,256]{1,0}",x,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,main.3,/L203,203,parameter,"f32[4096,256]{1,0}",x,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,main.3,/L203,203,parameter,"f32[4096,256]{1,0}",x,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,main.3,/L204,204,parameter,f32[256]{0},params[0],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,main.3,/L204,204,parameter,f32[256]{0},params[0],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,main.3,/L204,204,parameter,f32[256]{0},params[0],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,main.3,/L205,205,parameter,f32[256]{0},params[1],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,main.3,/L205,205,parameter,f32[256]{0},params[1],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,main.3,/L205,205,parameter,f32[256]{0},params[1],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,main.3,/L206,206,parameter,f32[256]{0},params[2],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,main.3,/L206,206,parameter,f32[256]{0},params[2],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,y,main.3,/L207,207,parameter,f32[256]{0},params[3],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,main.3,/L207,207,parameter,f32[256]{0},params[3],
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,main.3,/L208,208,constant,s32[],,
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,main.3,/L208,208,constant,s32[],,
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,58,broadcast,"f32[256,256]{1,0}",jit(workload)/v_z/add,86
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,59,add,"f32[256,256]{1,0}",jit(workload)/v_z/add,89 58
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,60,constant,f32[],,
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,61,broadcast,"f32[256,256]{1,0}",,60
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,62,maximum,"f32[256,256]{1,0}",jit(workload)/v_relu/max,59 61
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,63,constant,f32[],,
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,64,broadcast,"f32[256,256]{1,0}",jit(workload)/readout/mul,63
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,65,multiply,"f32[256,256]{1,0}",jit(workload)/readout/mul,62 64
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,66,constant,f32[],,
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,67,broadcast,"f32[256,256]{1,0}",jit(workload)/readout/add,66
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation,/L90,68,add,"f32[256,256]{1,0}",jit(workload)/readout/add,65 67
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L88,74,broadcast,"f32[256,256]{1,0}",jit(workload)/u_z/add,84
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L88,75,add,"f32[256,256]{1,0}",jit(workload)/u_z/add,87 74
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L88,76,constant,f32[],,
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L88,77,broadcast,"f32[256,256]{1,0}",,76
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L88,78,maximum,"f32[256,256]{1,0}",jit(workload)/u_relu/max,75 77
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L82,82,parameter,"f32[256,256]{1,0}",x,
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L83,83,parameter,"f32[256,256]{1,0}",params[0],
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L84,84,parameter,f32[256]{0},params[1],
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L85,85,parameter,"f32[256,256]{1,0}",params[2],
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L86,86,parameter,f32[256]{0},params[3],
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L87,87,dot,"f32[256,256]{1,0}",jit(workload)/u_z/dot_general,82 83
+M3_chain,base,results/cpu/matrix/ir/M3_chain/base/optimized_hlo.txt,y,main.1,/L89,89,dot,"f32[256,256]{1,0}",jit(workload)/v_z/dot_general,78 85
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L170,64,broadcast,"f32[256,256]{1,0}",jit(workload)/v_z/add,162
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L170,65,add,"f32[256,256]{1,0}",jit(workload)/v_z/add,167 64
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L170,66,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L170,67,broadcast,"f32[256,256]{1,0}",,66
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L170,68,compare,"pred[256,256]{1,0}",jit(workload)/probe_v/gt,65 67
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L170,69,convert,"s32[256,256]{1,0}",jit(workload)/probe_v/convert_element_type,68
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L166,75,broadcast,"f32[256,256]{1,0}",jit(workload)/u_z/add,160
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L166,76,add,"f32[256,256]{1,0}",jit(workload)/u_z/add,164 75
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L166,77,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L166,78,broadcast,"f32[256,256]{1,0}",,77
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L166,79,compare,"pred[256,256]{1,0}",jit(workload)/probe_u/gt,76 78
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L166,80,convert,"s32[256,256]{1,0}",jit(workload)/probe_u/convert_element_type,79
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,86,broadcast,"f32[256,256]{1,0}",jit(workload)/v_z/add,162
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,87,add,"f32[256,256]{1,0}",jit(workload)/v_z/add,167 86
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,88,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,89,broadcast,"f32[256,256]{1,0}",,88
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,90,maximum,"f32[256,256]{1,0}",jit(workload)/v_relu/max,87 89
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,91,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,92,broadcast,"f32[256,256]{1,0}",jit(workload)/readout/mul,91
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,93,multiply,"f32[256,256]{1,0}",jit(workload)/readout/mul,90 92
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,94,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,95,broadcast,"f32[256,256]{1,0}",jit(workload)/readout/add,94
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L169,96,add,"f32[256,256]{1,0}",jit(workload)/readout/add,93 95
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L165,102,broadcast,"f32[256,256]{1,0}",jit(workload)/u_z/add,160
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L165,102,broadcast,"f32[256,256]{1,0}",jit(workload)/u_z/add,160
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L165,103,add,"f32[256,256]{1,0}",jit(workload)/u_z/add,164 102
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L165,103,add,"f32[256,256]{1,0}",jit(workload)/u_z/add,164 102
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L165,104,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L165,104,constant,f32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L165,105,broadcast,"f32[256,256]{1,0}",,104
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L165,105,broadcast,"f32[256,256]{1,0}",,104
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L165,106,maximum,"f32[256,256]{1,0}",jit(workload)/u_relu/max,103 105
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L165,106,maximum,"f32[256,256]{1,0}",jit(workload)/u_relu/max,103 105
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce-window_computation,/L168,118,reduce-window,"s32[8,8]{1,0}",,80 163
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce_computation,/L171,130,reduce,s32[],jit(workload)/probe_u/reduce_sum,118 163
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation.1,/L172,142,reduce-window,"s32[8,8]{1,0}",,69 163
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce_computation.1,/L173,154,reduce,s32[],jit(workload)/probe_v/reduce_sum,142 163
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L158,158,parameter,"f32[256,256]{1,0}",x,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,main.3,/L158,158,parameter,"f32[256,256]{1,0}",x,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L158,158,parameter,"f32[256,256]{1,0}",x,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L159,159,parameter,"f32[256,256]{1,0}",params[0],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,main.3,/L159,159,parameter,"f32[256,256]{1,0}",params[0],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L159,159,parameter,"f32[256,256]{1,0}",params[0],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L160,160,parameter,f32[256]{0},params[1],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,main.3,/L160,160,parameter,f32[256]{0},params[1],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L160,160,parameter,f32[256]{0},params[1],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L161,161,parameter,"f32[256,256]{1,0}",params[2],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L161,161,parameter,"f32[256,256]{1,0}",params[2],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L162,162,parameter,f32[256]{0},params[3],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L162,162,parameter,f32[256]{0},params[3],
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,main.3,/L163,163,constant,s32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L163,163,constant,s32[],,
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L164,164,dot,"f32[256,256]{1,0}",jit(workload)/u_z/dot_general,158 159
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,main.3,/L164,164,dot,"f32[256,256]{1,0}",jit(workload)/u_z/dot_general,158 159
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L164,164,dot,"f32[256,256]{1,0}",jit(workload)/u_z/dot_general,158 159
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,y,main.3,/L167,167,dot,"f32[256,256]{1,0}",jit(workload)/v_z/dot_general,106 161
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,main.3,/L167,167,dot,"f32[256,256]{1,0}",jit(workload)/v_z/dot_general,106 161
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,70,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,151
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,71,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,184 70
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,73,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,185
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,74,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,71 73
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,76,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,186
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,77,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,74 76
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,78,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,79,broadcast,"f32[1024,256]{1,0}",,78
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,80,maximum,"f32[1024,256]{1,0}",jit(workload)/u_relu/max,77 79
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,82,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,115
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,83,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,80 82
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,85,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,187
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,86,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,83 85
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,88,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/add,188
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,89,add,"f32[1024,256]{1,0}",jit(workload)/v_z/add,86 88
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,90,maximum,"f32[1024,256]{1,0}",jit(workload)/v_relu/max,89 79
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,91,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,92,broadcast,"f32[1024,256]{1,0}",jit(workload)/readout/mul,91
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,93,multiply,"f32[1024,256]{1,0}",jit(workload)/readout/mul,90 92
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,94,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,95,broadcast,"f32[1024,256]{1,0}",jit(workload)/readout/add,94
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation,/L196,96,add,"f32[1024,256]{1,0}",jit(workload)/readout/add,93 95
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,107,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,108,reduce,f32[1024]{0},jit(workload)/v_z/reduce_sum,180 107
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,109,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,110,broadcast,f32[1024]{0},,109
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,111,multiply,f32[1024]{0},jit(workload)/v_z/div,108 110
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,112,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,113,broadcast,f32[1024]{0},,112
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,114,add,f32[1024]{0},jit(workload)/v_z/add,111 113
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L195,115,rsqrt,f32[1024]{0},jit(workload)/v_z/rsqrt,114
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,121,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,151
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,122,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,184 121
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,124,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,185
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,125,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,122 124
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,127,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,186
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,128,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,125 127
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,129,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,130,broadcast,"f32[1024,256]{1,0}",,129
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,131,maximum,"f32[1024,256]{1,0}",jit(workload)/u_relu/max,128 130
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.2,/L193,132,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/square,131 131
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,143,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,144,reduce,f32[1024]{0},jit(workload)/u_z/reduce_sum,168 143
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,145,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,146,broadcast,f32[1024]{0},,145
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,147,multiply,f32[1024]{0},jit(workload)/u_z/div,144 146
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,148,constant,f32[],,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,149,broadcast,f32[1024]{0},,148
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,150,add,f32[1024]{0},jit(workload)/u_z/add,147 149
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,fused_computation.3,/L192,151,rsqrt,f32[1024]{0},jit(workload)/u_z/rsqrt,150
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,wrapped_multiply_computation,/L190,156,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/square,184 184
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,wrapped_reduce-window_computation,/L191,168,reduce-window,"f32[1024,8]{1,0}",,156 189
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,wrapped_reduce-window_computation.1,/L194,180,reduce-window,"f32[1024,8]{1,0}",,132 189
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,main.3,/L184,184,parameter,"f32[1024,256]{1,0}",x,
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,main.3,/L185,185,parameter,f32[256]{0},params[0],
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,main.3,/L186,186,parameter,f32[256]{0},params[1],
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,main.3,/L187,187,parameter,f32[256]{0},params[2],
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,main.3,/L188,188,parameter,f32[256]{0},params[3],
+N3_chain,base,results/cpu/matrix/ir/N3_chain/base/optimized_hlo.txt,y,main.3,/L189,189,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,76,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,201
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,77,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,282 76
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,79,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,283
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,80,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,77 79
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,82,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,284
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,83,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,80 82
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,84,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,85,broadcast,"f32[1024,256]{1,0}",,84
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,86,maximum,"f32[1024,256]{1,0}",jit(workload)/u_relu/max,83 85
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,88,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,165
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,89,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,86 88
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,91,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,285
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,92,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,89 91
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,94,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/add,286
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,95,add,"f32[1024,256]{1,0}",jit(workload)/v_z/add,92 94
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,96,compare,"pred[1024,256]{1,0}",jit(workload)/probe_v/gt,95 85
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L299,97,convert,"s32[1024,256]{1,0}",jit(workload)/probe_v/convert_element_type,96
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,103,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,201
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,104,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,282 103
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,106,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,283
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,107,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,104 106
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,109,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,284
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,110,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,107 109
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,111,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,112,broadcast,"f32[1024,256]{1,0}",,111
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,113,compare,"pred[1024,256]{1,0}",jit(workload)/probe_u/gt,110 112
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L293,114,convert,"s32[1024,256]{1,0}",jit(workload)/probe_u/convert_element_type,113
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,120,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,201
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,121,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,282 120
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,123,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,283
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,124,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,121 123
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,126,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,284
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,127,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,124 126
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,128,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,129,broadcast,"f32[1024,256]{1,0}",,128
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,130,maximum,"f32[1024,256]{1,0}",jit(workload)/u_relu/max,127 129
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,132,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,165
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,133,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,130 132
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,135,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,285
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,136,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/mul,133 135
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,138,broadcast,"f32[1024,256]{1,0}",jit(workload)/v_z/add,286
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,139,add,"f32[1024,256]{1,0}",jit(workload)/v_z/add,136 138
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,140,maximum,"f32[1024,256]{1,0}",jit(workload)/v_relu/max,139 129
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,141,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,142,broadcast,"f32[1024,256]{1,0}",jit(workload)/readout/mul,141
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,143,multiply,"f32[1024,256]{1,0}",jit(workload)/readout/mul,140 142
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,144,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,145,broadcast,"f32[1024,256]{1,0}",jit(workload)/readout/add,144
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L298,146,add,"f32[1024,256]{1,0}",jit(workload)/readout/add,143 145
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,157,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,157,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,158,reduce,f32[1024]{0},jit(workload)/v_z/reduce_sum,230 157
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,158,reduce,f32[1024]{0},jit(workload)/v_z/reduce_sum,230 157
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,159,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,159,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,160,broadcast,f32[1024]{0},,159
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,160,broadcast,f32[1024]{0},,159
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,161,multiply,f32[1024]{0},jit(workload)/v_z/div,158 160
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,161,multiply,f32[1024]{0},jit(workload)/v_z/div,158 160
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,162,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,162,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,163,broadcast,f32[1024]{0},,162
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,163,broadcast,f32[1024]{0},,162
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,164,add,f32[1024]{0},jit(workload)/v_z/add,161 163
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,164,add,f32[1024]{0},jit(workload)/v_z/add,161 163
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L296,165,rsqrt,f32[1024]{0},jit(workload)/v_z/rsqrt,164
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L296,165,rsqrt,f32[1024]{0},jit(workload)/v_z/rsqrt,164
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,171,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,201
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,171,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,201
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,172,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,282 171
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,172,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,282 171
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,174,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,283
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,174,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,283
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,175,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,172 174
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,175,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/mul,172 174
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,177,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,284
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,177,broadcast,"f32[1024,256]{1,0}",jit(workload)/u_z/add,284
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,178,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,175 177
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,178,add,"f32[1024,256]{1,0}",jit(workload)/u_z/add,175 177
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,179,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,179,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,180,broadcast,"f32[1024,256]{1,0}",,179
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,180,broadcast,"f32[1024,256]{1,0}",,179
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,181,maximum,"f32[1024,256]{1,0}",jit(workload)/u_relu/max,178 180
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,181,maximum,"f32[1024,256]{1,0}",jit(workload)/u_relu/max,178 180
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.4,/L292,182,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/square,181 181
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.4,/L292,182,multiply,"f32[1024,256]{1,0}",jit(workload)/v_z/square,181 181
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,193,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,193,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,193,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,194,reduce,f32[1024]{0},jit(workload)/u_z/reduce_sum,218 193
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,194,reduce,f32[1024]{0},jit(workload)/u_z/reduce_sum,218 193
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,194,reduce,f32[1024]{0},jit(workload)/u_z/reduce_sum,218 193
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,195,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,195,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,195,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,196,broadcast,f32[1024]{0},,195
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,196,broadcast,f32[1024]{0},,195
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,196,broadcast,f32[1024]{0},,195
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,197,multiply,f32[1024]{0},jit(workload)/u_z/div,194 196
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,197,multiply,f32[1024]{0},jit(workload)/u_z/div,194 196
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,197,multiply,f32[1024]{0},jit(workload)/u_z/div,194 196
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,198,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,198,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,198,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,199,broadcast,f32[1024]{0},,198
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,199,broadcast,f32[1024]{0},,198
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,199,broadcast,f32[1024]{0},,198
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,200,add,f32[1024]{0},jit(workload)/u_z/add,197 199
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,200,add,f32[1024]{0},jit(workload)/u_z/add,197 199
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,200,add,f32[1024]{0},jit(workload)/u_z/add,197 199
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,fused_computation.5,/L291,201,rsqrt,f32[1024]{0},jit(workload)/u_z/rsqrt,200
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,fused_computation.5,/L291,201,rsqrt,f32[1024]{0},jit(workload)/u_z/rsqrt,200
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,fused_computation.5,/L291,201,rsqrt,f32[1024]{0},jit(workload)/u_z/rsqrt,200
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,wrapped_multiply_computation,/L289,206,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/square,282 282
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,wrapped_multiply_computation,/L289,206,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/square,282 282
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,wrapped_multiply_computation,/L289,206,multiply,"f32[1024,256]{1,0}",jit(workload)/u_z/square,282 282
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,wrapped_reduce-window_computation,/L290,218,reduce-window,"f32[1024,8]{1,0}",,206 287
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce-window_computation,/L290,218,reduce-window,"f32[1024,8]{1,0}",,206 287
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation,/L290,218,reduce-window,"f32[1024,8]{1,0}",,206 287
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,wrapped_reduce-window_computation.1,/L294,230,reduce-window,"f32[1024,8]{1,0}",,182 287
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation.1,/L294,230,reduce-window,"f32[1024,8]{1,0}",,182 287
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce-window_computation.2,/L295,242,reduce-window,"s32[32,8]{1,0}",,114 288
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,wrapped_reduce_computation,/L297,254,reduce,s32[],jit(workload)/probe_u/reduce_sum,242 288
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce-window_computation.3,/L300,266,reduce-window,"s32[32,8]{1,0}",,97 288
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,wrapped_reduce_computation.1,/L301,278,reduce,s32[],jit(workload)/probe_v/reduce_sum,266 288
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,main.5,/L282,282,parameter,"f32[1024,256]{1,0}",x,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,main.5,/L282,282,parameter,"f32[1024,256]{1,0}",x,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L282,282,parameter,"f32[1024,256]{1,0}",x,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,main.5,/L283,283,parameter,f32[256]{0},params[0],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,main.5,/L283,283,parameter,f32[256]{0},params[0],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L283,283,parameter,f32[256]{0},params[0],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,main.5,/L284,284,parameter,f32[256]{0},params[1],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,main.5,/L284,284,parameter,f32[256]{0},params[1],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L284,284,parameter,f32[256]{0},params[1],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,main.5,/L285,285,parameter,f32[256]{0},params[2],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L285,285,parameter,f32[256]{0},params[2],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,main.5,/L286,286,parameter,f32[256]{0},params[3],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L286,286,parameter,f32[256]{0},params[3],
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,y,main.5,/L287,287,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,main.5,/L287,287,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L287,287,constant,f32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,main.5,/L288,288,constant,s32[],,
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,main.5,/L288,288,constant,s32[],,
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,60,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,90
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,61,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,93 60
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,63,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,61 86
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,64,constant,f32[],,
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,65,broadcast,"f32[16,32,32,16]{3,2,1,0}",,64
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,66,maximum,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_relu/max,63 65
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,67,constant,f32[],,
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,68,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/mul,67
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,69,multiply,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/mul,66 68
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,70,constant,f32[],,
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,71,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/add,70
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation,/L94,72,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/add,69 71
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L92,78,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,88
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L92,79,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,91 78
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L92,80,constant,f32[],,
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L92,81,broadcast,"f32[16,32,32,16]{3,2,1,0}",,80
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,fused_computation.1,/L92,82,maximum,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_relu/max,79 81
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L86,86,parameter,"f32[16,32,32,16]{3,2,1,0}",x,
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L87,87,parameter,"f32[3,3,16,16]{3,2,1,0}",params[0],
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L88,88,parameter,f32[16]{0},params[1],
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L89,89,parameter,"f32[3,3,16,16]{3,2,1,0}",params[2],
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L90,90,parameter,f32[16]{0},params[3],
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L91,91,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/conv_general_dilated,86 87
+C3_chain,base,results/cpu/matrix/ir/C3_chain/base/optimized_hlo.txt,y,main.1,/L93,93,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/conv_general_dilated,82 89
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,72,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,136
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,73,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,140 72
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,75,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,73 132
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,76,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,77,broadcast,"f32[16,32,32,16]{3,2,1,0}",,76
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,78,compare,"pred[16,32,32,16]{3,2,1,0}",jit(workload)/probe_v/gt,75 77
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,79,convert,"s32[16,32,32,16]{3,2,1,0}",jit(workload)/probe_v/convert_element_type,78
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,80,constant,s32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation,/L142,81,reduce,s32[],jit(workload)/probe_v/reduce_sum,79 80
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,93,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,134
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,94,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,137 93
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,95,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,96,broadcast,"f32[16,32,32,16]{3,2,1,0}",,95
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,97,compare,"pred[16,32,32,16]{3,2,1,0}",jit(workload)/probe_u/gt,94 96
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,98,convert,"s32[16,32,32,16]{3,2,1,0}",jit(workload)/probe_u/convert_element_type,97
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,99,constant,s32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,fused_computation.1,/L139,100,reduce,s32[],jit(workload)/probe_u/reduce_sum,98 99
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,106,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,136
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,107,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,140 106
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,109,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/add,107 132
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,110,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,111,broadcast,"f32[16,32,32,16]{3,2,1,0}",,110
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,112,maximum,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_relu/max,109 111
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,113,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,114,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/mul,113
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,115,multiply,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/mul,112 114
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,116,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,117,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/add,116
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.2,/L141,118,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/readout/add,115 117
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L138,124,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,134
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L138,124,broadcast,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,134
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L138,125,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,137 124
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L138,125,add,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/add,137 124
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L138,126,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L138,126,constant,f32[],,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L138,127,broadcast,"f32[16,32,32,16]{3,2,1,0}",,126
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L138,127,broadcast,"f32[16,32,32,16]{3,2,1,0}",,126
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,fused_computation.3,/L138,128,maximum,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_relu/max,125 127
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,fused_computation.3,/L138,128,maximum,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_relu/max,125 127
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L132,132,parameter,"f32[16,32,32,16]{3,2,1,0}",x,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,main.3,/L132,132,parameter,"f32[16,32,32,16]{3,2,1,0}",x,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L132,132,parameter,"f32[16,32,32,16]{3,2,1,0}",x,
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L133,133,parameter,"f32[3,3,16,16]{3,2,1,0}",params[0],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,main.3,/L133,133,parameter,"f32[3,3,16,16]{3,2,1,0}",params[0],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L133,133,parameter,"f32[3,3,16,16]{3,2,1,0}",params[0],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L134,134,parameter,f32[16]{0},params[1],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,main.3,/L134,134,parameter,f32[16]{0},params[1],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L134,134,parameter,f32[16]{0},params[1],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L135,135,parameter,"f32[3,3,16,16]{3,2,1,0}",params[2],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L135,135,parameter,"f32[3,3,16,16]{3,2,1,0}",params[2],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L136,136,parameter,f32[16]{0},params[3],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L136,136,parameter,f32[16]{0},params[3],
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L137,137,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/conv_general_dilated,132 133
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q1,main.3,/L137,137,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/conv_general_dilated,132 133
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L137,137,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/u_z/conv_general_dilated,132 133
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,y,main.3,/L140,140,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/conv_general_dilated,128 135
+C3_chain,post_post,results/cpu/matrix/ir/C3_chain/post_post/optimized_hlo.txt,q2,main.3,/L140,140,convolution,"f32[16,32,32,16]{3,2,1,0}",jit(workload)/v_z/conv_general_dilated,128 135

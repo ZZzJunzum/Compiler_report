@@ -42,7 +42,7 @@ py -3.12 -m venv .venv
 
 | 想核对的内容 | 入口 |
 |---|---|
-| 原始计划、Lab 01、具体实验决定 | [任务书原文](docs/FusionScope_Research_Plan_v2.md) · [Lab 01](lab01/) · [预登记](protocol.json) · [实验方法](docs/METHODS.md) |
+| 原始计划、Lab 01、具体实验决定 | [任务书原文](docs/FusionScope_Research_Plan_v2.md) · [历史 Lab 01](https://github.com/ZZzJunzum/Compiler_report/tree/f2df6a2/lab01) · [预登记](protocol.json) · [实验方法](docs/METHODS.md) |
 | 每个配置的图、IR 和逐轮时间 | [配置索引](results/cpu/report/tables/configs.csv) · [发现批原始记录](results/cpu/matrix/raw/) · [独立复测原始记录](results/cpu/confirm/raw/) |
 | 两次观测有没有共享开销 | [所有交互及噪声参考](results/cpu/report/tables/interactions.csv) · [逐进程计算](results/cpu/report/tables/process_interactions.csv) |
 | 预测是否在测试前锁定、错在何处 | [已封存推荐](results/cpu/model/prediction_lock.json) · [逐案决策](results/cpu/report/tables/decisions.csv) · [成本与摊销](results/cpu/report/tables/costs.csv) |

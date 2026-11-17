@@ -1,0 +1,21 @@
+{
+  "baseline_commit": "f2df6a28a4208ca1bd91bb13334c849d79a144d2",
+  "backend": "cpu",
+  "screen_cases": ["E0_chain", "E3_branch", "M3_chain", "N3_chain", "C3_chain"],
+  "families": ["E","M","N","C"],
+  "external": ["R1","R2"],
+  "tile_rows": [1,4,16,64,256],
+  "conv_tile_batches": [1,2,4,8,16],
+  "input_seeds": [42,1729,2026],
+  "timed_seed": 42,
+  "rounds": 20,
+  "warmups": 6,
+  "processes": {"screen":3,"train":5,"confirm":3,"external":5},
+  "random_seed": 110671,
+  "validation": "Use phase-I input/weight generators and tolerances. Check V0 y and independently count positive diagnostic z on host for three seeds. y is finite FP32 with the reference shape; q1 and q2 must be exact scalar int32. Retain failed candidates and exclude them solely from valid-oracle evaluation. Do not repair predictions with test outcomes.",
+  "matrix_rule": "Expand after screening demonstrates at least one structural change (joint reduce, shared stage, or tile-local mask). Measure all legal tiles at each of 32 conditions so the evaluation oracle has the same search space as the selector. Batch-one synthetic tile 1 is a one-tile control. Skip external batch tiling.",
+  "timing": "One permitted logical CPU pinned before JAX import, new sequential process for each repeat, disable persistent compilation cache, preregistered deterministic randomized condition and within-round variant orders, all outputs ready on device. Store each dispatch sample. V3 has two executable calls and one final output synchronization.",
+  "noise": "Separate A/A blocks for V0 and V1, four labels each reusing the identical executable. Per condition take the larger of the two 95th percentiles of absolute differences of within-process label medians. Report recovery only if paired V1-V0 median exceeds this floor and is positive in a strict majority of processes. Candidate gains must exceed the floor and have a strict majority of positive differences. Report independent confirmation.",
+  "learning": "Hold out every size/topology/tile of one entire synthetic family. Predict candidate log latency relative to V0 for ridge, alpha=1. Calibrate positive roofline rate and reduction/dispatch coefficients on training families. Features derived from V0 IR and declared strategy, never candidate IR or test times. Lock predictions before fresh confirmation and external measurements. Fixed tile uses largest legal tile <=16, falls back to V1 when tiling unsupported. Include fixed V1, analytic, ridge, and measured valid oracle.",
+  "memory": "Keep compiler allocation and executable temporary bytes distinct from physical DRAM traffic and dynamic process peak. V3 per-stage sizes and intermediate activation are separate. No hardware memory traffic counter is used."
+}

@@ -1,0 +1,9 @@
+case,mode,hlo,outputs,line,body,shape,logical_bytes,full_activation_shape,call_path
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q2,79,fused_computation,"s32[16,256]{1,0}",16384,True,/L179
+E0_chain,post_post,results/cpu/matrix/ir/E0_chain/post_post/optimized_hlo.txt,q1,93,fused_computation.1,"s32[16,256]{1,0}",16384,True,/L177
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q2,83,fused_computation,"s32[4096,256]{1,0}",4194304,True,/L211
+E3_branch,post_post,results/cpu/matrix/ir/E3_branch/post_post/optimized_hlo.txt,q1,97,fused_computation.1,"s32[4096,256]{1,0}",4194304,True,/L209
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q2,69,fused_computation,"s32[256,256]{1,0}",262144,True,/L170
+M3_chain,post_post,results/cpu/matrix/ir/M3_chain/post_post/optimized_hlo.txt,q1,80,fused_computation.1,"s32[256,256]{1,0}",262144,True,/L166
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q2,97,fused_computation,"s32[1024,256]{1,0}",1048576,True,/L299
+N3_chain,post_post,results/cpu/matrix/ir/N3_chain/post_post/optimized_hlo.txt,q1,114,fused_computation.1,"s32[1024,256]{1,0}",1048576,True,/L293
