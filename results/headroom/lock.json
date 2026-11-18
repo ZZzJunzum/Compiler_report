@@ -1,0 +1,444 @@
+{
+  "rule": "J16",
+  "processes": 5,
+  "rounds": 30,
+  "seeds": [
+    42,
+    1729,
+    2026
+  ],
+  "cases": {
+    "E0_chain": {
+      "fixed": "V2",
+      "nominee": "V2",
+      "test": [
+        "V2"
+      ],
+      "legal": 9,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 2.1999999999999997,
+      "resolved_gain": false
+    },
+    "E0_branch": {
+      "fixed": "V2",
+      "nominee": "J4",
+      "test": [
+        "V2",
+        "J4"
+      ],
+      "legal": 9,
+      "headroom_us": 45.89999999999999,
+      "paired_us": 43.14999999999999,
+      "floor_us": 2.152500000000007,
+      "resolved_gain": true
+    },
+    "E1_chain": {
+      "fixed": "J16",
+      "nominee": "J128",
+      "test": [
+        "J16",
+        "J128"
+      ],
+      "legal": 13,
+      "headroom_us": 4.200000000000003,
+      "paired_us": 3.6499999999999986,
+      "floor_us": 1.8599999999999952,
+      "resolved_gain": true
+    },
+    "E1_branch": {
+      "fixed": "J16",
+      "nominee": "J64",
+      "test": [
+        "J16",
+        "J64"
+      ],
+      "legal": 13,
+      "headroom_us": 0.15000000000000568,
+      "paired_us": 0.15000000000000568,
+      "floor_us": 3.6724999999999994,
+      "resolved_gain": false
+    },
+    "E2_chain": {
+      "fixed": "J16",
+      "nominee": "V2",
+      "test": [
+        "J16",
+        "V2"
+      ],
+      "legal": 15,
+      "headroom_us": 64.64999999999998,
+      "paired_us": 51.94999999999999,
+      "floor_us": 45.75249999999985,
+      "resolved_gain": true
+    },
+    "E2_branch": {
+      "fixed": "J16",
+      "nominee": "J1024",
+      "test": [
+        "J16",
+        "J1024"
+      ],
+      "legal": 15,
+      "headroom_us": 38.549999999999955,
+      "paired_us": 38.549999999999955,
+      "floor_us": 20.675000000000136,
+      "resolved_gain": true
+    },
+    "E3_chain": {
+      "fixed": "J16",
+      "nominee": "V2",
+      "test": [
+        "J16",
+        "V2"
+      ],
+      "legal": 15,
+      "headroom_us": 249.6500000000001,
+      "paired_us": 274.10000000000014,
+      "floor_us": 200.87250000000034,
+      "resolved_gain": true
+    },
+    "E3_branch": {
+      "fixed": "J16",
+      "nominee": "V2",
+      "test": [
+        "J16",
+        "V2"
+      ],
+      "legal": 15,
+      "headroom_us": 192.04999999999973,
+      "paired_us": 243.94999999999982,
+      "floor_us": 174.41749999999985,
+      "resolved_gain": true
+    },
+    "M0_chain": {
+      "fixed": "V2",
+      "nominee": "J4",
+      "test": [
+        "V2",
+        "J4"
+      ],
+      "legal": 7,
+      "headroom_us": 0.29999999999999716,
+      "paired_us": 0.29999999999999716,
+      "floor_us": 2.5300000000000002,
+      "resolved_gain": false
+    },
+    "M0_branch": {
+      "fixed": "V2",
+      "nominee": "V2",
+      "test": [
+        "V2"
+      ],
+      "legal": 7,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 2.4974999999999987,
+      "resolved_gain": false
+    },
+    "M1_chain": {
+      "fixed": "V2",
+      "nominee": "J16",
+      "test": [
+        "V2",
+        "J16"
+      ],
+      "legal": 9,
+      "headroom_us": 1.1000000000000085,
+      "paired_us": -2.9000000000000057,
+      "floor_us": 2.272500000000013,
+      "resolved_gain": false
+    },
+    "M1_branch": {
+      "fixed": "V2",
+      "nominee": "V2",
+      "test": [
+        "V2"
+      ],
+      "legal": 9,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 1.8725000000000211,
+      "resolved_gain": false
+    },
+    "M2_chain": {
+      "fixed": "J16",
+      "nominee": "V2",
+      "test": [
+        "J16",
+        "V2"
+      ],
+      "legal": 11,
+      "headroom_us": 6.650000000000006,
+      "paired_us": 6.650000000000006,
+      "floor_us": 4.682499999999998,
+      "resolved_gain": true
+    },
+    "M2_branch": {
+      "fixed": "J16",
+      "nominee": "J64",
+      "test": [
+        "J16",
+        "J64"
+      ],
+      "legal": 11,
+      "headroom_us": 17.05000000000001,
+      "paired_us": 13.599999999999994,
+      "floor_us": 4.66250000000001,
+      "resolved_gain": true
+    },
+    "M3_chain": {
+      "fixed": "J16",
+      "nominee": "J16",
+      "test": [
+        "J16"
+      ],
+      "legal": 13,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 22.362499999999997,
+      "resolved_gain": false
+    },
+    "M3_branch": {
+      "fixed": "J16",
+      "nominee": "J16",
+      "test": [
+        "J16"
+      ],
+      "legal": 13,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 18.24499999999994,
+      "resolved_gain": false
+    },
+    "N0_chain": {
+      "fixed": "V2",
+      "nominee": "J4",
+      "test": [
+        "V2",
+        "J4"
+      ],
+      "legal": 9,
+      "headroom_us": 40.10000000000001,
+      "paired_us": 40.10000000000001,
+      "floor_us": 2.4325,
+      "resolved_gain": true
+    },
+    "N0_branch": {
+      "fixed": "V2",
+      "nominee": "J4",
+      "test": [
+        "V2",
+        "J4"
+      ],
+      "legal": 9,
+      "headroom_us": 43.25,
+      "paired_us": 43.25,
+      "floor_us": 2.0600000000000005,
+      "resolved_gain": true
+    },
+    "N1_chain": {
+      "fixed": "J16",
+      "nominee": "J16",
+      "test": [
+        "J16"
+      ],
+      "legal": 11,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 2.287500000000002,
+      "resolved_gain": false
+    },
+    "N1_branch": {
+      "fixed": "J16",
+      "nominee": "J16",
+      "test": [
+        "J16"
+      ],
+      "legal": 11,
+      "headroom_us": 0.0,
+      "paired_us": 0.0,
+      "floor_us": 2.2724999999999964,
+      "resolved_gain": false
+    },
+    "N2_chain": {
+      "fixed": "J16",
+      "nominee": "J64",
+      "test": [
+        "J16",
+        "J64"
+      ],
+      "legal": 13,
+      "headroom_us": 6.799999999999997,
+      "paired_us": 6.799999999999997,
+      "floor_us": 7.940000000000051,
+      "resolved_gain": false
+    },
+    "N2_branch": {
+      "fixed": "J16",
+      "nominee": "J64",
+      "test": [
+        "J16",
+        "J64"
+      ],
+      "legal": 13,
+      "headroom_us": 4.25,
+      "paired_us": 4.599999999999994,
+      "floor_us": 6.052499999999953,
+      "resolved_gain": false
+    },
+    "N3_chain": {
+      "fixed": "J16",
+      "nominee": "J64",
+      "test": [
+        "J16",
+        "J64"
+      ],
+      "legal": 15,
+      "headroom_us": 6.25,
+      "paired_us": 15.5,
+      "floor_us": 44.46249999999997,
+      "resolved_gain": false
+    },
+    "N3_branch": {
+      "fixed": "J16",
+      "nominee": "J64",
+      "test": [
+        "J16",
+        "J64"
+      ],
+      "legal": 15,
+      "headroom_us": 7.0499999999999545,
+      "paired_us": 17.649999999999977,
+      "floor_us": 18.852499999999978,
+      "resolved_gain": false
+    },
+    "C0_chain": {
+      "fixed": "V2",
+      "nominee": "J1",
+      "test": [
+        "V2",
+        "J1"
+      ],
+      "legal": 5,
+      "headroom_us": 2.25,
+      "paired_us": 2.25,
+      "floor_us": 8.637499999999966,
+      "resolved_gain": false
+    },
+    "C0_branch": {
+      "fixed": "V2",
+      "nominee": "S1",
+      "test": [
+        "V2",
+        "S1"
+      ],
+      "legal": 5,
+      "headroom_us": 5.75,
+      "paired_us": 4.75,
+      "floor_us": 13.734999999999934,
+      "resolved_gain": false
+    },
+    "C1_chain": {
+      "fixed": "V2",
+      "nominee": "J1",
+      "test": [
+        "V2",
+        "J1"
+      ],
+      "legal": 9,
+      "headroom_us": 737.1999999999999,
+      "paired_us": 734.6999999999998,
+      "floor_us": 72.10250000000008,
+      "resolved_gain": true
+    },
+    "C1_branch": {
+      "fixed": "V2",
+      "nominee": "S1",
+      "test": [
+        "V2",
+        "S1",
+        "J1"
+      ],
+      "legal": 9,
+      "headroom_us": 727.75,
+      "paired_us": 738.7,
+      "floor_us": 44.27999999999986,
+      "resolved_gain": true
+    },
+    "C2_chain": {
+      "fixed": "V2",
+      "nominee": "S1",
+      "test": [
+        "V2",
+        "S1",
+        "J1"
+      ],
+      "legal": 11,
+      "headroom_us": 1576.95,
+      "paired_us": 1576.95,
+      "floor_us": 118.24750000000027,
+      "resolved_gain": true
+    },
+    "C2_branch": {
+      "fixed": "V2",
+      "nominee": "J1",
+      "test": [
+        "V2",
+        "J1"
+      ],
+      "legal": 11,
+      "headroom_us": 1704.1499999999999,
+      "paired_us": 1704.1499999999999,
+      "floor_us": 160.04249999999982,
+      "resolved_gain": true
+    },
+    "C3_chain": {
+      "fixed": "V2",
+      "nominee": "J1",
+      "test": [
+        "V2",
+        "J1"
+      ],
+      "legal": 13,
+      "headroom_us": 59.45000000000027,
+      "paired_us": 156.3499999999999,
+      "floor_us": 147.26750000000015,
+      "resolved_gain": true
+    },
+    "C3_branch": {
+      "fixed": "V2",
+      "nominee": "J1",
+      "test": [
+        "V2",
+        "J1"
+      ],
+      "legal": 13,
+      "headroom_us": 122.64999999999964,
+      "paired_us": 169.1500000000001,
+      "floor_us": 133.8025,
+      "resolved_gain": true
+    }
+  },
+  "development_files": {
+    "p0.zip": "d5ae821ac52cee503b3059bead4c702099d20b7cdfd8091deacb60eb2e3e7765",
+    "p1.zip": "71b9049cc56cd9afd06c6044414373ecd2cb57d077402208bfdbe4f053037148",
+    "p2.zip": "68a6f549ad4f6df828cec2a658623fecd0ec1c1353c3eaf4a653972f91f5768b"
+  },
+  "source": {
+    "fusionscope/phase3/design.py": "99cb8cb7a6f6bdadddba8b71b82b2114de5b55134f501e93190de39dcce2500e",
+    "fusionscope/phase3/experiment.py": "d471d7c3d5cbdc07713709fd20717c16e5fc2f082ac9bce81b20b317852a5cbf",
+    "fusionscope/phase3/workloads.py": "dcd012c23e1547fe20824415740798932504bf952e5fcf0cc352ab9c709998f5",
+    "protocol.json": "34dd7c283ce42aa45251b2edc124fc672c190b0cecdb7e88d694fcfee473466a",
+    "results/phase2/protocol.json": "61d40c56c6db7a6baa6e4010425e87f2248af26caf5d0b2e6368e61502005915",
+    "run.py": "d886fefc2a024afa8e004ec80618d60922017db54b2267fafea9b2dcd037fb67",
+    "fusionscope/graphs.py": "bf984836f40d0c2b6420ab214c62e8e2fee229dbf4367773844bef18cde1c06c",
+    "fusionscope/phase2/variants.py": "af02e21dea48edb38f2ece81984d5e9fa63d1ca93d924de06497042f646f6038",
+    "fusionscope/bench.py": "07103dbbde46d0a5c200838b9db408fe678523ac56d628ac407f380992c9f6ea",
+    "fusionscope/headroom.py": "fd50e92a94d16d795abb4051954d887e878efb34099efa8cbba846b7f356ab84",
+    "fusionscope/hlo.py": "92cc219b67777318e78c660524f38d3db5199b8561b0beba3ffaff713d7b3deb",
+    "fusionscope/phase3/data.py": "0851c4f88eb47b734afcab32443414d69c0dd654467c6025ba01179dfc329f81",
+    "paper/check_diagnostics.py": "10842c8620ad66a43901c4743e58271e223a05f582f19bc10fb75fbe2530f59f",
+    "fusionscope/phase3/models.py": "286ed3102d4cbe12a64a10d56a8decc760af7faae175ad4d15852012eef5bd9c"
+  }
+}
