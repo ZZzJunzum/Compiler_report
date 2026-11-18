@@ -1,14 +1,28 @@
 # FusionScope
 
-在 JAX/XLA 中，一次推理要同时返回主张量和两个精确的正激活计数。这个项目研究观测位置与归约方式怎样改变 CPU 可执行程序，以及编译前选择策略的收益能否抵消选择本身的开销。
+在 JAX/XLA 推理中，调用者要求保留原主输出，同时拿到中间激活的统计。增加这些返回值会改变送入编译器的计算图。项目先用两个精确计数定位 CPU 上的重复计算与掩码物化，再将归约改写推广到其他观测请求，并检验编译前的 IR 能否预测整个程序的微秒数。
 
-**[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [参考文献](paper/references.bib) · [CPU 主结果](results/phase3/cpu/analysis/endpoint.json) · [各策略结果](results/phase3/cpu/analysis/policy_summary.csv)
+**[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [参考文献](paper/references.bib) · [观测改写逐项结果](results/cpu_cost/analysis/contracts.csv) · [绝对耗时误差](results/cpu_cost/analysis/accuracy.csv) · [直接预测两种实现的耗时比](results/cpu_cost/paired/policies.csv)
+
+## CPU 实验回答了什么
+
+1. **已有方法与本研究的贡献。** SystemML 的图 9c–d 已实测共享一个矩阵的多重聚合，图 2 和第 4.2 节已分析重复计算与物化成本。本文把这项既有技术用于必须保留主输出的 XLA 程序，沿主输出和各个观测结果追踪生成代码，并通过等价改写验证哪些开销真实消失。单纯读取 IR 供分析与在推理中增加一个返回值是两个不同操作。[SystemML 原论文](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf)
+
+2. **联合归约的适用范围。** 22 张新图各接受 9 种观测请求。198 组中有 120 组形状及归约轴相容，联合版相对独立版耗时比的几何平均为 0.892。30 组加速、4 组减速超过各自的重复测量波动，另外 86 组差异未能分辨。78 组采用原实现，其中 44 组返回一个元素或完整张量，22 组归约轴不同，12 组激活形状不相等。5 个独立进程的 5,100 项输出校验通过。[成对结果](results/cpu_cost/analysis/rewrite_pairs.csv) · [各组回退原因](results/cpu_cost/analysis/boundaries.csv)
+
+3. **少写临时张量和缩短时间的关系。** 有 82 组在独立版中检测到仅服务观测的全形状比较、转换掩码或平方结果导出，改写后全部消失。其中有 30 组明确更快、4 组明确更慢。以同一张 320×160 仿射链为例，三个全局计数的联合版耗时比为 0.53。逐行计数的临时空间从 416,000 降至 16 字节，联合版却慢 44.90 微秒，耗时比为 1.29。依赖 HLO 导出的选择规则在 1,000 次调用时，计入检查与编译后的成本为直接编译联合版的 1.345 倍。[前后 HLO 证据位置](results/cpu_cost/mechanisms.csv) · [策略与选择成本](results/cpu_cost/analysis/summary.json)
+
+4. **从 IR 预测总耗时。** 主指标是准备好输入后，从发起一次推理到所有输出就绪的时间。另测构建时间 C，并估算构建一次后执行 H 次的 C + H×T。32 张开发图、512 个配置用于拟合，两组盲测均先公开预测。主盲测中，只读候选 StableHLO 的回归模型在熟悉算子新尺寸上的中位 / 第 90 百分位误差倍数为 **1.46 / 2.11**，在新结构上为 **2.16 / 7.76**。加入源码后的误差改善未达到预设标准。逐程序的实测时间、预测时间和观测增量均可复查。[原始预测封存](https://github.com/ZZzJunzum/Compiler_report/commit/501a669) · [逐程序数据](results/cpu_cost/analysis/measurements.csv)
+
+5. **修正选型模型的数学限制。** 最早的五项正成本在 186 次比较中全部被固定策略支配，后一版删除图级 IR 信息后 28/28 个选择相同。新的绝对时间回归仍选了 120/120 次联合归约。最后单独拟合两种实现的成对耗时比，允许结果跨过 1。在另外 11 张图、107 个配置上，集成模型在 41 次选择中 17 次选独立归约、24 次选联合归约。相对固定联合策略有 1 次明确受益、1 次明确受损，15 次改选差异未分辨，总体比为 **0.983 [0.947, 1.016]**。使用 IR 与已知观测请求插值时，在熟悉结构上的中位误差为 1.13 倍，第 90 百分位仍为 2.32 倍。在三种新架构上分别为 2.15 和 2.51 倍。CPU 结论覆盖本机、已测试的观测及工作负载，GPU 上各融合内核的执行时间、内核边界和跨设备迁移留待服务器验证。[独立封存](https://github.com/ZZzJunzum/Compiler_report/commit/508ef3d) · [最后一组预测误差](results/cpu_cost/paired/accuracy.csv)
+
+## 早期分块与选型结果
 
 在 24 个新 CPU 条件上，封存模型相对**整批联合归约**的耗时比为 **0.861**，配对 95% 区间为 **0.797–0.943**，达到预登记标准。相对开发集选出的**固定 16 规则**，耗时比为 **0.981 [0.957, 1.007]**。计入决策成本并复用校准，调用 1,000 次时，静态模型相对这两个基线分别在 **2/24** 和 **4/24** 个主条件上净省时间。后续新卷积图上，单图分块取得四个明确加速和四个明确减速，候选 IR 在全部 12 个决策中都给出了与源码模型相同的选择。[独立复测与新图结果](#评审后的收益空间复测与部署成本)
 
 每图只试联合归约和一个模型提名方案时，**24/24** 个选择与最快合法方案之间的配对差距落在同一可执行程序的重复测量波动范围内，其中 13 个正好选中实测最快方案。这个策略在 1,000 次调用内回本的条件为 **0/24**。正式确认的 **5,520** 项逐种子、逐进程校验全部通过，干净检出复现了 **36/36** 个机制配置的 HLO 指纹。
 
-## 从最初的问题到最后的判断
+## 前三阶段怎样逐步收紧研究问题
 
 1. **给成本模型找到一个实际决策。** 选题从用中间表示（IR）分析 GPU 算子融合出发。调试时取一个内部值可能改变生成的程序，这引出了更具体的问题。若一次推理必须返回同样的张量和激活统计，工程师可以怎样写这段观测代码，额外花费多少？数值一致性随之成为所有候选的准入条件。已有研究分别做过稀疏度采样、共享聚合和编译器自动调优，此处固定采样频率、两个观测点和主输出，在同一目标 CPU 上做成对比较。[最初任务书](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/docs/FusionScope_Research_Plan_v2.md) · [文献及与本研究的关系](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/docs/phase2-literature.md)
 
@@ -65,6 +79,31 @@
 每个进程 ZIP 内有环境、候选编译时间、所有预热和计时样本。正式队列还含逐种子验证。编译表中的 archive 和 component 定位相应的 StableHLO 与优化后 HLO。阶段一、二的完整程序、散装 IR、早期计划和报告保存在固定历史版本，当前分支保留了复核旧模型所需的冻结输入。[两阶段完整快照](https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325)
 
 ## 复现
+
+在仓库根目录及已安装锁定依赖的 Python 环境中，以下三个命令从已发布原始数据核验本轮 CPU 结果。核验包括重读两批 StableHLO、重算开发集拟合与封存预测、比对检查规则和实测可执行程序、从各个进程重算表格。原始进程档案含全部耗时、编译墙钟、输出检查及环境信息。
+
+~~~powershell
+$py = (Resolve-Path .venv/Scripts/python.exe).Path
+& $py -B -m fusionscope.cpu_cost.experiment verify --out results/cpu_cost
+& $py -B -m fusionscope.cpu_cost.mechanisms verify --out results/cpu_cost
+& $py -B -m fusionscope.cpu_cost.paired_model verify --out results/cpu_cost
+~~~
+
+独立重采样默认写入 Git 忽略的 `reproduction/cpu_cost`。依次执行开发、预测封存、参考 HLO 检查与封存、独立计时。计时结束后的联合 HLO 检查用于解释已测差异。末尾的小组实验重用开发计时，所有测试图与主盲测互斥。
+
+~~~powershell
+& $py -B -m fusionscope.cpu_cost.experiment develop
+& $py -B -m fusionscope.cpu_cost.experiment predict
+& $py -B -m fusionscope.cpu_cost.experiment inspect
+& $py -B -m fusionscope.cpu_cost.experiment test
+& $py -B -m fusionscope.cpu_cost.experiment report
+& $py -B -m fusionscope.cpu_cost.mechanisms collect
+& $py -B -m fusionscope.cpu_cost.mechanisms analyze
+& $py -B -m fusionscope.cpu_cost.paired_model lock
+& $py -B -m fusionscope.cpu_cost.paired_model test
+& $py -B -m fusionscope.cpu_cost.paired_model report
+& $py -B -m paper.absolute_latency_figure --data reproduction/cpu_cost
+~~~
 
 在仓库根目录，用 Python 3.12 建立环境。下列命令在 Windows PowerShell 中运行。完整环境版本见 [Windows 依赖锁](requirements-windows-lock.txt)。
 

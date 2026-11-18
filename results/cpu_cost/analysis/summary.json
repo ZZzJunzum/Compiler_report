@@ -1,0 +1,78 @@
+{
+  "development_configurations": 512,
+  "development_rejected": [],
+  "graphs": 22,
+  "configurations": 340,
+  "checks": 5100,
+  "invalid": [],
+  "excluded": [],
+  "fingerprint_matches": 600,
+  "legal_pairs": 120,
+  "boundary_contracts": 78,
+  "outcomes": {
+    "unresolved": 86,
+    "loss": 4,
+    "gain": 30
+  },
+  "ir_increment": {
+    "new_shape": {
+      "clusters": 8,
+      "source": 0.4076834144649756,
+      "combined": 0.4189722530143434,
+      "difference": 0.011288838549367797,
+      "interval": [
+        -0.043445679329999876,
+        0.0639575290968733
+      ],
+      "relative_reduction": -0.027690208011485362,
+      "passes": false
+    },
+    "new_architecture": {
+      "clusters": 6,
+      "source": 0.7753135798454487,
+      "combined": 0.9502816804486289,
+      "difference": 0.17496810060318024,
+      "interval": [
+        -0.12867249192501196,
+        0.4481512857597536
+      ],
+      "relative_reduction": -0.22567397908606024,
+      "passes": false
+    }
+  },
+  "changed_decisions": 0,
+  "changed_resolved_helped": 0,
+  "changed_resolved_hurt": 0,
+  "gate_to_static_joint": {
+    "1": 2.032854175266725,
+    "1000": 1.3445875226048327
+  },
+  "environment": {
+    "backend": "cpu",
+    "devices": [
+      "TFRT_CPU_0"
+    ],
+    "device_kind": "cpu",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.5",
+    "jax": "0.9.0.1",
+    "jaxlib": "0.9.0.1",
+    "numpy": "2.3.5",
+    "logical_cpus": 12,
+    "physical_cpus": 8,
+    "ram_bytes": 16888094720,
+    "affinity": [
+      0
+    ],
+    "flags": {
+      "JAX_PLATFORMS": "cpu",
+      "JAX_ENABLE_X64": "false",
+      "JAX_ENABLE_COMPILATION_CACHE": "false",
+      "XLA_FLAGS": "",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  }
+}

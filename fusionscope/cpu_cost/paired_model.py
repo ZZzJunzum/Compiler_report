@@ -215,6 +215,19 @@ def derive(parent):
     return {"measurements":act,"comparisons":pairs,"accuracy":metrics,"policies":policies}, checks
 
 
+def verify_inputs(folder):
+    from jax._src.interpreters.mlir import make_ir_context
+    from jax.extend.mlir import ir
+    path = folder/"lowered.zip"
+    features = archive_features(path)
+    with ZipFile(path) as z, make_ir_context():
+        for c in fresh():
+            for n in menu(c):
+                key = c.name+"/"+n
+                module = ir.Module.parse(z.read(key+".mlir").decode())
+                assert features[key] == dict(source=source(c,n),stable=stable_features(module))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage",choices=["lock","test","report","verify","worker_lock","worker_time"])
@@ -239,6 +252,8 @@ def main():
         else:
             measure(folder,args.index)
     else:
+        if args.stage=="verify":
+            verify_inputs(folder)
         tables,checks = derive(parent)
         for k,rows in tables.items():
             path = folder/(k+".csv")

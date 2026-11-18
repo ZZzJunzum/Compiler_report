@@ -14,14 +14,14 @@
 \newcommand{\mib}{\ensuremath{\,\mathrm{MiB}}}
 \newcommand{\kib}{\ensuremath{\,\mathrm{KiB}}}
 
-\title{The Cost of Exact Activation Counts in XLA on a CPU}
+\title[The Cost of Observing Activations in XLA]{What Does It Cost to Observe an Activation? Reduction Rewrites and Latency Prediction in XLA on a CPU}
 \author{Anonymous Author(s)}
 \renewcommand{\shortauthors}{Anonymous Author(s)}
 
 \begin{document}
 
 \begin{abstract}
-An inference program that returns two layerwise counts adds eight bytes to its output. How much work does the compiler generate to produce them? We studied exact positive-activation counts in JAX/XLA on one Intel CPU. Moving the counts across ReLU activations produced one optimized computation per workload on all 32 synthetic workloads. On a million-element affine branch, separate reductions exported two four-mebibyte integer masks. Joint reduction eliminated both exports and ran 3.07 times as fast. A frozen selector achieved a geometric-mean latency ratio of 0.861 to whole-tensor joint reduction on 24 new conditions (paired 95\% interval 0.797--0.943). Against a stronger fixed tile rule its ratio was 0.981 (0.957--1.007). Charging setup at 1,000 calls gave the selector lower total time on four of 24 against that rule with calibration reused. An independent repeat attributed 83\% of the positive absolute savings over the rule to four development convolutions. A prescribed one-image tile then won on four unseen convolution graphs and lost on four at the same batch sizes. Main-only controls showed the same reversal. Adding candidate IR to the source features changed none of twelve prospective decisions. These results locate an actionable compiler effect and delimit the predictive value of the features tested.
+Returning two exact positive-activation counts adds eight bytes to an inference result. Producing them can change the computation that XLA generates. On one Intel CPU, moving the counts across ReLU activations left the optimized computation unchanged in each of 32 synthetic workloads. On a million-element affine branch, a joint reduction removed two four-mebibyte integer masks and ran 3.07 times as fast. We extended this known aggregation technique to nine observation requests and froze predictions before timing new forward programs. Of 120 eligible comparisons, joint reduction yielded 30 resolved gains, four resolved losses and 86 differences within the repeatability criterion. On the same affine chain it reduced latency for three scalar counts and increased latency for last-axis counts, even as planned storage fell to 16 bytes. A regression using only pre-compilation StableHLO predicted whole-call latency with median multiplicative error 1.46 on new sizes and 2.16 on new architectures. Adding IR to source features did not meet the prespecified improvement criterion in either cohort. On eleven additional graphs, a calibrated interpolator predicted time within a median factor of 1.13 on familiar structures using IR and the requested statistic. Its factor rose to 2.15 on new architectures. Directly fitting the cost ratio enabled both implementation choices, with one resolved gain and one loss relative to always using joint reduction.
 \end{abstract}
 \begin{CCSXML}
 <ccs2012>
@@ -35,14 +35,17 @@ An inference program that returns two layerwise counts adds eight bytes to its o
 \section{Introduction}
 Layerwise sparsity measurements have been used to guide the training of rectified networks~\cite{spartan}. We use a controlled inference workload that returns its usual tensor and the number of positive values at two layers on every call. Two sites let us test whether the aggregates share a producer. Exact counts make equivalence checkable, and fixing the frequency removes sampling as a competing explanation. Production monitoring frequencies require separate evidence. Shipping the answers takes two 32-bit integers. Computing them can require traversing two complete tensors. Should the implementation move the measurement, combine the reductions, or change the unit of work processed at a time?
 
+SystemML already grouped aggregates over shared inputs and costed the choice between recomputing and materializing intermediates in a DAG~\cite{systemml}. We take these as established techniques. Our question concerns their effect on a compiled forward pass whose output must remain available alongside statistics on its internal activations. Inspecting compiler IR supplies evidence about the generated program. Adding an output changes the program supplied to the compiler.
+
 A pilot compared returning one element, the mean of an activation tensor, and the complete tensor. On 4,096 FP32 elements the unobserved program took 27.55\us. Sampling one element added four output bytes and took 28.75\us. Taking the mean also added four bytes and took 32.45\us. Returning all 16,384 bytes took 30.20\us. Each operation answers a different question. We therefore fixed the requested information before comparing implementations.
 
-For a preactivation $z$ and $a=\max(z,0)$, the predicates $z>0$ and $a>0$ agree at every finite element. Both layers admit this choice, giving four source programs with identical count semantics. The next three questions determined the experiments.
+For a preactivation $z$ and $a=\max(z,0)$, the predicates $z>0$ and $a>0$ agree at every finite element. Both layers admit this choice, giving four source programs with identical count semantics. Four questions determined the experiments.
 
 \begin{enumerate}
 \item Does moving a count survive optimization, and can the costs of observing two sites be added?
 \item When the positions compile alike, where does the extra work occur and which schedules remove it?
 \item Can information available before compiling the observed candidates select a useful schedule, and how many invocations repay that decision?
+\item Across observation contracts and graph families, when does joint reduction help, and how accurately can candidate IR predict the absolute time of the entire call?
 \end{enumerate}
 
 \begin{figure}[t]
@@ -109,10 +112,10 @@ The four synthetic families contain two elementwise affine layers (E), two dense
 
 For external code we instrumented one or two adjacent blocks of the official Flax ImageNet ResNet example. Each input was $1\times56\times56\times64$. We initialized the weights once, ran batch normalization in inference mode and set its final scale to one to keep the residual branch active. These cases test an independently written model block. The new graphs used for prospective model selection are specified in Section~\ref{sec:selection}.
 
-For each seed, the ordinary tensor had to be finite, FP32, have the original shape and meet its family's fixed tolerance against the unobserved computation. A separate diagnostic returned preactivations to the host, where we counted their positive elements. Every reported counter had to equal its corresponding reference integer exactly. The largest reduction fits in a signed 32-bit count. We checked three inputs per configuration, used fixed weights within a workload and timed one prespecified input. Exactness here concerns the counts on those checked inputs. The tensor check permits the registered floating-point tolerance.
+For each seed, the ordinary tensor had to be finite, FP32, have the original shape and meet its family's fixed tolerance against the unobserved computation. A separate diagnostic returned preactivations to the host, where we counted their positive elements. Every reported counter had to equal its corresponding reference integer exactly. The largest reduction fits in a signed 32-bit count. In the placement and scheduling studies we checked three inputs per configuration, held weights fixed within a workload and timed one prespecified input. Exactness here concerns the counts on those checked inputs. The tensor check permits the registered floating-point tolerance.
 
 \begin{table}[t]
-\caption{Distinct workload conditions and compiled configurations. Each stage reuses the old synthetic conditions for a different comparison. Configurations include unobserved controls.}
+\caption{Workload conditions and compiled configurations by study. Early development stages reuse graphs. Counts include unobserved controls. The two final blind panels use disjoint graphs.}
 \label{tab:scope}
 \centering\small
 \begin{tabular}{@{}lrr@{}}
@@ -126,6 +129,10 @@ Expanded schedule development & 32 & 388\\
 Prospective primary / transfer & 24 / 4 & 312 / 56\\
 Development repeat & 32 & 91\\
 New convolution readouts & 12 & 48\\
+\midrule
+Observation/cost development & 32 & 512\\
+New sizes / new architectures & 16 / 6 & 256 / 84\\
+Final paired-cost test & 8 / 3 & 80 / 27\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -302,22 +309,76 @@ The exception failed its transfer criterion (Table~\ref{tab:convnew}). At batche
 
 All three regressions chose one-image tiles on all twelve graphs, including the four batch-16 controls where the exception used the whole batch. The shape model had no variation in spatial area or channel count in its training data. Source-sharing terms and candidate-dependent IR features produced no decision changes. Against the source regression the IR policy therefore had zero per-call saving and a median 151\,ms of extra setup on the eight target graphs. Compiling both alternatives was charged once and the chosen executable was reused. The 720 output checks passed, and all 120 comparisons between inspected and independently timed HLO fingerprints matched. We close the selection claim for this menu and training set.
 
+\section{Can the rewrite and cost estimates transfer?}
+\label{sec:transfercost}
+
+The earlier selector assigned a time to each tile but was assessed primarily on its choice. We now ask for the absolute latency of a specified program. For graph $g$, observation request $q$ and implementation $a$, let $T(g,q,a)$ be the time from dispatch until every output is ready with inputs already resident. The ordinary forward pass takes $T_0(g)$. We measure the paired observation increment $T-T_0$ and separately time tracing, lowering and compilation, $C$. For a single build and $H$ warmed executions, the projected cost is $C+HT$. This projection excludes process startup, input preparation, the first-call warmup and model training.
+
+\paragraph{Observation semantics.}
+We implemented both schedules in a source-level observation builder. Separate reductions and a tuple-valued variadic reduction share the same forward computation, input tensors and output order. The direct rewrite requires a common iteration shape and common reduced axes~\cite{stablehlo}. The nine requests cover two global positive counts, two last-axis counts, two sums of squared values (energy), an integer count with a floating maximum, three counts, energy and maximum on the same activation, two counts over different axes, a full activation and a single indexed value. The last two are direct outputs. Ineligible requests retain their individual implementations. Counts use exact int32 arithmetic at these sizes. For FP32 summaries, we compare against NumPy on independently exported preactivations, accumulating energy in FP64. Absolute and relative tolerances are both $3\times10^{-4}$.
+
+\paragraph{Blind tests.}
+We used 32 development graphs, crossing four sizes and two readouts with three-layer affine, dense, RMS normalization and convolution workloads. Sixteen test graphs use new sizes and both readouts. The six transfer graphs cover two sizes each of a gated MLP, two consecutive upstream Flax basic residual blocks, and one upstream strided bottleneck block. These architectures were withheld from this fit. Basic ResNet blocks with other shapes appeared in the earlier placement study. Three development processes checked two seeds and timed twelve rounds. Five test processes checked three fresh seeds, randomized candidate order and timed twenty rounds after six warmups. Four aliases of each executable supplied a local noise floor. A resolved difference exceeded the larger of the two 95th-percentile alias differences and had the same sign in at least three processes.
+
+\paragraph{What the estimator can see.}
+The training median is a constant baseline. A source baseline counts tensor extents, estimated dense and convolution work, observation kinds, reduction domains and their output sizes. A second estimator reads only typed candidate StableHLO before backend compilation. It counts operations and result volumes, contracting work, conversions, and separate and variadic reduction domains. A third combines both sets of features. Signed ridge fits predict $\log T$ and $\log C$ separately from standardized $\log(1+x)$ features. Development validation withholds one entire size tier at a time. The test predictions were published before compiling the test candidates. No test timing entered these fits.
+
+We evaluate multiplicative error $Q=\max(\widehat T/T,T/\widehat T)$. The prospective accuracy target requires both median $Q\leq1.30$ and 90th percentile $Q\leq2.0$ within each cohort of observed programs. To attribute improvement to IR, we require at least a 10\% reduction in graph-balanced mean absolute log error relative to the source baseline, and a paired 95\% interval below zero for the error difference. The bootstrap resamples family--shape groups, keeping companion readouts together. Separately, a rule examines the compiled separate implementation for a full-domain compare, converted compare or square exported by a fusion only on an auxiliary path. It selects joint reduction on a match. These decisions were published before test timing. Deployment charges for inspecting that listing and for compiling the joint candidate when selected.
+
+\begin{table}[t]
+\caption{Joint versus separate reductions on the primary blind panel. Ratios are geometric means of paired latency ratios. A gain or loss exceeds the local repeatability floor.}
+\label{tab:contracts}
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}\toprule
+Observation & Pairs & Gain & Loss & Unresolved & Ratio\\\midrule
+Two global counts & 20 & 7 & 0 & 13 & 0.838\\
+Last-axis counts & 20 & 4 & 2 & 14 & 0.953\\
+Two energies & 20 & 2 & 0 & 18 & 0.960\\
+Count and maximum & 20 & 5 & 0 & 15 & 0.866\\
+Three global counts & 18 & 10 & 0 & 8 & 0.765\\
+Same-site energy/max & 22 & 2 & 2 & 18 & 0.969\\\midrule
+All eligible & 120 & 30 & 4 & 86 & 0.892\\\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{When eliminating an export helps.}
+All 5,100 test output checks passed. Of 198 graph--request pairs, 120 admitted both implementations (Table~\ref{tab:contracts}). The other 78 comprised 44 full or indexed outputs, 22 mixed-axis requests and 12 unequal-shape requests. The reference scan found at least one auxiliary-only full-domain export in 82 of the 120 pairs. A post-timing inspection of the joint programs found zero such exports in all 82. The 38 other pairs had zero in both listings and no resolved timing difference. The 82 removals produced all 30 resolved gains, all four resolved losses and 48 unresolved comparisons. The separate and joint listings each matched the corresponding independently timed executable fingerprints in all 600 comparisons.
+
+The two directions occur within the same $320\times160$ affine chain. For three global counts, joint reduction took 0.53 times the separate latency, saving 136.60\us{} per call. For last-axis counts, planned temporary storage fell from 416,000 to 16 bytes, yet joint reduction added 44.90\us{} and took 1.29 times the separate latency. The IR establishes where storage disappears. The measurements establish the direction of the latency change for each request. The scan-based policy achieved 0.889 times separate latency versus 0.892 for unconditional joint reduction on eligible pairs. Charging inspection and compilation, its geometric-mean total cost at 1,000 calls was 1.345 times that of compiling joint directly.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{results/cpu_cost/absolute_latency.pdf}
+\caption{Blind whole-call predictions from the source-plus-StableHLO regression. Each point represents one observed program. The diagonal denotes exact prediction and the shaded band spans a factor of two.}
+\Description{Measured versus predicted latency on logarithmic axes. Several unseen-architecture programs are far above the equality line.}
+\label{fig:absolute}
+\end{figure}
+
+\paragraph{Absolute prediction on the primary blind panel.}
+On the 240 observed configurations with new sizes, the constant, source, IR-only and combined models had median $Q$ of 2.92, 1.39, 1.46 and 1.45. Their 90th percentiles were 24.62, 2.19, 2.11 and 2.06. On the 78 new-architecture configurations the respective median errors were 2.06, 1.46, 2.16 and 1.44 and the 90th percentiles were 13.81, 6.40, 7.76 and 10.24. None met the joint accuracy target. For the two bottleneck shapes the combined regression overestimated median latency by factors of 11.45 and 9.44 (Fig.~\ref{fig:absolute}). Adding IR to source features changed graph-balanced mean absolute log error by $+0.011$ on new sizes (95\% interval $[-0.043,0.064]$) and $+0.175$ on new architectures ($[-0.129,0.448]$). Both missed the registered improvement criterion. For the projected $C+1000T$, the combined model had median/90th-percentile $Q$ of 1.42/1.92 and 1.40/6.24 in the two cohorts.
+
+\paragraph{A direct test of the decision.}
+All three fitted regressions chose joint reduction on every legal primary pair. This was visible from the frozen predictions alone. We registered a final test on eleven additional graphs, using only the original 32 development graphs for calibration. For each requested statistic and dominant operator group, we interpolated the measured log latency of the separate program and the paired log ratio $\log(T_{\rm joint}/T_{\rm separate})$ between development sizes. The fitted ratio can cross zero. The source-based model locates a graph by its estimated arithmetic work and array size. The IR-based model uses the typed arithmetic and reduction domains of the lowered program. Both receive the declared statistic and pool the two development readouts. An equal-weight ensemble averages the two log predictions. Eight new synthetic graphs and three new architecture cases test this limited form of calibration. The second panel shares neither shapes nor timings with the first.
+
+The 107 configurations passed all 1,605 output checks. The ensemble chose separate on 17 of 41 eligible pairs. Relative to always joint, one change gave a resolved gain, one a resolved loss, and 15 remained unresolved. Its graph-balanced latency ratio was 0.983 (95\% interval 0.947--1.016). The IR-based interpolator alone chose separate on 16 pairs and gave the same counts of resolved gains and losses. The absolute estimates answered a different question. On 72 observed configurations at new sizes, median/90th-percentile $Q$ was 1.09/2.32 for source, 1.13/2.32 for IR with the requested statistic, and 1.11/2.32 for the ensemble. On 24 configurations across three new architectures, the corresponding values were 2.13/2.38, 2.15/2.51 and 2.15/2.45. For example, the IR estimate for two separate global counts in a new dense program was 245\us{} against a measured 233\us. In the strided bottleneck it was 791\us{} against 315\us. Median interpolation error met the target on familiar structures. Tail errors exceeded it in both groups.
+
 \section{Related work}
-Dong et al.\ measured the cost of sparsity profiling during GPU training and adapted its frequency in Spartan~\cite{spartan}. Our interface requires both counts on every call. SystemML combines aggregates with shared inputs and estimates the trade-off between redundant computation and materialization~\cite{systemml}. In our example the two monitored tensors lie on a producer--consumer chain, and the main tensor itself is also a required output. These relations motivated the three-path analysis.
+SystemML is the closest antecedent. Boehm et al.\ explicitly evaluate two aggregates sharing one matrix (Fig.~9c--d). Their fusion-plan optimizer accounts for shared reads, common subexpressions, redundant computation and intermediate materialization (Fig.~2 and Sec.~4.2)~\cite{systemml}. Our same-site energy/maximum case provides a common-input control. The cross-layer cases retain the ordinary forward tensor while exporting aggregates on successive producers. We contribute a trace from generated XLA code to a measured intervention, its transfer limits, and a prospective test of the information IR adds to a source estimate. The experiments establish no performance comparison with SystemML. Spartan measured the cost of sparsity profiling during GPU training and adapted its frequency~\cite{spartan}. Our controlled workload fixes the frequency.
 
 Halide separates scheduling choices from the algorithm and exposes locality and recomputation trade-offs~\cite{halide}. The oneDNN Graph Compiler models slicing, invocation count and repeated accesses at CPU fusion points~\cite{onednn}. GPU experiments on fused map--reduce operators likewise show that the aggregation scheme affects execution time~\cite{cuda}. The present measurements isolate observation and tile extent by running a matched main-only tile as well as the observed tile.
 
-XTAT tunes fusion, layouts and tiling in XLA~\cite{xtat}. Learned TPU cost models~\cite{kaufman} and the TpuGraphs dataset~\cite{tpugraphs} establish precedents for ranking tensor-program configurations. The decision here is more restricted. We score declared observation schedules for the same input/output requirement, independently confirm the choices, and charge the time spent reaching a decision. This permits a direct test against a low-cost fixed policy.
+XTAT tunes fusion, layouts and tiling in XLA~\cite{xtat}. Learned TPU cost models~\cite{kaufman}, TpuGraphs~\cite{tpugraphs} and TenSet's multi-platform measurements~\cite{tenset} establish precedents for modeling the performance of tensor programs. Our target is resident-input, synchronized latency for an entire observed XLA CPU forward pass. Ranking implementations is evaluated separately using alternatives with the same outputs.
 
 \section{Validity and scope}
 The device, compiler versions, one logical CPU, predictable shapes and fixed synthetic weights limit transfer. The 24 primary conditions are related templates with only three sizes per family. The bootstrap describes this sampling design on this host. The two external ResNet cases are short subgraphs with initialized weights, and the four mixed cases vary only order and shape. Neither group represents a complete trained inference workload. A direct variadic reduction uses equal-shaped operands~\cite{stablehlo}. A pair of probed layers across a change in spatial extent or channel count may therefore require separate reductions or another legal implementation.
 
 Our producer matching can miss algebraically transformed duplicates. Sixteen of 34 original baseline graphs had a missing or ambiguous ReLU anchor. The initial model used an empty slice for a missing anchor and the largest local producer slice when multiple matched. Optimized HLO, planned allocation and vector stores establish compiler behaviour at specific boundaries. Physical memory traffic and GPU kernel launches require separate measurements. A clean checkout reproduced the 36 crossed-mechanism fingerprints and 540 output checks, providing a same-host reproduction.
 
-In the follow-up, the eight target graphs share four convolution shapes, each with two readouts. The A/A floor describes local repeatability across repeated calls. It supplies no familywise significance guarantee. The three regressions use eight development graphs and two candidate schedules. The cost bounds condition on these menus, measured builds, reuse assumptions and synthetic workload frequencies.
+In the convolution follow-up, the eight target graphs share four shapes, each with two readouts. The A/A floor describes local repeatability without a familywise significance guarantee. The cost bounds condition on the candidate menus, measured builds, reuse assumptions and synthetic workload frequencies. In the absolute-latency study, the trained IR coefficients cover the operation classes present in development. The shape and architecture cohorts contain respectively eight paired shape clusters and six graphs. The final interpolation test has one size per external architecture. All floating-point observations use finite inputs and tolerance-based validation. The static export scan recognizes particular output instructions of explicit fusions. Instruction scheduling, vectorization, cache misses and physical traffic remain unmeasured candidates for the slowdowns.
 
 \section{Conclusion}
-Changing the joint-count schedule eliminated two full masks and delivered a reproducible speedup on a large affine branch. Main-only controls showed why a faster tiled program can still spend more time on observation. The original model's forced ranking and the stronger cap-16 comparator limited the case for automatic selection. Fresh convolution graphs exposed a further limit: a tile that repeatedly won on the old geometry could more than double latency at the same batch size on another geometry. The sharing dependence remained visible in the compiler output, yet the candidate-IR features produced no additional decision benefit. On this CPU the supported optimization remains conditional on the workload and its generated program.
+IR inspection located two unnecessary mask exports in an observed affine program. Applying a known aggregation rewrite delivered a reproducible CPU speedup. Removing full-domain exports also occurred in every resolved slowdown. The original positive-cost selector could only recommend its fixed baseline, and graph-level IR terms canceled in the subsequent ranking. Directly modeling the measured cost difference allowed both choices on new graphs, with one resolved gain and one resolved loss from departing from joint reduction. CPU calibration supported useful typical estimates within familiar operator families. Tail errors and architecture transfer limited whole-program prediction, and the source comparator retained comparable accuracy. GPU kernel boundaries, device execution times and a GPU-specific cost model remain open for validation on hardware.
 
 \paragraph{Reproducibility.}
 The companion repository contains the study protocols, frozen decisions, raw timing blocks, validation results and compiler listings. It also includes the nomination, source-policy and candidate-IR locks in measurement order. The repository README maps the historical measurements to immutable revisions and gives the commands that reconstruct the published follow-up tables from the process archives.
