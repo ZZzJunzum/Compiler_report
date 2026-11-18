@@ -1,262 +1,282 @@
-% Run pdfLaTeX twice from the repository root. Phase III vector figures live in results/.
-\documentclass[10pt,a4paper]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{tgpagella,tgcursor,amsmath}
-\usepackage[margin=23mm,top=22mm,bottom=22mm,headheight=13pt]{geometry}
-\usepackage{microtype,booktabs,tabularx,array,caption,fancyhdr,pgfplots}
-\usepackage{graphicx}
-\graphicspath{{results/phase3/cpu/figures/}{../results/phase3/cpu/figures/}}
-\pgfplotsset{compat=1.17}
-\usepackage[colorlinks=true,linkcolor=black,citecolor=teal!55!black,urlcolor=teal!55!black]{hyperref}
-\hypersetup{pdftitle={The Cost of Exact Activation Counts in XLA},pdfauthor={FusionScope Project},
- pdfsubject={A compiler study of probe placement, reduction schedules, and model selection on CPU}}
-\captionsetup{font=small,labelfont=bf,labelsep=period}
-\pagestyle{fancy}\fancyhf{}
-\fancyhead[L]{\small\itshape FusionScope}\fancyhead[R]{\small Exact activation counts in XLA}
-\fancyfoot[C]{\small\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
-\setlength{\parindent}{1em}
-\setlength{\textfloatsep}{15pt plus 2pt minus 2pt}
-\setlength{\emergencystretch}{1.5em}
+% Build from the repository root. The README gives the pdfLaTeX/BibTeX commands.
+\documentclass[sigplan,10pt,review,anonymous,nonacm]{acmart}
+\setcopyright{none}
+\settopmatter{printacmref=false,printfolios=true}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\acmConference[CS323 Research Report]{CS323 Research Report}{Fall 2026}{}
+\acmDOI{}
+\acmISBN{}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\graphicspath{{results/phase3/cpu/figures/}}
 \newcommand{\us}{\ensuremath{\,\mu\mathrm{s}}}
-\newcommand{\V}[1]{\ensuremath{\mathrm{V}_{#1}}}
-\newcommand{\Ecase}{\texttt{E3\_branch}}
-\newcommand{\Ncase}{\texttt{N2\_branch}}
-\newcommand{\artifact}[2]{\href{https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/#1}{#2}}
-\definecolor{measure}{HTML}{155968}
-\definecolor{analytic}{HTML}{AF552C}
-\definecolor{ridge}{HTML}{64488A}
-\title{\bfseries The Cost of Exact Activation Counts in XLA\\[4pt]
-       \large Probe Placement, Reduction Schedules, and Prospective CPU Selection}
-\author{FusionScope Project}
-\date{}
+\newcommand{\mib}{\ensuremath{\,\mathrm{MiB}}}
+\newcommand{\kib}{\ensuremath{\,\mathrm{KiB}}}
+
+\title{The Cost of Exact Activation Counts in XLA on a CPU}
+\author{Anonymous Author(s)}
+\renewcommand{\shortauthors}{Anonymous Author(s)}
 
 \begin{document}
-\maketitle
-\thispagestyle{plain}
+
 \begin{abstract}
-Returning two exact activation counts can change how a compiler computes the tensor that accompanies them. We study this cost in JAX/XLA on one Intel CPU. Across 32 synthetic workloads, all four pre-/post-ReLU placements produced the same optimized High Level Optimizer (HLO) computation within each workload. Changing the reduction schedule removed two 4\,MiB integer-mask exports in a million-element affine branch and gave a $3.07\times$ speedup. The analytic selector always chose joint reduction because its five cost coordinates favored that schedule in all 186 comparisons. We then crossed tile extent with observation strategy and tested a revised selector on 24 fresh conditions. The locked regression reduced geometric-mean execution latency by 13.9\% relative to fixed joint reduction (paired 95\% interval for the ratio, 0.797--0.943). Its largest gains came from row normalization. On four mixed-operator transfers its latency ratio rose to 1.047. A two-candidate timing policy selected within the repeatability floor of the fastest valid program on all 24 primary conditions. Setup costs changed the deployment result. Even with calibration reused, only two static choices and no two-candidate choices recovered their costs within 1,000 invocations.
+An inference program that returns two layerwise counts adds eight bytes to its output. How much work does the compiler generate to produce them? We studied exact positive-activation counts in JAX/XLA on one Intel CPU. Moving either count across a ReLU preserved its value and yielded one optimized computation per workload on all 32 synthetic workloads. Changing the reduction schedule had a different effect. On a million-element affine branch, separate reductions exported two four-mebibyte integer masks. Joint reduction eliminated both exports and ran 3.07 times as fast. A first cost model assigned every alternative a higher predicted cost for every positive setting of its coefficients. We expanded the schedules and froze a replacement model before evaluating it on 24 new conditions. Its geometric-mean latency ratio to whole-tensor joint reduction was 0.861 (paired 95\% interval 0.797--0.943). A subsequent comparison against a fixed tile rule selected on development data gave a ratio of 0.981 (0.957--1.007). Even with calibration reused, the model recovered its setup cost within 1,000 calls on two of the 24 conditions. The compiler evidence explains a large local improvement and identifies where a simple schedule remains competitive.
 \end{abstract}
+\begin{CCSXML}
+<ccs2012>
+<concept><concept_id>10011007.10011006.10011041.10011046</concept_id><concept_desc>Software and its engineering~Compilers</concept_desc><concept_significance>500</concept_significance></concept>
+</ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Software and its engineering~Compilers}
+\keywords{operator fusion, compiler intermediate representation, activation monitoring, reduction scheduling, performance modeling}
+\maketitle
 
 \section{Introduction}
-Suppose an inference service must return its usual tensor and the number of positive activations at two specified layers on every call. The two counters add only eight bytes to the logical output. Computing them can require scanning the entire activation domain, duplicating arithmetic or storing an intermediate across a fusion boundary. The choice that matters to the user is among programs that provide \emph{the same information}.
+Layerwise sparsity measurements have been used to guide the training of rectified networks~\cite{spartan}. Consider an engineer who needs the inference program to return its usual tensor and the number of positive values at two layers on \emph{every} call. Shipping the answers takes two 32-bit integers. Computing them can require traversing two complete tensors. Should the engineer move the measurement, combine the reductions, or change the unit of work processed at a time? The service needs the same two integers under every choice.
 
-We examine two distinct compiler decisions. First, can a count move across a ReLU to an edge where the activation is already available? Second, if the compiler erases this source-level choice, can a different execution schedule share producer work or bound intermediate storage? Both questions have relevant precedents. Spartan adapts how often a training-time sparsity monitor runs~\cite{spartan}. SystemML optimizes materialization and shared aggregates~\cite{systemml}, and XTAT tunes XLA schedules and fusion decisions~\cite{xtat}. Here the sampling rate, two dependent observation sites and main output are fixed. Our experiment isolates the cost of fulfilling that contract.
+A pilot compared returning one element, the mean of an activation tensor, and the complete tensor. On 4,096 FP32 elements the unobserved program took 27.55\us. Sampling one element added four output bytes and took 28.75\us. Taking the mean also added four bytes and took 32.45\us. Returning all 16,384 bytes took 30.20\us. Each operation answers a different question. We therefore fixed the requested information before comparing implementations.
 
-The study makes three contributions. A placement control and a crossed ReLU-implementation control identify the source changes that survive compilation. A path-by-path HLO audit and a crossed experiment with tiled, unobserved controls measure how aggregation and tile extent interact. Finally, we explain a coefficient-independent restriction in a cost model and test a replacement selector on new input shapes, with separate accounting for the cost of choosing its schedule.
+For a preactivation $z$ and $a=\max(z,0)$, the predicates $z>0$ and $a>0$ agree at every finite element. Both layers admit this choice, giving four source programs with identical count semantics. The next three questions determined the experiments.
 
-\section{Prior work}
-Dong et al.\ quantify the cost of exhaustive activation-sparsity profiling in GPU training and use temporal adaptation to reduce its frequency~\cite[Table~7]{spartan}. Our observer must execute on each input. Boehm et al.\ show how shared aggregates benefit from common input scans and how producer duplication competes with materialization~\cite[Fig.~1 and Sec.~4.2]{systemml}. In our workload one observed layer feeds the next, and both counts accompany a full tensor output. XTAT discusses the replication of a producer across consumers with different iteration spaces~\cite{xtat}. These mechanisms motivate following the actual operands on all three output paths.
+\begin{enumerate}
+\item Does moving a count survive optimization, and can the costs of observing two sites be added?
+\item When the positions compile alike, where does the extra work occur and which schedules remove it?
+\item Can information available before compiling the observed candidates select a useful schedule, and how many invocations repay that decision?
+\end{enumerate}
 
-Halide makes computation and storage granularity explicit in a schedule~\cite{halide}. The oneDNN Graph Compiler distinguishes the size of a slice, its invocation count and total element accesses at a CPU fusion point~\cite[Fig.~3]{onednn}. Dodovi\'c et al.\ vary the reduction strategy for fused CUDA map--reduce kernels~\cite[Sec.~4.4]{cuda}. These studies motivate the tile sweep and help explain why a working-set proxy alone is incomplete. Our analytic equation borrows the maximum of compute and transfer time from the Roofline model~\cite{roofline}. Kaufman et al.\ evaluate learned models for TPU tiling and fusion, and TpuGraphs records configuration-specific runtimes for complete tensor graphs~\cite{kaufman,tpugraphs}. Those studies establish prior art for learned configuration selection. Our test concerns transfer across CPU workload families under an exact-observation contract.
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\footnotesize,
+ box/.style={draw=black!65,rounded corners=2pt,minimum height=.58cm,inner xsep=3pt,align=center},
+ arr/.style={-{Stealth[length=4pt]},thick},
+ countedge/.style={arr,dashed}]
+\node[box] (first) at (0,0) {affine + ReLU\\$a_1$};
+\node[box] (second) at (2.4,0) {affine + ReLU\\$a_2$};
+\node[box] (y) at (4.75,0) {readout\\$y$};
+\draw[arr] (first) -- (second);
+\draw[arr] (second) -- (y);
+\draw[arr] (first.north) -- ++(0,.36) -| (y.north);
+\node[fill=white,inner sep=1pt] at (2.4,.73) {additional use in the branch};
+\node[box] (q1) at (0,-1.37) {$\sum [a_1>0]$\\$q_1$};
+\node[box] (q2) at (2.4,-1.37) {$\sum [a_2>0]$\\$q_2$};
+\draw[countedge] (first) -- (q1);
+\draw[countedge] (second) -- (q2);
+\node[align=left,anchor=west,font=\scriptsize] at (3.45,-1.37) {return\\$(y,q_1,q_2)$};
+\end{tikzpicture}
+\caption{One measurement request. The chain reads only the second activation at the output. The branch also reads the first. Solid edges belong to the ordinary computation and dashed edges supply the two counters.}
+\Description{Two sequential affine and ReLU stages feed an output. A branch adds an edge from the first stage to the output. A separate count reads each stage.}
+\label{fig:contract}
+\end{figure}
+
+Figure~\ref{fig:contract} gives a running example. The main tensor in the branch is $y=0.75a_2+0.125+0.25a_1$. Counting both activations separately lets the optimizer choose how to provide $a_1$ to three paths. At $4096\times256$, following those paths revealed two entire integer-mask outputs and three instances of the first affine add. Combining the counts changed the executable and produced a measurable gain. The ability to explain this change after compilation and the ability to predict it in advance require different evidence.
 
 \section{Experimental design}
-\paragraph{Observation and inputs.}
-For layer $i$, let $a_i=\max(z_i,0)$ and $q_i=\sum_j\mathbf{1}[a_{ij}>0]$. On finite inputs the predicate has the same value before and after the ReLU. The target program returns $(y,q_1,q_2)$. Single-counter controls in Phase I return only the requested count alongside $y$. Inputs are FP32, weights are fixed across input seeds, and counts fit in signed 32-bit integers. For each candidate we check finite, same-shaped FP32 $y$ against the unobserved program under the registered family tolerance. Both scalar integers must exactly match independent host counts from a diagnostic program that returns the preactivations. Three input seeds are validated and one fixed seed is timed.
+\label{sec:design}
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+ b/.style={draw=black!65,rounded corners=2pt,align=center,inner sep=3.5pt,minimum height=.65cm},
+ a/.style={-{Stealth[length=4pt]},semithick}]
+\node[anchor=west,font=\bfseries] at (0,0) {(a) Independent integer sums};
+\node[anchor=west,font=\bfseries] at (8.35,0) {(b) Joint integer sum};
+\draw[black!35] (8,-.18) -- (8,-3.45);
+\node[b] (sy) at (1.55,-.75) {first affine add\\line 117};
+\node[b] (sm1) at (1.55,-1.9) {first affine add\\line 103};
+\node[b] (sm2) at (1.55,-3.05) {first affine add\\line 82};
+\node[b] (m1) at (4.55,-1.9) {mask $1$, $4\mib$\\fusion line 219};
+\node[b] (m2) at (4.55,-3.05) {mask $2$, $4\mib$\\fusion line 221};
+\node (ys) at (6.75,-.75) {$y$};
+\node (qs1) at (6.75,-1.9) {$q_1$};
+\node (qs2) at (6.75,-3.05) {$q_2$};
+\draw[a] (sy) -- node[above]{readout} (ys);
+\draw[a] (sm1) -- (m1); \draw[a] (m1) -- node[above,font=\footnotesize]{sum} (qs1);
+\draw[a] (sm2) -- (m2); \draw[a] (m2) -- node[above,font=\footnotesize]{sum} (qs2);
+\node[b] (jy) at (9.9,-.75) {first affine add\\line 127};
+\node[b] (jc) at (9.9,-2.5) {first affine add\\line 102};
+\node[b] (jr) at (13.15,-2.5) {two predicates\\one reduce, line 117};
+\node (yj) at (15.8,-.75) {$y$};
+\node (qj) at (15.8,-2.5) {$(q_1,q_2)$};
+\draw[a] (jy) -- node[above]{readout} (yj);
+\draw[a] (jc) -- (jr); \draw[a] (jr) -- (qj);
+\end{tikzpicture}
+\caption{Optimized CPU HLO for the same $4096\times256$ affine branch. Line numbers are local to each schedule's archived optimized module. Arrows abbreviate intervening operations. The independent schedule exports two complete int32 tensors. In the joint schedule the conversions feed a variadic reduction inside one computation and both results are scalars. The main tensor still has its own producer path.}
+\Description{Three paths with three instances of the first affine add and two full mask exports in the separate program. Two paths and no full mask exports in the joint program.}
+\label{fig:hlo}
+\end{figure*}
+\paragraph{Workloads and output checks.}
+The four synthetic families contain two elementwise affine layers (E), two dense products with bias (M), two row-wise root-mean-square normalizations with learned-form affine scale and bias (N), or two same-padded convolutions with a residual addition (C). Each layer has a ReLU. The chain and branch readouts follow Figure~\ref{fig:contract}. In the first two studies, E, M and N use width 256. Their row counts respectively span 16--4096, 4--256 and 16--1024. C uses $32\times32$ images, 16 channels and batch sizes 1, 4, 8 and 16. Four sizes and two readouts give eight conditions per family.
 
-\paragraph{Workloads.}
-Each synthetic program has two ReLU sites. The elementwise family (E) uses affine transformations, the dense family (M) uses matrix products, and the normalization family (N) uses row-wise root-mean-square normalization with an affine transform. The convolution family (C) uses same-padded convolutions with a residual addition. A chain reads out the last activation. A branch additionally reads out a scaled copy of the first. In Phases I and II, four sizes and two topologies give eight conditions per family. Vector widths are 256, with up to 4,096 rows for E, 256 for M, and 1,024 for N. C uses $32\times32$ images with 16 channels and batches of 1, 4, 8 or 16. Two additional workloads use one or two adjacent blocks of the official Flax ResNet implementation, with input $1\times56\times56\times64$, fixed initialized weights, and inference-mode batch normalization.
+For external code we instrumented one or two adjacent blocks of the official Flax ImageNet ResNet example. Each input was $1\times56\times56\times64$. We initialized the weights once, ran batch normalization in inference mode and set its final scale to one to keep the residual branch active. These cases test an independently written model block. The new graphs used for prospective model selection are specified in Section~\ref{sec:selection}.
 
-\paragraph{Interventions.}
-Phase~I crosses the two positions (pre or post) at each site, alongside four single-site variants and the unobserved baseline. This gives $32\times9=288$ synthetic configurations and 18 external configurations. Phase~II fixes both sites after the ReLU and varies scheduling (Table~\ref{tab:strategies}). E, M and N are tiled only across whole rows and C across whole images. Every legal registered tile size is measured, including one-tile controls. The 32 conditions yield 250 configurations including 32 baselines and 122 tiled implementations. The batch-one external workloads contribute eight more configurations.
+For each seed, the ordinary tensor had to be finite, FP32, have the original shape and meet its family's fixed tolerance against the unobserved computation. A separate diagnostic returned preactivations to the host, where we counted their positive elements. Every reported counter had to equal its corresponding reference integer exactly. The largest reduction fits in a signed 32-bit count. We checked three inputs per configuration, used fixed weights within a workload and timed one prespecified input. Exactness here concerns the counts on those checked inputs. The tensor check permits the registered floating-point tolerance.
 
-\begin{table}[htbp]\centering\small
-\caption{Execution strategies in Phase II. All observed strategies retain the same $y$ and both counts.}\label{tab:strategies}
-\begin{tabularx}{\linewidth}{@{}l l X@{}}\toprule
-ID & Strategy & Execution boundary\\\midrule
-\V{0} & Unobserved & Return $y$ only. Reference for incremental observation cost.\\
-\V{1} & Separate counts & Two mask-to-integer reductions inside one compiled program.\\
-\V{2} & Joint reduction & A variadic \texttt{lax.reduce} combines two masks using componentwise integer sums.\\
-\V{3} & Materialized stage & The first executable returns $(a_1,q_1)$. A second consumes $a_1$ and returns $(y,q_2)$.\\
-\V{4}$(b)$ & Tiled partial sums & A \texttt{lax.map} body produces a tile of $y$ and two partial sums. Combine the tiles and sum the partials.\\
-\bottomrule\end{tabularx}\end{table}
-
-\paragraph{Measurements and comparisons.}
-We used JAX and jaxlib 0.9.0.1 on an Intel Core i5-13420H with each process pinned to one logical CPU. Inputs were device-resident. Compilation and lowering were timed separately. Each candidate block used six warm-up rounds and twenty timed rounds in randomized order, waiting for the entire output tree on every call. Discovery used five independent processes and confirmation used three new processes. Each external workload used five. Phase~II also screened five fixed cases in three processes before expanding the matrix. It recorded 43,380 formal candidate calls, 44,960 A/A calls and 6,507 successful configuration--seed--process checks, including baseline checks. A further clean-clone screening replay is reported separately.
-
-For condition $c$ and schedule $v$, $T_{cv}$ is the median of process medians. Speedup is the median of within-process $t_1/t_v$. We report selection regret as $T_{c,\mathrm{selected}}/\min_{v\ne0}T_{cv}-1$ over valid observed candidates. For Phase~II, four aliases each call the same \V{0} or \V{1} executable. The larger of the two empirical 95th percentiles of absolute within-process differences between alias medians gives the A/A floor. A speed change must exceed that floor and agree in direction across a strict majority of processes. A decision is within the floor when its gap to the best median is no larger than the floor. The two summaries aggregate in different orders. The floor describes local repeatability and does not constitute a confidence interval.
-
-\section{How the observation changes the program}
-\subsection{Probe placement often disappeared during optimization}
-In every synthetic condition the four double-site placements shared one normalized optimized-HLO fingerprint. No fastest-versus-runner-up order was resolved in independent confirmation. Observing still cost time. The median paired latency ratio to the unobserved baseline across 128 double-site configurations was 1.107, and a clean full replay gave 1.110. Across both runs all 306 synthetic and external configuration fingerprints matched. The placement model's median regret was 0.956\%, versus 0.749\% for always observing after both ReLUs. Their small ordering reversed on replay (0.699\% versus 0.872\%). Those differences provide little evidence for distinct placement costs.
-
-Each external ResNet condition retained four fingerprints, although its latency order remained unresolved. A separate compile-and-validate control crossed the ReLU expression with workload on one small affine graph and one ResNet block. Direct \texttt{maximum} produced one fingerprint per graph across placements, while \texttt{jax.nn.relu} produced four. This identifies a source-level condition sufficient to change the observed equivalence in these two cases. It leaves the responsible pass and machine-code equivalence open.
-
-The single-site controls also allow an interaction estimate, $I=t_{12}-t_1-t_2+t_0$. Here $t_1$ and $t_2$ refer to observing just one site each. In both topologies of the largest normalization workload, all four two-site placements had a negative interaction beyond the registered A/A pseudo-interaction threshold in discovery and confirmation, in both full runs. These eight configurations show that adding the two measured single-site overheads can overstate the joint cost even when all four placements compile alike.
-
-\subsection{A producer can reappear along three output paths}
-We trace $y,q_1,q_2$ separately from the HLO entry tuple, binding each fusion-body parameter at its call site. A duplicate requires the same tagged source scope, opcode, type and shape, attributes, and recursively matched operands in distinct invocation groups. References to one computed value count once. This conservative match can miss algebraically equivalent rewrites. On \Ecase{} ($4096\times256$), the first affine add appears at lines 72, 93 and 107 of the archived \V{1} HLO, along $q_2,q_1,y$ respectively. Two separate reduction trees shrink the count domains through $128\times8$ and $4\times1$ to scalars. Table~\ref{tab:audit} gives controls from the other families.
-
-\begin{table}[htbp]\centering\small
-\caption{Extra copies of tagged arithmetic expressions in five audited HLO modules. The last column counts complete int32 mask outputs crossing a fusion boundary under separate counting.}\label{tab:audit}
-\begin{tabular}{@{}lrrr@{}}\toprule
-Condition & Copies with $y$ only & Copies with counts & Exported mask size\\\midrule
-E0 chain & 0 & 7 & 32 KiB\\
-E3 branch & 0 & 7 & 8 MiB\\
-M3 chain & 0 & 2 & 512 KiB\\
-N3 chain & 4 & 14 & 2 MiB\\
-C3 chain & 0 & 3 & 0\\
-\bottomrule\end{tabular}\end{table}
-
-For \Ecase{}, buffer assignment places two 4\,MiB int32 masks at offsets 0 and 4,194,304 in the same temporary allocation. Both optimized LLVM kernels contain vector int32 stores. This establishes emitted stores to allocated buffers. Cache service and physical DRAM traffic were unmeasured. In C3 the mask conversion already resides in a reduction fusion, so the same source expression produces no complete mask export.
-
-\subsection{Removing a full mask and removing arithmetic have different effects}
-On \Ecase{}, the joint reduction eliminated both complete mask exports and reduced the compiler's temporary allocation from 8,392,704 to 16 bytes. Tagged arithmetic copies fell from seven to five. Independently confirmed speedup over separate counts was $3.07\times$ and the median paired saving was $3,747\us$, above the $1,150\us$ floor. Tiling by 16 also removed both full-size exports, but its loop body still exported 32\,KiB of mask data per invocation. It retained seven duplicate sites and an estimated 6,291,456 excess simple scalar arithmetic operations across tiles, versus 4,194,304 for the joint reduction. Its speedup was $1.86\times$. Explicitly transmitting the first activation in \V{3} used two calls and achieved $0.81\times$.
-
-On the large convolution chain a batch tile of two achieved $0.43\times$ the speed of separate counts. Its eight smaller convolution batches change both loop scheduling and kernel shape. On the two external ResNet graphs, joint reduction's paired savings (788 and $865\us$) fell below their respective A/A floors (927 and $1,823\us$). A clean clone reproduced all 43 screening configuration fingerprints and passed another 387 output checks. It measured $2.92\times$ for joint reduction on \Ecase{} and $0.42\times$ for the two-image convolution tile.
-
-\begin{table}[htbp]\centering\small
-\caption{Independent confirmation by family. The middle column counts paired improvements of joint over separate counts beyond the A/A floor. No joint-reduction slowdown met the same rule. The last four columns count the schedule with the smallest cross-process median, including unresolved differences.}\label{tab:families}
-\begin{tabular}{@{}lrrrrrr@{}}\toprule
- & & & \multicolumn{4}{c}{Fastest observed schedule}\\\cmidrule(l){4-7}
-Family & Cases & Resolved gains & Separate & Joint & Staged & Tiled\\\midrule
-Elementwise   & 8 & 6 & 0 & 5 & 0 & 3\\
-Dense         & 8 & 0 & 2 & 2 & 0 & 4\\
-Normalization & 8 & 5 & 0 & 0 & 0 & 8\\
-Convolution   & 8 & 0 & 2 & 1 & 1 & 4\\
-\bottomrule\end{tabular}\end{table}
-
-Normalization explains why separate counts are too weak a baseline for assessing a selector. Joint reduction improved on them beyond the noise floor in five of eight conditions. Yet a tiled schedule had the lowest median in all eight (Table~\ref{tab:families}). Thus a model can identify an improvement to the original instrumentation and still miss the fastest implementation of the same query.
-
-\section{Why cost prediction failed to improve on fixed joint reduction}
-All selection scores were locked before independent confirmation. Each fold excluded an entire family, including every size, topology and tile. External scores used training data from the four synthetic families only. Both selectors used the unobserved program's optimized HLO, tensor shapes and the declared schedule. Compiled candidate IR was reserved for subsequent explanation. For 16 of 34 synthetic and external baseline graphs, at least one ReLU anchor was missing or ambiguous. A missing anchor contributed an empty producer slice, and ambiguous anchors used the largest local producer slice.
-
-\begin{table}[htbp]\centering\small
-\caption{Held-out selection on 32 synthetic conditions. The reference in each row is the fastest valid observed schedule. Fixed tile uses the largest legal tile of at most 16. Discovery tile uses a separately timed search.}\label{tab:regret}
-\begin{tabular}{@{}lrrrrr@{}}\toprule
-Policy & Median regret & P90 regret & Within A/A & Exact best & MAE (\(\mu\)s)\\\midrule
-Fixed separate counts & 63.9\% & 203.2\% & 11 & 4 & ---\\
-Fixed joint reduction & 10.9\% & 95.4\% & 19 & 8 & ---\\
-Fixed tile & 11.5\% & 87.9\% & 20 & 9 & ---\\
-Analytic selector & 10.9\% & 95.4\% & 19 & 8 & 1,336.3\\
-Ridge selector & 31.0\% & 98.4\% & 13 & 5 & 691.6\\
-Discovery tile & 0.0\% & 55.1\% & 26 & 18 & ---\\
-\bottomrule\end{tabular}\end{table}
-
-\paragraph{The analytic choice is forced.}
-The analytic model combines host call count $H$, estimated arithmetic $F$, a transfer proxy $B$, reduction levels $L$ and loop steps $S$ in Eq.~\eqref{eq:cost}.
-\begin{equation}
- \widehat T = dH+\max(fF,bB)+rL+sS,\qquad d,f,b,r,s>0 .
- \label{eq:cost}
-\end{equation}
-We audited the frozen inputs to Eq.~\eqref{eq:cost} after confirmation. The 218 observed synthetic candidates include 32 joint schedules and 186 alternatives. For \emph{every} within-condition alternative, all five coordinates are greater than or equal to those of the joint schedule, and the reduction-level estimate is at least two levels higher. The maximum and the sum are coordinatewise nondecreasing. Since $r>0$, the complete prediction is strictly higher for every alternative, regardless of the fitted coefficient values. This is a property of the registered feature rows and equation. Consequently, although the analytic selector reduced median regret from 63.9\% for fixed separate counts to 10.9\%, its choices coincide with fixed joint reduction on all 32 synthetic graphs.
-
-One cause is visible in the feature definitions. \V{2} is assigned zero exported-mask capacity, one reduction tree, one host call and no loop. The proxy charges other schedules for buffers, levels or loops, but offers a tile little credit for improving locality or the throughput of a row kernel. The estimated footprint also assumes two full masks for \V{1} even on C3, where the compiled program exports none. Adjusting coefficients alone cannot repair the ordering proved above.
-
-\paragraph{Lower absolute error coexisted with worse decisions.}
-Ridge used standardized log-transformed features, a fixed penalty of one, and a target of $\log(t_v/t_0)$. MAE in Table~\ref{tab:regret} averages per-candidate median absolute error over 218 candidates. Ridge predictions are multiplied by the measured baseline time to express errors in microseconds. The baseline factor cancels when selecting a schedule. Ridge changed the fixed joint choice in 12 conditions. In confirmation two changes lowered median latency and ten raised it. Of those 12 differences between cross-process medians, two gains and six losses exceeded the A/A floor.
-
-Two diagnostics expose what the fitted model can represent. Graph-only features enter additively and cancel in a within-graph score difference. In the held-out dense, normalization and convolution folds, respectively, the training graphs all had zero baseline dot, reduction and convolution sites for the corresponding feature. A family-specific interaction between such an operation and tile size is difficult to learn from these folds. A second check compares 24 one-tile schedules whose complete normalized HLO equals that of separate counts. Ridge assigned them a median absolute predicted relative difference of 7.9\% from the equivalent separate-count program. Sixteen of the 24 predictions differed by over 5\%. Neither diagnostic alone establishes a hardware cause.
-
-\begin{figure}[htbp]\centering
-\pgfplotsset{caseaxis/.style={width=.48\linewidth,height=4.4cm,scale only axis=false,
- xmin=-.15,xmax=4.15,ymin=.4,ymax=2.65,xtick={0,1,2,3,4},xticklabels={1,4,16,64,256},
- ytick={.5,1,1.5,2,2.5},xlabel={Rows per tile},grid=major,grid style={black!9},
- tick label style={font=\scriptsize},label style={font=\small},title style={font=\small\bfseries},
- every axis plot/.append style={line width=0.95pt,mark size=1.8pt}}}
-\begin{tikzpicture}
-\begin{axis}[caseaxis,title={Elementwise branch, $4096\times256$},ylabel={Tile time / joint time}]
-\addplot[gray,densely dotted,no marks] coordinates {(0,1)(4,1)};
-\addplot[measure,mark=*] coordinates {(0,2.558)(1,1.698)(2,1.634)(3,1.642)(4,2.217)};
-\addplot[analytic,dashed,mark=square*] coordinates {(0,2.313)(1,1.330)(2,1.090)(3,1.051)(4,1.127)};
-\addplot[ridge,dashdotted,mark=triangle*] coordinates {(0,1.060)(1,1.067)(2,1.036)(3,1.032)(4,1.049)};
-\end{axis}\end{tikzpicture}\hfill
-\begin{tikzpicture}
-\begin{axis}[caseaxis,title={Normalization branch, $256\times256$},
- legend style={font=\scriptsize,draw=none,fill=white,at={(.5,1)},anchor=north,legend columns=3,
- column sep=1pt},legend cell align=left]
-\addplot[gray,densely dotted,no marks,forget plot] coordinates {(0,1)(4,1)};
-\addplot[measure,mark=*] coordinates {(0,.999)(1,.787)(2,.511)(3,1.804)(4,1.401)};\addlegendentry{CPU}
-\addplot[analytic,dashed,mark=square*] coordinates {(0,2.277)(1,1.339)(2,1.166)(3,1.374)(4,2.426)};\addlegendentry{Analytic}
-\addplot[ridge,dashdotted,mark=triangle*] coordinates {(0,1.339)(1,1.235)(2,1.138)(3,1.086)(4,1.157)};\addlegendentry{Ridge}
-\end{axis}\end{tikzpicture}
-\caption{Each series is normalized to its own joint-reduction value. Below one, tiling wins. CPU points use ratios of confirmation medians. The two prediction curves use locked scores. These cases illustrate a correct and a missed joint-versus-tile decision.}\label{fig:rank}
-\end{figure}
-
-On \Ncase{}, a 16-row tile took $184.15\us$ and the joint schedule took $360.10\us$, a gap above the $101.44\us$ A/A floor. Both models predicted the tile to be slower (Fig.~\ref{fig:rank}). Conversely, on the small E1 chain, ridge preferred a one-row tile over the joint reduction by about 3\% of predicted latency. It took $138.05\us$ versus $59.15\us$ in confirmation. Fixed joint and fixed tile in Table~\ref{tab:regret} already exploit different regimes. A separate discovery sweep picked a tile within the A/A floor of the best observed schedule on 26/32 conditions, but paid to compile and time all legal tiles.
-
-\section{Prospective selection on new workloads}
-\label{sec:prospective}
-We used the 32 previously measured conditions for development. We crossed tile extent with three observer settings on four old graphs. We also timed separate and variadic joint counts at every legal tile on the complete development grid. A tile contains complete rows or convolution samples, preserving the normalization domain and spatial halo. The staged schedule still invokes two executables. A main-only tiled control isolates changes in the unobserved computation.
-
-For extent $b$, let $t_0(b)$, $t_s(b)$ and $t_j(b)$ be process medians for the main computation alone, separate counts and joint counts. We estimated each observer's cost relative to its own $t_0(b)$. For the interaction we estimated $[t_s(b)-t_j(b)]-[t_s(B)-t_j(B)]$, where $B$ is the full batch. Four aliases of the same executable supplied balanced pseudo-interactions. Six of eight nontrivial interactions exceeded the corresponding 95th-percentile floor and had the same sign in all five processes. On the affine branch the 16-row interaction was $-1{,}856\us$ against a $590\us$ floor. Separate counting exported 8\,MiB of full masks at whole extent and 32\,KiB per iteration at 16 rows. The two mask volumes accumulated over all 256 iterations are equal. The compiler allocated and scheduled them at different extents. Neither convolution interaction cleared its floor.
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{mechanism.pdf}
-\caption{Matched main-only, separate and joint schedules on the four mechanism workloads. The denominator in each panel is that workload's whole-extent, main-only time. The vertical axis uses a logarithmic scale.}\label{fig:cross}
-\end{figure}
-
-\paragraph{Selection and independent measurements.}
-The revised analytic model separates live capacity, accumulated visits, stage materialization and loop trips. A pinned copy sweep estimated a 2\,MiB change point in effective bandwidth. Development-shape single-layer measurements supplied the nearest measured dense or convolution throughput in log-shape distance. We compared the revised analytic models with log-latency regression and pairwise logistic ranking, each with and without operator and tile interactions. Entire graph families were held out in the outer folds. Inner training-family folds selected the regularization penalty. Mean outer-fold log regret selected the regression with interactions (0.0254, versus 0.1996 without interactions). The interaction ranker (0.0452) supplied the shortlist alternative.
-
-The four families each supplied three new sizes and two topologies. Affine, dense and normalization inputs were $32\times192$, $128\times320$ and $512\times640$. Convolution used NHWC shapes $(2,24,24,24)$, $(4,40,40,32)$ and $(8,48,48,48)$. Four further chain graphs used both dense--normalization orderings at $32\times320$ and $512\times192$. Legal row tiles divided the batch and came from $\{1,4,16,64,256,B\}$. Convolution used $\{1,2,4,8,16,B\}$. The 28 graphs had 368 configurations, including 28 unobserved controls. The static lock fixed all choices before any new observed executable was compiled. Two independently funded discovery policies each tested joint counting and one alternative in two fresh processes. Each policy used six warm-ups, eight timed rounds and a joint-count A/A block per process. A second lock froze their decisions before a five-process exhaustive confirmation with six warm-ups, 30 interleaved rounds and three separate A/A blocks per graph. Input seeds and weights differed from development. We checked finite FP32 tensors and exact integer counts on three seeds.
-
-\subsection{Confirmation and deployment cost}\label{sec:budget}
-All 5,520 configuration--seed--process checks in independent confirmation passed. The primary endpoint gives each of the 24 graphs equal weight. Within a graph we take the median of the five selected-to-joint latency ratios. Their geometric mean was 0.861. A 10,000-draw bootstrap resampled sizes within each family, kept both topologies in each size block, and resampled the same process indices for the two schedules within a graph. The 95\% interval was $[0.797,0.943]$. The prespecified tests required a ratio at most 0.95, an upper bound below 1 and a P90 regret at most two percentage points above fixed joint. All three criteria were met. Omitting an entire size level across families gave ratios from 0.815 to 0.901.
-
-\begin{table}[htbp]\centering\small
-\caption{Independent confirmation on 24 primary graphs. Regret is the chosen cross-process median divided by the fastest valid observed median, minus one. A/A counts choices whose paired gap from that fastest schedule is inside the measured floor. The oracle is an in-sample reference bound.}\label{tab:fresh}
-\begin{tabular}{@{}lrrrr@{}}\toprule
-Policy & Time / joint & Median regret & P90 regret & Within A/A\\\midrule
-Fixed joint                   & 1.000 & 1.4\% & 100.9\% & 16\\
-Fixed separate-count tile     & 0.981 & 14.9\% & 50.1\% & 3\\
-Revised analytic, kernel rates& 0.922 & 1.2\% & 75.5\% & 16\\
-Locked static regression      & 0.861 & 4.4\% & 15.3\% & 14\\
-Time joint and fixed tile     & 0.871 & 1.4\% & 19.4\% & 17\\
-Time joint and ranked alternative & 0.824 & 0.0\% & 2.2\% & 24\\
-Valid oracle                  & 0.820 & 0.0\% & 0.0\% & 24\\\bottomrule
+\begin{table}[t]
+\caption{Distinct workload conditions and compiled configurations. Each stage reuses the old synthetic conditions for a different comparison. Configurations include unobserved controls.}
+\label{tab:scope}
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Comparison & Conditions & Configurations\\
+\midrule
+Placement, synthetic / ResNet & 32 / 2 & 288 / 18\\
+Schedule, synthetic / ResNet & 32 / 2 & 250 / 8\\
+Extent by observer, old cases & 4 & 36\\
+Expanded schedule development & 32 & 388\\
+Prospective primary / transfer & 24 / 4 & 312 / 56\\
+\bottomrule
 \end{tabular}
 \end{table}
 
-The static rule changed 20 decisions. Eight were faster and 12 were slower in paired process medians, with eight gains and ten losses exceeding their own A/A floor. The geometric mean reflects the magnitudes of those changes. The family ratios were 0.823 (affine), 1.077 (dense), 0.598 (normalization) and 1.039 (convolution). On the $32\times192$ affine branch a 16-row joint tile took $36.20\us$ against $78.85\us$ for whole joint. On the $128\times320$ dense branch a 64-row joint tile took $669.50\us$ against $561.40\us$. On four mixed transfers, the static and timed-shortlist ratios were 1.047 and 0.947, respectively. These four graphs were excluded from model selection and from the primary endpoint.
+\paragraph{Execution and uncertainty.}
+The artifact uses JAX and jaxlib 0.9.0.1 on Windows 11 with each process pinned to one logical CPU of an Intel Core i5-13420H. Inputs were already resident. A measurement starts at host dispatch and ends when all output leaves are ready. Lowering, compilation and warm-up were recorded separately. Six warm-up rounds preceded randomized, interleaved measurements. The original schedule comparison used 20 timed rounds, five development processes, three independent synthetic confirmation processes and five external processes. The prospective confirmation used 30 rounds in each of five new processes. A timing run and a profiling run served distinct purposes.
 
-The revised analytic coordinates made joint reduction dominate all alternatives on only two development graphs and zero primary graphs. Allowing rank reversals did not identify every useful tile. Adding calibrated layer throughput to the capacity-and-visits model moved its primary ratio from 0.916 to 0.922. Adding interactions to log regression moved the ratio from 0.904 to 0.861. For the pairwise objective, the corresponding ratios were 0.860 and 0.859. These are secondary comparisons of the frozen models. The original analytic and ridge models covered 162 of 288 observed primary candidates. Both had zero median regret against the common-domain oracle. The expanded grid exposed faster alternatives on individual graphs.
+We first take a median for each schedule within each process. A paired difference or ratio then compares schedules within that process and is summarized by the median across processes. A table giving absolute time instead uses the median of process medians. The two summaries can differ. Aliases of the same executable (A/A) estimate repeatability. We use the empirical 95th percentile of absolute differences between alias medians, taking the largest across registered control executables. A resolved change must exceed this floor and have the same direction in a strict majority of processes. A/A measures local repeatability. The confidence interval for the primary endpoint is defined separately in Section~\ref{sec:selection}.
 
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth]{regret.pdf}
-\caption{Regret on each fresh primary graph. An open marker denotes a gap inside the empirical A/A floor. The letters c and b denote chain and branch. Some markers coincide near zero.}\label{fig:regret}
-\end{figure}
+\section{What survives a change of placement?}
+\label{sec:placement}
+Each workload had an unobserved baseline, four versions observing just one layer and four observing both layers. The small pilot produced the same two integers, 2117 and 2119, in every double-site placement for input seed 42. Its timing could not resolve the first two positions. We retained all four positions in the complete matrix (Table~\ref{tab:scope}).
 
-Both full-extent tile controls matched their direct counterpart's normalized HLO on every new graph (56/56). All 56 timing differences were unresolved. A diagnostic that compiled all observed candidates and chose the earliest representative of the frozen choice's equivalent HLO class yielded the same primary latency ratio (0.861) at a median reused setup of 1.58\,s. A clean checkout reproduced all 36 mechanism fingerprints and passed 540 more output checks. A separate Windows profiling run on the affine branch measured median process-cycle counts of 9.61 million for separate counts and 3.55 million for joint counts. At 16 rows these counts were 5.28 and 4.05 million, respectively. These totals cover all threads of the pinned process.
+We followed each return value back through the optimized High Level Optimizer (HLO) representation, binding fusion-body parameters to operands at the call site. Fingerprints preserve typed operands, constants, layouts, calls, attributes and instruction order while removing incidental names or metadata. Among all 32 synthetic conditions the four double-site placements had one fingerprint \emph{within each condition}. For example, the count written after the first ReLU on a small affine chain actually compared the preceding affine sum with zero. Adding the two counts still had a cost. The median paired ratio to the unobserved baseline across 128 double-site configurations was 1.107 and was 1.110 on a clean replay.
 
-\paragraph{Paying for selection.}
-For $H$ invocations we charged $C_p+H T_p$. The setup term includes any baseline extraction, feature scoring, compilation and exploratory blocks required by policy $p$. Both timed policies paid for both candidate compilations, warm-ups and A/A trials in each of their two discovery processes. The retained executable can serve subsequent invocations. Cold startup assigns the entire 714\,ms device calibration to the first deployment. Reuse assigns zero additional calibration cost. Offline model training and common framework initialization are outside these totals.
+Both external ResNet subgraphs retained four fingerprints each. The leading latency differences remained below the repeatability criterion. To examine this discrepancy, we crossed the ReLU expression with two workloads, a small affine chain and one external block. Direct \texttt{maximum} produced one fingerprint across placements in each workload, and \texttt{jax.nn.relu} produced four. This controlled change identifies a source expression under which the observed equivalence changes. The responsible optimization pass remains an open question.
 
-With reused calibration, the median setup was 151\,ms for static selection and 606\,ms for the learned shortlist. At $H=1{,}000$ the respective median total-time ratios to fixed joint were 1.27 and 1.75. Static selection broke even by 1,000 calls on two primary graphs. In the eight cases with positive per-call savings, the first non-worse horizon ranged from 569 to 3,408 calls (median 1,884). The learned shortlist improved eight decisions and retained joint counting on the other 16. Its corresponding horizons were 3,078--12,197 calls. With cold calibration none of the three adaptive comparisons in Fig.~\ref{fig:reuse} beat fixed joint by 1,000 calls on any primary graph. At 1,000 calls the learned shortlist's median paired total-time ratio to the equally funded fixed-tile shortlist was 0.991 with reused calibration and 1.739 with cold calibration.
+The single-site variants test a second hypothesis. If site costs add, the interaction $I=t_{12}-t_1-t_2+t_0$ should be near zero. In both topologies of the largest normalization case, each of the four placements gave a negative interaction beyond the A/A pseudo-interaction floor in discovery and confirmation, including the clean replay. The sum of two single-site overheads thus overestimated the joint cost there. Explicitly splitting the program into two executables on two selected cases also changed dispatch and materialization, which prevents attributing that timing difference to fusion alone. A baseline-HLO placement model had median regret 0.956\% against 0.749\% for always observing after both ReLUs. Their order reversed on replay (0.699\% and 0.872\%). The absence of a stable placement winner led us to change the execution schedule.
 
-\begin{figure}[htbp]\centering
-\includegraphics[width=.9\linewidth]{reuse.pdf}
-\caption{Per-graph total time divided by the total for fixed joint, summarized by the median over 24 primary graphs. The dotted line marks equality. Both axes use logarithmic scales.}\label{fig:reuse}
-\end{figure}
+\section{Where the extra computation comes from}
+\label{sec:mechanism}
 
-\section{Limitations}
-All measurements used one pinned logical CPU, one compiler stack, short inference graphs and fixed weights. The two official ResNet subgraphs establish a limited transfer test. Trained networks, multicore servers and accelerator execution require separate measurements. Even when HLO matches, backend and measurement variation remain possible. One of the 24 one-tile equivalence controls crossed the empirical A/A threshold. Compiler allocation, tagged operation counts and LLVM stores support a mechanism. Isolating cache traffic requires hardware counters. Five external processes and three synthetic confirmation processes also limit estimates of tail variability. The within-case minimum across valid candidates is an optimistic comparator.
+Figure~\ref{fig:hlo} locates the work that motivated the change of schedule. Holding the two post-ReLU counts fixed, we implemented four schedules. \emph{Separate} performs two ordinary integer sums inside one compiled program. \emph{Joint} uses a variadic reduction with componentwise integer addition. \emph{Staged} returns the first activation and first count from one executable, then computes the remaining outputs in a second. \emph{Tiled} runs a complete slice of the program per tile, concatenates the main result and sums partial counts. A tile spans whole normalization rows or convolution samples, preserving their reduction domains and spatial neighbourhoods. The first schedule study used separate sums inside each tile. The expanded grid later included joint sums at the same tile sizes.
 
-The fresh sample includes three sizes per primary family. Its confidence interval describes resampling these size blocks and process repetitions on this machine. The four mixed synthetic graphs test only two ordered compositions. Logical exported bytes and Windows process-cycle counts do not identify memory-controller traffic or instruction counts. GPU launches, device-memory traffic and transfer of a CPU-trained policy to another backend remain open questions.
+\paragraph{A traced example.}
+To count duplicate producers, we required matching source scope, opcode, typed shape, attributes and recursive operands in distinct invocation groups. Multiple uses of one computed value count once. In Figure~\ref{fig:hlo}a, two fusion instructions in the entry computation export \texttt{s32[4096,256]}. The first affine add occurs once on each count path and once on the main path. Each mask then passes through a separate reduction tree. Buffer assignment placed the mask results at byte offsets 0 and 4,194,304 in one temporary allocation. The associated optimized LLVM modules contain vector int32 stores. Together these observations establish that the generated code writes the masks to allocated buffers. Physical traffic to DRAM depends on cache behaviour.
+
+With joint counting (Figure~\ref{fig:hlo}b), the two mask conversions feed the same reduce. The compiler's planned temporary space fell from 8,392,704 to 16 bytes. Extra copies of tagged arithmetic expressions fell from seven to five. Independent timing measured a $3.07\times$ speedup over separate counting with a paired saving of 3,747\us{} against a 1,150\us{} floor. A 16-row separate tile retained seven duplicate sites, exported $32\kib$ of masks per iteration and achieved $1.86\times$. Explicit staging introduced a second dispatch and achieved $0.81\times$. A clean checkout reproduced all 43 screening fingerprints and gave $2.92\times$ for the joint affine case.
+
+\paragraph{When the same intervention has little to remove.}
+In the largest convolution chain the comparisons were already inside reduction fusions under separate counting. Its full-mask exports amounted to zero bytes. At two images per tile the smaller convolution batches and loop overhead together gave $0.43\times$ the speed of separate whole-batch counting. Across 32 synthetic conditions at whole extent, joint counting yielded 11 resolved gains (six affine and five normalization) and zero resolved losses. The two external block savings, 788 and 865\us, fell below their respective floors of 927 and 1,823\us.
+
+\paragraph{Separating main work from observer work.}
+We next crossed three extents with three settings (main only, separate counts, joint counts) on four old graphs. Let $O_s(b)=t_s(b)-t_0(b)$ be the observer overhead against the \emph{same} main-only tile size. Changing extent altered the separate-minus-joint timing contrast beyond the interaction floor for six of eight nontrivial comparisons. The 16-row affine contrast changed by $-1{,}856\us$ against a $590\us$ floor. Across 256 iterations, the $32\kib$ masks per tile still total $8\mib$ logically. Allocation extent and frequency of reuse changed.
+
+\begin{table}[t]
+\caption{Normalization branch, $256\times256$, five processes. The last row uses paired within-process differences. Subtracting the displayed marginal medians gives a different statistic.}
+\label{tab:mainonly}
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Time ($\mu$s) & Whole & 16 rows\\
+\midrule
+Main only & 186.30 & 89.95\\
+Main and joint counts & 198.90 & 105.40\\
+Paired incremental cost & 11.75 & 15.55\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:mainonly} illustrates why attributing a tile's entire benefit to cheaper observation is unsafe. Tiling nearly halved total latency on this graph. It also nearly halved the time for the main calculation alone. The paired cost of the counters was slightly higher at the smaller extent. Each of the four mechanism cases had its own matched unobserved tiles. The prospective primary grid had one untiled main-only baseline per graph.
+
+\section{Why the first selector always chose joint reduction}
+For deployment we initially allowed the selector to see the unobserved program's optimized HLO, tensor shapes and candidate schedule descriptions. Compilation of the observed candidates came after selection. We trained on three families and held out all sizes and topologies of the fourth. The model estimated cost in microseconds as
+\begin{equation}
+\widehat T=dH+\max(fF,bB)+rL+sS .
+\label{eq:cost}
+\end{equation}
+Here $H,F,B,L,S$ are host calls, estimated arithmetic work, a byte-transfer proxy, reduction levels and loop steps. All fitted coefficients were positive. The maximum follows the usual compute/transfer bottleneck approximation~\cite{roofline}.
+
+Among 218 observed synthetic candidates there were 32 whole joint schedules and 186 alternatives. For every within-graph alternative, all five features were at least as large as for joint reduction, and $L$ was at least two levels larger. Equation~\ref{eq:cost} is nondecreasing in each feature. The positive coefficient on $L$ forces every alternative's score above its joint score. This conclusion holds for every choice of positive coefficients on the registered feature rows. The proxy charged tiles for masks, extra steps and merge levels, with little credit for locality or shape-dependent kernel throughput. In the normalization branch, a 16-row separate tile took 184.15\us{} against 360.10\us{} for joint counting in the original confirmation. The model could never nominate that winner.
+
+A ridge regression reduced the mean of the per-candidate median absolute errors from 1,336 to 692\us{} but changed 12 decisions relative to joint counting. Two changes helped and ten hurt. Across 24 one-tile separate schedules with the same normalized HLO as their direct separate counterpart, its median absolute predicted gap was 7.9\%. These failures led us to expand the candidate set to include tiled joint sums and to model interactions between operator type and tile extent.
+
+\section{Prospective choices on new CPU workloads}
+\label{sec:selection}
+\paragraph{Freeze, then measure.}
+Using the 32 old conditions, we measured separate and joint sums at all legal extents and retained whole, staged and full-extent controls. We compared analytic models, log-latency ridge regressions and pairwise logistic rankers. Features distinguished live capacity, cumulative visits, materialization and loop trips. A device copy sweep supplied two bandwidth regimes and a 2\mib{} change point. Timings of isolated dense and convolution layers on development shapes supplied throughput estimates. Whole-family outer folds chose the model by mean log regret and inner training-family folds chose regularization. The selected static regression included interactions of operator type with schedule and tile extent. A separate pairwise model proposed the second candidate for a timed shortlist.
+
+The 24 primary conditions use three fresh shapes per family and both topologies. E, M and N use $32\times192$, $128\times320$ and $512\times640$. C uses NHWC shapes $(2,24,24,24)$, $(4,40,40,32)$ and $(8,48,48,48)$. Four transfer graphs compose dense and normalization in both orders at two further shapes. They have a separate endpoint. Inputs and weights were reseeded. We tested the full batch and every divisor in a short list. The row caps were 1, 4, 16, 64 and 256. The image caps were 1, 2, 4, 8 and 16. All 28 static choices were locked before any of their observed candidates were compiled. Each timed policy tried two candidates in two independent discovery processes. Both policies retained whole joint counting if the alternative failed the A/A rule. A second lock preceded five-process exhaustive confirmation.
+
+\paragraph{Registered result.}
+For each primary condition we took the median of its five paired selected/whole-joint time ratios, then the equal-weight geometric mean across the 24 conditions. Ten thousand bootstrap draws resampled sizes within each family, retaining the chain and branch together, and paired the process indices across schedules within a condition. The primary criteria required a ratio at most 0.95, an upper interval bound below one and 90th-percentile regret at most two percentage points above fixed joint. All three criteria were met. Regret is the selected cross-process median divided by the fastest valid candidate median, minus one. The minimum over candidates is an optimistic reference.
+
+\begin{table*}[t]
+\caption{Prospective confirmation on 24 primary conditions. Lower latency ratio and regret are better. The denominator for latency is whole-tensor joint reduction. The last two columns distinguish the empirical A/A floor from exact agreement with the fastest observed schedule.}
+\label{tab:primary}
+\centering\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Policy & Latency ratio & Median regret & P90 regret & Within A/A (of 24) & Exact fastest (of 24)\\
+\midrule
+Whole joint & 1.000 & 1.4\% & 100.9\% & 16 & 7\\
+Fixed tile, separate sums & 0.981 & 14.9\% & 50.1\% & 3 & 0\\
+Analytic with kernel rates & 0.922 & 1.2\% & 75.5\% & 16 & 6\\
+Locked static regression & 0.861 & 4.4\% & 15.3\% & 14 & 10\\
+Time joint and fixed separate tile & 0.871 & 1.4\% & 19.4\% & 17 & 7\\
+Time joint and ranked alternative & 0.824 & 0.0\% & 2.2\% & 24 & 13\\
+Fastest valid observed schedule & 0.820 & 0.0\% & 0.0\% & 24 & 24\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The static model's primary ratio was 0.861 with a paired 95\% interval of [0.797, 0.943] (Table~\ref{tab:primary}). Eight graphs ran faster, twelve slower and four retained the fixed choice. Eight gains and ten losses exceeded their local floors. The family ratios were 0.823 for affine, 1.077 for dense, 0.598 for normalization and 1.039 for convolution. On the four mixed transfers the static ratio was 1.047, and the timed ranker's ratio was 0.947. The 368 confirmation configurations passed all 5,520 configuration--seed--process checks. The 56 full-extent tile controls on the 28 graphs matched the corresponding direct optimized HLO, and none of their timing differences exceeded the repeatability criterion.
+
+\section{What did the model actually learn?}
+\label{sec:audit}
+The registered comparison addresses whether a frozen selector beats always using whole joint reduction. After confirmation we examined the stronger baseline implicit in the expanded schedule grid, the information actually used by the selector, and sensitivity to the aggregation of workloads. The following comparisons are retrospective. They reuse the frozen development and confirmation observations without new timing trials.
+
+\paragraph{A stronger fixed rule.}
+We chose a single policy on the 32 development cases by minimizing geometric-mean paired latency relative to whole joint counting. The catalog contained whole separate, whole joint, staged, and separate or joint tiles capped at 1, 4, 16, 64 or 256 rows or images. A cap maps to the largest legal extent at or below it. A full-extent tile maps to its direct counterpart. The development winner used joint sums with a cap of 16. On the 24 primary cases its ratio to whole joint was 0.876. Repeating the same paired bootstrap with this rule as denominator gave a static/fixed ratio of 0.981 with a 95\% interval of [0.957, 1.007]. These data do not resolve an additional execution-time advantage over the stronger fixed rule.
+
+\paragraph{Withholding baseline HLO.}
+The resident-byte input is the sum of input, parameter and output sizes. The FP32 source shapes recover it exactly on all 60 development and fresh graphs. We set baseline work, fanout and shared-prefix features to zero, reconstructed the byte input from shapes, and retained the frozen regression weights, device calibration and source operator labels. All 28 choices were unchanged. Across all 340 observed candidates, scores relative to the same graph's whole-joint score agreed within $10^{-14}$. Graph-only additive effects cancel when taking that difference. Retraining the same log regression using these source-derived inputs and development-only regularization selection changed two of 28 choices. Its primary ratio was 0.869. This ablation concerns candidate ranking. Absolute predicted latencies can change.
+
+\begin{table}[t]
+\caption{A topology-dependent reversal. Both affine graphs have shape $128\times320$. The model chose a 64-row joint tile for both. Absolute times are medians in microseconds. Ratios use within-process pairing.}
+\label{tab:reversal}
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Readout & Whole joint & 64-row joint & Paired ratio\\
+\midrule
+Chain & 45.95 & 49.20 & 1.098\\
+Branch & 110.35 & 50.35 & 0.451\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{A missed reversal.}
+The frozen model made the same choice in each chain and its paired branch, across all twelve pairs. Within each pair the relative schedule scores agreed to numerical precision. In Table~\ref{tab:reversal}, the additional use of $a_1$ changes the sign of the measured benefit. Both paired differences exceeded their own repeatability floor. Branch and fanout enter as graph-level offsets, so the fitted linear score cannot express that reversal at fixed shape and operator types. The records identify the limitation of the score. A pass-by-pass attribution of the reversal and matched unobserved tiles on these new graphs would be needed to assign the latency difference to a particular compiler transformation.
+
+\paragraph{A workload mix and the cost of choosing.}
+The primary endpoint weights per-graph ratios equally. A service with one invocation of each graph asks a different question. Within each confirmation process, we summed the 24 selected median latencies and divided by the corresponding sum for whole joint. The median of these five ratios was 1.005. This is a calculated invocation mix. An end-to-end service with its own request frequencies requires a separate measurement.
+
+For $H$ invocations we charged policy $p$ a total of $C_p+HT_p$. Setup $C_p$ includes required baseline compilation, feature extraction, schedule scoring, observed compilation and exploratory measurements. The timed policies paid for both candidates in both discovery processes. Offline training and common framework initialization were outside this accounting. Cold deployment also pays the measured 714\,ms calibration cost. With that calibration reused, median setup was 151\,ms for static selection and 606\,ms for the ranked shortlist. At 1,000 invocations their median total-time ratios to fixed joint were 1.27 and 1.75. Figure~\ref{fig:reuse} shows these ratios over the registered invocation horizons. Only two static choices and zero timed-shortlist choices had paid back by 1,000 calls. Among the eight graphs with per-call static savings, the first non-worse horizon ranged from 569 to 3,408 invocations.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=.85\textwidth]{reuse.pdf}
+\caption{Registered deployment accounting. Each point summarizes the median total-time ratio to whole joint reduction over 24 primary graphs at the specified reuse count. The two panels charge reused and cold calibration separately. Both axes are logarithmic.}
+\Description{Two panels plot total time against invocations. The overhead of choosing a schedule is greatest at low reuse, particularly for cold calibration.}
+\label{fig:reuse}
+\end{figure*}
+
+\section{Related work}
+Dong et al.\ measured the cost of sparsity profiling during GPU training and adapted its frequency in Spartan~\cite{spartan}. Our interface requires both counts on every call. SystemML combines aggregates with shared inputs and estimates the trade-off between redundant computation and materialization~\cite{systemml}. In our example the two monitored tensors lie on a producer--consumer chain, and the main tensor itself is also a required output. These relations motivated the three-path analysis.
+
+Halide separates scheduling choices from the algorithm and exposes locality and recomputation trade-offs~\cite{halide}. The oneDNN Graph Compiler models slicing, invocation count and repeated accesses at CPU fusion points~\cite{onednn}. GPU experiments on fused map--reduce operators likewise show that the aggregation scheme affects execution time~\cite{cuda}. The present measurements isolate observation and tile extent by running a matched main-only tile as well as the observed tile.
+
+XTAT tunes fusion, layouts and tiling in XLA~\cite{xtat}. Learned TPU cost models~\cite{kaufman} and the TpuGraphs dataset~\cite{tpugraphs} establish precedents for ranking tensor-program configurations. The decision here is more restricted. We score declared observation schedules for the same input/output requirement, independently confirm the choices, and charge the time spent reaching a decision. This permits a direct test against a low-cost fixed policy.
+
+\section{Validity and scope}
+The device, compiler versions, one logical CPU, predictable shapes and fixed synthetic weights limit transfer. The 24 primary conditions are related templates with only three sizes per family. The bootstrap describes this sampling design on this host. The two external ResNet cases are short subgraphs with initialized weights, and the four mixed cases vary only order and shape. Neither group represents a complete trained inference workload. A direct variadic reduction uses equal-shaped operands~\cite{stablehlo}. A pair of probed layers across a change in spatial extent or channel count may therefore require separate reductions or another legal implementation.
+
+Our producer matching can miss algebraically transformed duplicates. Sixteen of 34 original baseline graphs had a missing or ambiguous ReLU anchor. The initial model used an empty slice for a missing anchor and the largest local producer slice when multiple matched. Optimized HLO, planned allocation and vector stores establish compiler behaviour at specific boundaries. They do not measure physical memory traffic or GPU kernel launches. Equal HLO fingerprints also permit timing variation. A clean checkout reproduced the 36 crossed-mechanism fingerprints and 540 output checks, providing a same-host reproduction.
 
 \section{Conclusion}
-The output contract permits optimization even when moving the counters across ReLU produces identical HLO. Main-only controls show that a tile can change the incremental benefit of combining the two reductions. A coefficient-independent dominance test explains why the first cost model missed measured alternatives. Operator and tile interactions allowed the locked replacement to reduce aggregate execution latency on new CPU shapes. Fixed joint retained an advantage on dense and convolution graphs and for most deployments of 1,000 calls or fewer. An evaluation of a selector therefore needs both independent schedule measurements and an explicit invocation horizon.
+Exact counts can survive a change in placement even when XLA erases the source distinction. Once the output was fixed, a change of reduction schedule eliminated two full masks and delivered a reproducible speedup on a large affine branch. Holding tile extent fixed against a main-only control also identified a normalization gain attributable largely to the main computation. The old model's forced ranking and the replacement model's missed topology reversal explain two ways a predictor can fail. In this CPU workload set a learned selector improved on whole joint counting in aggregate. A development-selected fixed tile captured most of the measured gain and avoided the cost of model-based selection. A next test can fix both policies in advance and vary producer sharing on fresh model subgraphs.
 
-\paragraph{Artifact availability.}
-The \href{https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325}{versioned experimental archive}
-contains the \artifact{protocol.json}{placement protocol},
-\artifact{results/phase2/protocol.json}{execution protocol},
-\artifact{results/phase2/analysis/PHASE0.md}{HLO and LLVM audit},
-\artifact{results/phase2/model/features.csv}{frozen features},
-\artifact{results/phase2/model/predictions.csv}{pre-confirmation predictions},
-and \artifact{results/phase2/model/heldout_results.csv}{held-out decisions}.
-The \href{https://github.com/ZZzJunzum/Compiler_report/tree/a8fd22575ffc293c850b922b95e1feb5e5e68272/results/phase3/cpu/static}{static lock} and the \href{https://github.com/ZZzJunzum/Compiler_report/tree/ed3876906c9431baa2f9465d6449c36d94bd9042/results/phase3/cpu/decision}{discovery lock} precede the \href{https://github.com/ZZzJunzum/Compiler_report/tree/08e3fe6b8ed3e235f175288b1645ca7e3ad9b390/results/phase3/cpu}{Phase III CPU measurements}. Each dispatch, numerical check and compiler listing is indexed by workload, strategy, cohort and process.
+\paragraph{Reproducibility.}
+The companion repository contains the three study protocols, frozen decisions, raw timing blocks, validation results, compiler listings, and the retrospective calculation. The repository README maps the historical measurements to immutable revisions and lists the commands for checking them.
 
-\begin{thebibliography}{9}\small
-\bibitem{spartan} S. Dong et al. \href{https://doi.org/10.1109/TPDS.2021.3067825}{Spartan: A Sparsity-Adaptive Framework to Accelerate Deep Neural Network Training on GPUs}. \emph{IEEE Transactions on Parallel and Distributed Systems} 32(10), 2448--2463, 2021.
-\bibitem{systemml} M. Boehm, B. Reinwald, D. Hutchison, P. Sen, A. V. Evfimievski, and N. Pansare. \href{https://doi.org/10.14778/3229863.3229865}{On Optimizing Operator Fusion Plans for Large-Scale Machine Learning in SystemML}. \emph{Proceedings of the VLDB Endowment} 11(12), 1755--1768, 2018.
-\bibitem{xtat} P. M. Phothilimthana et al. \href{https://mangpo.net/papers/xla-autotuning-pact2021.pdf}{A Flexible Approach to Autotuning Multi-Pass Machine Learning Compilers}. \emph{PACT}, 2021.
-\bibitem{halide} J. Ragan-Kelley, C. Barnes, A. Adams, S. Paris, F. Durand, and S. Amarasinghe. \href{https://people.csail.mit.edu/jrk/halide-pldi13.pdf}{Halide: A Language and Compiler for Optimizing Parallelism, Locality, and Recomputation in Image Processing Pipelines}. \emph{PLDI}, 2013.
-\bibitem{onednn} J. Li et al. \href{https://arxiv.org/abs/2301.01333}{oneDNN Graph Compiler: A Hybrid Approach for High-Performance Deep Learning Compilation}. \emph{CGO}, 2024.
-\bibitem{cuda} M. Dodovi\'c, M. Veselinovi\'c, and M. Mi\v{s}i\'c. \href{https://doi.org/10.3390/electronics15051034}{Analyzing the Impact of Kernel Fusion on GPU Tensor Operation Performance: A Systematic Performance Study}. \emph{Electronics} 15(5), 1034, 2026.
-\bibitem{roofline} S. Williams, A. Waterman, and D. A. Patterson. \href{https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html}{Roofline: An Insightful Visual Performance Model for Floating-Point Programs and Multicore Architectures}. UC Berkeley Technical Report UCB/EECS-2008-134, 2008.
-\bibitem{kaufman} S. J. Kaufman, P. M. Phothilimthana, Y. Zhou, C. Mendis, S. Roy, A. Sabne, and M. Burrows. \href{https://proceedings.mlsys.org/paper_files/paper/2021/hash/6bcfac823d40046dca25ef6d6d59cc3f-Abstract.html}{A Learned Performance Model for Tensor Processing Units}. \emph{MLSys}, 2021.
-\bibitem{tpugraphs} P. M. Phothilimthana et al. \href{https://proceedings.neurips.cc/paper_files/paper/2023/hash/ded1a89e2b3b925444ada973af66336e-Abstract-Datasets_and_Benchmarks.html}{TpuGraphs: A Performance Prediction Dataset on Large Tensor Computational Graphs}. \emph{NeurIPS}, Datasets and Benchmarks Track, 2023.
-\end{thebibliography}
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper/references}
 \end{document}
