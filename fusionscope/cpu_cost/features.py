@@ -3,7 +3,7 @@ from collections import Counter
 from math import prod
 import re
 
-from jaxlib.mlir import ir
+from jax.extend.mlir import ir
 
 from fusionscope.hlo import Module, ancestors
 from .workloads import CONTRACTS, axes, site_shapes
