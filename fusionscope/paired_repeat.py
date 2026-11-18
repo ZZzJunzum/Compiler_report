@@ -40,10 +40,11 @@ def load_runs(folder, lanes, lock_hash, processes, rounds, seeds):
             if r["component"] in parts or int(r["process"]) != i:
                 raise ValueError(f"Duplicate or mislabeled build: {r}")
             parts[r["component"]] = r
+        validations = zip_rows(path, "correctness.csv")
         good = {(r["case"], r["variant"], int(r["seed"])): r["valid"] == "True"
-                for r in zip_rows(path, "correctness.csv")}
+                for r in validations}
         required_checks = {(c, v, s) for c, vs in lanes.items() for v in {*vs, "V0"} for s in seeds}
-        if good.keys() != required_checks or not all(good.values()):
+        if len(validations) != len(good) or good.keys() != required_checks or not all(good.values()):
             raise ValueError(f"Missing or failed output checks in {path}")
         checks += len(good)
         for c, variants in lanes.items():

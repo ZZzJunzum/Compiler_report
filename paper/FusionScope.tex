@@ -21,7 +21,7 @@
 \begin{document}
 
 \begin{abstract}
-An inference program that returns two layerwise counts adds eight bytes to its output. How much work does the compiler generate to produce them? We studied exact positive-activation counts in JAX/XLA on one Intel CPU. Moving either count across a ReLU preserved its value and yielded one optimized computation per workload on all 32 synthetic workloads. Changing the reduction schedule had a different effect. On a million-element affine branch, separate reductions exported two four-mebibyte integer masks. Joint reduction eliminated both exports and ran 3.07 times as fast. A first cost model assigned every alternative a higher predicted cost for every positive setting of its coefficients. We expanded the schedules and froze a replacement model before evaluating it on 24 new conditions. Its geometric-mean latency ratio to whole-tensor joint reduction was 0.861 (paired 95\% interval 0.797--0.943). A subsequent comparison against a fixed tile rule selected on development data gave a ratio of 0.981 (0.957--1.007). Even with calibration reused, the model recovered its setup cost within 1,000 calls on two of the 24 conditions. The compiler evidence explains a large local improvement and identifies where a simple schedule remains competitive.
+An inference program that returns two layerwise counts adds eight bytes to its output. How much work does the compiler generate to produce them? We studied exact positive-activation counts in JAX/XLA on one Intel CPU. Moving the counts across ReLU activations produced one optimized computation per workload on all 32 synthetic workloads. On a million-element affine branch, separate reductions exported two four-mebibyte integer masks. Joint reduction eliminated both exports and ran 3.07 times as fast. A frozen selector achieved a geometric-mean latency ratio of 0.861 to whole-tensor joint reduction on 24 new conditions (paired 95\% interval 0.797--0.943). Against a stronger fixed tile rule its ratio was 0.981 (0.957--1.007). Charging setup at 1,000 calls gave the selector lower total time on four of 24 against that rule with calibration reused. An independent repeat attributed 83\% of the positive absolute savings over the rule to four development convolutions. A prescribed one-image tile then won on four unseen convolution graphs and lost on four at the same batch sizes. Main-only controls showed the same reversal. Adding candidate IR to the source features changed none of twelve prospective decisions. These results locate an actionable compiler effect and delimit the predictive value of the features tested.
 \end{abstract}
 \begin{CCSXML}
 <ccs2012>
@@ -33,7 +33,7 @@ An inference program that returns two layerwise counts adds eight bytes to its o
 \maketitle
 
 \section{Introduction}
-Layerwise sparsity measurements have been used to guide the training of rectified networks~\cite{spartan}. Consider an engineer who needs the inference program to return its usual tensor and the number of positive values at two layers on \emph{every} call. Shipping the answers takes two 32-bit integers. Computing them can require traversing two complete tensors. Should the engineer move the measurement, combine the reductions, or change the unit of work processed at a time? The service needs the same two integers under every choice.
+Layerwise sparsity measurements have been used to guide the training of rectified networks~\cite{spartan}. We use a controlled inference workload that returns its usual tensor and the number of positive values at two layers on every call. Two sites let us test whether the aggregates share a producer. Exact counts make equivalence checkable, and fixing the frequency removes sampling as a competing explanation. Production monitoring frequencies require separate evidence. Shipping the answers takes two 32-bit integers. Computing them can require traversing two complete tensors. Should the implementation move the measurement, combine the reductions, or change the unit of work processed at a time?
 
 A pilot compared returning one element, the mean of an activation tensor, and the complete tensor. On 4,096 FP32 elements the unobserved program took 27.55\us. Sampling one element added four output bytes and took 28.75\us. Taking the mean also added four bytes and took 32.45\us. Returning all 16,384 bytes took 30.20\us. Each operation answers a different question. We therefore fixed the requested information before comparing implementations.
 
@@ -124,6 +124,8 @@ Schedule, synthetic / ResNet & 32 / 2 & 250 / 8\\
 Extent by observer, old cases & 4 & 36\\
 Expanded schedule development & 32 & 388\\
 Prospective primary / transfer & 24 / 4 & 312 / 56\\
+Development repeat & 32 & 91\\
+New convolution readouts & 12 & 48\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -259,6 +261,47 @@ For $H$ invocations we charged policy $p$ a total of $C_p+HT_p$. Setup $C_p$ inc
 \label{fig:reuse}
 \end{figure*}
 
+\section{How much opportunity remains beyond a fixed tile?}
+\label{sec:opportunity}
+We revisited the development-selected joint cap of 16. Following the per-instance and single-policy comparison used in algorithm selection~\cite{aslib}, we computed each graph's empirical headroom as the latency of the fixed rule minus the lowest latency among its valid observed schedules. Every latency here is the median of three development-process medians. The minimum of noisy measurements is optimistic~\cite{cawley}. We froze the winners for all 32 graphs and tested those pairs in five new processes. Three inputs per configuration checked output validity. The new paired differences use the larger A/A floor of the two actual executables.
+
+The 356 valid observed candidates gave median development headroom of 6.73\us. Across the same graphs the frozen choices had a geometric-mean ratio of 0.832 to cap-16 on independent repeat, with median paired saving of 5.10\us. Sixteen gains exceeded their local floors. The remaining sixteen comparisons were unresolved, including seven identical choices. Fourteen of the sixteen gains rated as resolved in development were resolved again. Two large-batch convolution effects fell below the new floors, and two normalization gains became resolvable. Four convolution graphs with batches of four or eight accounted for 83.2\% of all positive absolute savings on repeat. This share gives each graph one invocation and omits negative differences from its denominator.
+
+An oracle for a finite horizon must also account for the candidate's build. For graph $g$ and $H$ calls its most favorable estimated net saving is
+\begin{equation}
+\max_{a\in A_g}\{H(t_f-t_a) - (C_a-C_f)\} - C_{\rm info},
+\end{equation}
+where $f$ is cap-16, $C$ is observed-program build time and $C_{\rm info}$ is the extra cost of obtaining selection information. On the 32 development graphs at 1,000 calls, 19 had positive estimated net savings when candidate identity was free. Charging baseline compilation and extraction reduced this to ten, or two with cold calibration. The oracle gets the winner without paying to search or score. Separately, charging the actual recorded policies against cap-16 on the 24 earlier primary graphs yielded positive net savings by 1,000 calls on four graphs for the static model and none for the timed shortlist with reused calibration. The four static gains occurred on dense graphs. These counts differ from the original comparison to whole joint in Figure~\ref{fig:reuse}.
+
+\subsection{A test on unseen convolution shapes}
+The four old convolution graphs also qualified a simple exception for testing: use one-image joint tiles at batches of four and eight. We froze a test on six new NHWC shapes, crossing batches of 4, 8 and 16 with $(28,28,16)$ and $(36,36,24)$ spatial and channel dimensions. Each shape has two otherwise identical two-layer residual convolution programs. Both compute $0.75a_2+0.125+0.25s$. Only the origin of $s$ changes, from the input tensor to the first rectified activation. The named skip multiplication in the optimized direct program was traced back to the intended operand in all twelve graphs. This controls the readout's source arithmetic while allowing its dependencies and live values to change.
+
+Cap-16 uses the whole batch on all twelve graphs. The exception retains cap-16 at batch 16. Three small regressions choose between whole and one-image joint counts. All were trained on the eight old convolution graphs using the paired log latency ratio, standardized features and the same fixed ridge penalty. The first used shape, the second added sharing and its interactions with batch, and the third added candidate differences in compiler-planned temporary bytes and five classes of HLO instructions. The old training set contained one spatial geometry. We froze the source policies before compiling the new candidates. We then archived the optimized modules and froze the IR decisions before any candidate timings. Five independent processes timed both observed schedules and their same-extent main-only controls.
+
+\begin{table}[t]
+\caption{Time for a one-image tile divided by whole-batch time on unseen convolution shapes. The two readouts use the input ($x$) or first activation ($a_1$). Each entry is a median of five paired process ratios.}
+\label{tab:convnew}
+\centering\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+& & \multicolumn{2}{c}{With counts} & \multicolumn{2}{c}{Main only}\\
+\cmidrule(lr){3-4}\cmidrule(l){5-6}
+Geometry & Batch & $x$ & $a_1$ & $x$ & $a_1$\\
+\midrule
+$28^2\times16$ & 4  & 0.587 & 0.574 & 0.579 & 0.566\\
+               & 8  & 0.581 & 0.531 & 0.565 & 0.541\\
+               & 16 & 0.795 & 0.746 & 0.732 & 0.731\\
+$36^2\times24$ & 4  & 1.314 & 1.214 & 1.314 & 1.353\\
+               & 8  & 2.443 & 2.308 & 2.698 & 2.436\\
+               & 16 & 2.658 & 2.534 & 2.861 & 2.357\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The exception failed its transfer criterion (Table~\ref{tab:convnew}). At batches four and eight it had a geometric-mean ratio of 0.992 to cap-16. Four gains exceeded their A/A floors, as did four losses larger than 10\%. The prespecified criteria required a ratio at most 0.95, at least six resolved gains and no such large loss. Both readouts benefited at $28^2\times16$, and both slowed down at $36^2\times24$. Main-only tiling gave the same direction on all twelve graphs. This places the reversal in the underlying convolution workload as well. The spatial extent and channel count changed together, so these trials cannot identify which dimension or backend transformation accounts for it.
+
+All three regressions chose one-image tiles on all twelve graphs, including the four batch-16 controls where the exception used the whole batch. The shape model had no variation in spatial area or channel count in its training data. Source-sharing terms and candidate-dependent IR features produced no decision changes. Against the source regression the IR policy therefore had zero per-call saving and a median 151\,ms of extra setup on the eight target graphs. Compiling both alternatives was charged once and the chosen executable was reused. The 720 output checks passed, and all 120 comparisons between inspected and independently timed HLO fingerprints matched. We close the selection claim for this menu and training set.
+
 \section{Related work}
 Dong et al.\ measured the cost of sparsity profiling during GPU training and adapted its frequency in Spartan~\cite{spartan}. Our interface requires both counts on every call. SystemML combines aggregates with shared inputs and estimates the trade-off between redundant computation and materialization~\cite{systemml}. In our example the two monitored tensors lie on a producer--consumer chain, and the main tensor itself is also a required output. These relations motivated the three-path analysis.
 
@@ -269,14 +312,17 @@ XTAT tunes fusion, layouts and tiling in XLA~\cite{xtat}. Learned TPU cost model
 \section{Validity and scope}
 The device, compiler versions, one logical CPU, predictable shapes and fixed synthetic weights limit transfer. The 24 primary conditions are related templates with only three sizes per family. The bootstrap describes this sampling design on this host. The two external ResNet cases are short subgraphs with initialized weights, and the four mixed cases vary only order and shape. Neither group represents a complete trained inference workload. A direct variadic reduction uses equal-shaped operands~\cite{stablehlo}. A pair of probed layers across a change in spatial extent or channel count may therefore require separate reductions or another legal implementation.
 
-Our producer matching can miss algebraically transformed duplicates. Sixteen of 34 original baseline graphs had a missing or ambiguous ReLU anchor. The initial model used an empty slice for a missing anchor and the largest local producer slice when multiple matched. Optimized HLO, planned allocation and vector stores establish compiler behaviour at specific boundaries. They do not measure physical memory traffic or GPU kernel launches. Equal HLO fingerprints also permit timing variation. A clean checkout reproduced the 36 crossed-mechanism fingerprints and 540 output checks, providing a same-host reproduction.
+Our producer matching can miss algebraically transformed duplicates. Sixteen of 34 original baseline graphs had a missing or ambiguous ReLU anchor. The initial model used an empty slice for a missing anchor and the largest local producer slice when multiple matched. Optimized HLO, planned allocation and vector stores establish compiler behaviour at specific boundaries. Physical memory traffic and GPU kernel launches require separate measurements. A clean checkout reproduced the 36 crossed-mechanism fingerprints and 540 output checks, providing a same-host reproduction.
+
+In the follow-up, the eight target graphs share four convolution shapes, each with two readouts. The A/A floor describes local repeatability across repeated calls. It supplies no familywise significance guarantee. The three regressions use eight development graphs and two candidate schedules. The cost bounds condition on these menus, measured builds, reuse assumptions and synthetic workload frequencies.
 
 \section{Conclusion}
-Exact counts can survive a change in placement even when XLA erases the source distinction. Once the output was fixed, a change of reduction schedule eliminated two full masks and delivered a reproducible speedup on a large affine branch. Holding tile extent fixed against a main-only control also identified a normalization gain attributable largely to the main computation. The old model's forced ranking and the replacement model's missed topology reversal explain two ways a predictor can fail. In this CPU workload set a learned selector improved on whole joint counting in aggregate. A development-selected fixed tile captured most of the measured gain and avoided the cost of model-based selection. A next test can fix both policies in advance and vary producer sharing on fresh model subgraphs.
+Changing the joint-count schedule eliminated two full masks and delivered a reproducible speedup on a large affine branch. Main-only controls showed why a faster tiled program can still spend more time on observation. The original model's forced ranking and the stronger cap-16 comparator limited the case for automatic selection. Fresh convolution graphs exposed a further limit: a tile that repeatedly won on the old geometry could more than double latency at the same batch size on another geometry. The sharing dependence remained visible in the compiler output, yet the candidate-IR features produced no additional decision benefit. On this CPU the supported optimization remains conditional on the workload and its generated program.
 
 \paragraph{Reproducibility.}
-The companion repository contains the three study protocols, frozen decisions, raw timing blocks, validation results, compiler listings, and the retrospective calculation. The repository README maps the historical measurements to immutable revisions and lists the commands for checking them.
+The companion repository contains the study protocols, frozen decisions, raw timing blocks, validation results and compiler listings. It also includes the nomination, source-policy and candidate-IR locks in measurement order. The repository README maps the historical measurements to immutable revisions and gives the commands that reconstruct the published follow-up tables from the process archives.
 
+\balance
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{paper/references}
 \end{document}

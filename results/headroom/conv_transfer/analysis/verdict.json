@@ -1,0 +1,17 @@
+{
+  "checks": 720,
+  "shapes": 6,
+  "graphs": 12,
+  "matched_direct_skip": 12,
+  "fingerprints_rechecked": 120,
+  "exception_passed": false,
+  "ir_added_value_passed": false,
+  "predictions_sha256": "105c669a16a47341333372150b765cc6384217de9a36a5170f1d3a0e3985c69a",
+  "repeat_archives": {
+    "p0.zip": "91a7e29dd724d086494de82f8326b11a61b63781185c9cec662c859679a5f76d",
+    "p1.zip": "0f2ba0a87e9a02919c6022437b1921476007bb5ddcfa9e4e20cf96a7c72bd1ea",
+    "p2.zip": "f56f51eef2baac475945f523870aa56da12d943cb0ba7ec2aa4b927e2a07d2d7",
+    "p3.zip": "32080c3ae6be510f9e7e1156ac5d8fbe260af961b7cd6cb51fb5b128a81757cb",
+    "p4.zip": "2c82420b293017c6297aad9675e95c82458b90cffa5caf7ce7656af34b238338"
+  }
+}

@@ -4,7 +4,7 @@
 
 **[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [参考文献](paper/references.bib) · [CPU 主结果](results/phase3/cpu/analysis/endpoint.json) · [各策略结果](results/phase3/cpu/analysis/policy_summary.csv)
 
-24 个新 CPU 条件上，封存模型相对固定联合归约的耗时比为 **0.861**，配对 95% 区间为 **0.797–0.943**，达到预注册的三个标准。它在 8 个条件上更快、12 个更慢、4 个作出相同选择。归一化的耗时比为 0.598，稠密矩阵乘法为 1.077。4 个混合算子迁移条件的耗时比为 1.047。把选择过程也计入，复用已有校准且调用 1,000 次时，静态模型在 **2/24** 个主条件上回本。
+在 24 个新 CPU 条件上，封存模型相对**整批联合归约**的耗时比为 **0.861**，配对 95% 区间为 **0.797–0.943**，达到预登记标准。相对开发集选出的**固定 16 规则**，耗时比为 **0.981 [0.957, 1.007]**。计入决策成本并复用校准，调用 1,000 次时，静态模型相对这两个基线分别在 **2/24** 和 **4/24** 个主条件上净省时间。后续新卷积图上，单图分块取得四个明确加速和四个明确减速，候选 IR 在全部 12 个决策中都给出了与源码模型相同的选择。[独立复测与新图结果](#评审后的收益空间复测与部署成本)
 
 每图只试联合归约和一个模型提名方案时，**24/24** 个选择与最快合法方案之间的配对差距落在同一可执行程序的重复测量波动范围内，其中 13 个正好选中实测最快方案。这个策略在 1,000 次调用内回本的条件为 **0/24**。正式确认的 **5,520** 项逐种子、逐进程校验全部通过，干净检出复现了 **36/36** 个机制配置的 HLO 指纹。
 
@@ -32,6 +32,27 @@
 
 11. **实际改变及边界。** 已经交付可执行的替代计数方案、可复核的融合分析和一个能提前选择合法方案的 CPU 原型。联合计数对某些现有工作负载带来实测收益；模型相对更强固定规则的额外收益仍难以分辨。若从五个进程的单图中位数推算每图各调用一次，总和的中位比为 1.005。若把决策成本也计入，复用校准后，静态选策和双候选试跑在 1,000 次内分别只在 2/24 和 0/24 个条件回本。它们回答了什么时候值得多做编译和试跑。研究结论覆盖这台 Intel CPU、这些形状及两个精确计数；XLA 上游优化、GPU 的物理流量、完整训练模型和跨设备策略迁移是不同的验证任务。[部署成本](results/phase3/cpu/analysis/break_even.csv) · [原始计时](results/phase3/cpu/analysis/process_medians.csv)
 
+## 评审后的收益空间、复测与部署成本
+
+原始课题能支持一项关于编译行为的实证研究。两个精确计数把观测信息、输出字节数与频率固定下来，便于检验融合、物化和重复计算。现有应用文献支持监测激活稀疏度的实际用途，其中 Spartan 研究的是训练与自适应监测。生产系统是否需要逐次、逐层精确计数，仍要用真实使用记录验证。SystemML 已研究融合聚合与中间物化的权衡，本文贡献落在给定 XLA 程序的三条输出路径、对照干预及其边界。[Spartan 原论文](https://eprints.gla.ac.uk/240696/) · [SystemML 原论文](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf)
+
+评审后先算当前候选菜单中还能节省多少。固定规则始终用联合计数，每块取不超过 16 的最大合法尺寸，能装下整批便直接使用整批。在已有 32 张开发图的 356 个合法观测候选中，逐图选最低中位数，相对固定规则的单次节省中位数仅 **6.73 微秒**。为避免从同一批噪声中挑赢家，我们先封存全部 32 个逐图选择，再用五个新进程复测。复测的单次配对节省中位数为 **5.10 微秒**，16 图超过各自的重复测量误差，16 图不能分辨。原先越过误差门槛的 16 图有 14 图再次越过。四张批量为 4 或 8 的卷积图占复测正向绝对节省的 **83.2%**，这个比例按每个图调用一次计算。[逐图上限与独立复测](results/headroom/analysis/headroom.csv) · [候选封存](https://github.com/ZZzJunzum/Compiler_report/tree/9aa6b689bb0df95a61da67a9092d6b58313ad70a/results/headroom)
+
+理想选择器在有限调用次数下也需要考虑编译。我们对每个合法方案计算“调用次数 × 相对固定规则节省的单次时间 − 额外编译时间 − 额外信息成本”，取菜单中的最大值。旧开发集调用 1,000 次时，免费知道候选身份有 **19/32** 图净省，另付基线编译与 IR 提取费用降为 **10/32**，再计冷校准降为 **2/32**。这是经验上限。重新核算第三阶段已封存的真实策略，在其 24 个主条件上，复用校准、相对固定 16 规则，静态模型和双候选试跑分别在 **4/24** 和 **0/24** 图净省。原论文中的 2/24 与 0/24 以整批联合归约为分母。[逐图、逐调用次数的上限](results/headroom/analysis/oracle_budget.csv) · [已执行策略的实际账目](results/headroom/analysis/historical_deployment.csv)
+
+**复现了机会所在，也测出了规则迁移失败的边界。** 四个旧卷积图上，联合计数每次处理一张图像，单次耗时均比固定 16 规则低约 45%–51%。于是按事先约定，在六个新形状上各造两张同算术量的读出图，仅改变最后一项读取输入还是第一层激活。先锁定固定规则、卷积例外、形状模型和源码结构模型，再编译两个候选以取得 IR 并锁定第五种策略，最后用五个新进程计时。原来那对 128 × 320 仿射图没有充当新证据。[源码策略封存](https://github.com/ZZzJunzum/Compiler_report/tree/45b3879b6536674dbcec7dd13ebd68374d16cd34/results/headroom/conv_transfer) · [计时前的候选 IR 与预测](https://github.com/ZZzJunzum/Compiler_report/tree/9ed13d9b8a1efd37a87ac767bd055b452e8affbe/results/headroom/conv_transfer)
+
+| 卷积形状与样本范围 | 单图联合计数相对整批联合的耗时比 | 实验判断 |
+|---|---:|---|
+| 28 × 28、16 通道，批量 4 或 8，两种读出 | 0.531–0.587 | 四图均明确加速 |
+| 36 × 36、24 通道，同样的批量与读出 | 1.214–2.443 | 四图均明确减速 |
+| 八个目标图等权汇总 | 0.992 | 预定通过线为不高于 0.95、至少六图明确加速、无超过 10% 的明确减速，实际四赢四输 |
+| 批量 16 的四张边界图 | 模型统一分单图，几何平均 1.413 | 预定例外在四图均回退到整批，耗时比为 1 |
+
+四种批量与读出组合的符号按空间尺寸和通道数组合翻转。12 张图的同分块无计数对照均给出相同方向。两个维度同时改变，不能单独归因给其中一个维度或某个 XLA 优化步骤。旧训练卷积的空间尺寸和通道数只有一个取值，无法通过训练估计这两项变化的作用。即便在优化后 HLO 中逐图找到正确的读出操作数，形状、源码结构和候选 IR 三个模型仍在 12/12 图上都选单图。在八个目标图上，IR 相对源码模型单次节省为零，每图额外设置时间中位数约 151 毫秒。720 项输出检查全部通过，120 个独立编译指纹与计时前的记录吻合。按已封存标准，结束这组候选上的自动选型路线，保留已复现的具体机制、强固定对照和适用边界。[逐案主计算对照](results/headroom/conv_transfer/analysis/main_only.csv) · [各策略决策与成本](results/headroom/conv_transfer/analysis/decisions.csv) · [验收结论](results/headroom/conv_transfer/analysis/verdict.json)
+
+算法选择研究把单一策略和各实例菜单内的最快项同时作为参照，并计入特征收集成本。最小化带噪估计还会产生选择偏差。这两点分别决定了本轮的比较对象和先封存再独立复测的做法。[ASlib 原论文](https://ada.liacs.nl/papers/BisEtAl16.pdf) · [Cawley 与 Talbot](https://www.jmlr.org/papers/v11/cawley10a.html)
+
 ## 第三阶段证据
 
 | 要核对的问题 | 入口 |
@@ -52,6 +73,21 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements-windows-lock.txt
 .\.venv\Scripts\python -m paper.check_diagnostics
 .\.venv\Scripts\python -m fusionscope.phase3.experiment verify --out results/phase3/cpu
+.\.venv\Scripts\python -m paper.headroom_analysis
+.\.venv\Scripts\python -m paper.conv_transfer_analysis
+~~~
+
+要独立重跑评审后的实验，以下命令从已有第三阶段开发归档取得训练数据，新的运行写入本地复现目录。用第一轮的结果重新判断是否进入新图测试。源策略在编译新候选前封存，IR 策略在试跑新候选前封存。默认复核命令从已归档原始数据重算并比对表格。[协议、比较对象和停止条件](docs/plans/CPU_Headroom_Audit.md)
+
+~~~powershell
+$py = (Resolve-Path .venv/Scripts/python.exe).Path
+& $py -m fusionscope.headroom freeze
+& $py -m fusionscope.headroom repeat
+& $py -m paper.headroom_analysis --data reproduction/headroom --write
+& $py -m fusionscope.conv_transfer freeze
+& $py -m fusionscope.conv_transfer inspect
+& $py -m fusionscope.conv_transfer measure
+& $py -m paper.conv_transfer_analysis --data reproduction/headroom/conv_transfer --write
 ~~~
 
 要重新采样，在空输出目录按顺序运行。第二、三行之间的两次封存分别固定静态预测与试跑选择。再运行确认时，两份锁及其输入会被校验。
