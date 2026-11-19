@@ -1,0 +1,19 @@
+{
+  "question": "Before building any observed candidate, predict the signed microseconds added to a synchronized CPU forward call by a declared observation and implementation.",
+  "training": "Only the validated paired process timings from the 32 development graphs in results/cpu_cost/development/p0..2.zip. No prior confirmation or transfer timings.",
+  "target": "For each process subtract the median V0 time from the median candidate time after six warmups; take the median of the process differences. Retain zero and negative observations.",
+  "shapes": {
+    "matrix": [[80,88],[192,120],[352,168]],
+    "C": [[2,17,17,12],[4,21,21,16],[5,27,27,20]],
+    "G": [[56,84],[144,112],[224,136]],
+    "R": [[1,17,17,12],[2,25,25,20],[4,27,27,24]],
+    "B": [[2,16,16,12],[3,24,24,20],[4,26,26,24]]
+  },
+  "split": "Primary: EMNC, three new sizes per family, chain and branch. Transfer: gated MLP and two Flax ResNet templates, three new sizes each, all three architectures absent from training. Use every legal whole-tensor implementation of all nine published requests.",
+  "models": "Zero; source; baseline optimized HLO; source plus baseline optimized HLO. All learned models get the same requested tensor domains, output volume and schedule identity. Separate ridge per request and implementation, same feature transforms and development folds. No elapsed time, observed IR or observed executable is a feature. No source family, path, case ID or name in the IR model.",
+  "estimation": "Standardize raw nonnegative counts and log1p counts on training. Direct squared loss on signed increments in microseconds. Select one ridge penalty per feature set from [0.01,0.1,1,10,100] by held-out size-tier absolute error on the 32 development graphs; ties favor larger penalties. Refit all training rows. No adjustment after publication of predictions.",
+  "measurement": {"seeds":[1289,4969,8677], "processes":5, "warmups":6, "rounds":20, "order_seed":70381, "controls":"Four randomized aliases per executable; complete outputs synchronized. One pinned logical CPU; independent sequential processes."},
+  "primary": "Graph-balanced MAE in microseconds on new sizes. Additional IR value requires source+IR to reduce MAE by at least 10% against source, have a negative upper 95% bound for the paired MAE difference and beat zero. Report IR-only directly alongside both controls. Repeat descriptively on unfamiliar architectures.",
+  "interval": "10000 paired percentile resamples of the three size clusters within each fixed family, retaining all readouts, requests and methods of each cluster. Conditional on this host, measured processes and these families. Seed 47291.",
+  "secondary": "Pooled median and 90th percentile absolute error, graph-balanced signed bias, A/A resolution for increments, and realized within-process total-time ratio to always-joint on legal separate/joint choices. Predict the smaller increment, tie joint. Combine log ratios equally within graph then across graphs. All secondary analyses descriptive."
+}

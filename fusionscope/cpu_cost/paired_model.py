@@ -127,7 +127,8 @@ def lock(parent):
                                   ir=sha(folder/"lowered.zip"), predictions=predict(parent,features)))
 
 
-def measure(folder, idx):
+def measure(folder, idx, *, graphs_for_run=fresh, menu_for_case=menu, seeds=SEEDS,
+            rounds=12, order_seed=88093):
     import jax
     from fusionscope.bench import environment
     from fusionscope.hlo import Module
@@ -138,16 +139,16 @@ def measure(folder, idx):
         with ZipFile(target) as z:
             assert z.testzip() is None and json.loads(z.read("environment.json"))["lock"]==digest
         return
-    rng = random.Random(f"88093:{idx}")
-    graphs = fresh()
+    rng = random.Random(f"{order_seed}:{idx}")
+    graphs = graphs_for_run()
     rng.shuffle(graphs)
     timings, checks, builds = [], [], []
     for c in graphs:
         p = parameters(c)
-        batches = {s:arguments(c,p,s) for s in SEEDS}
+        batches = {s:arguments(c,p,s) for s in seeds}
         jax.block_until_ready(batches)
-        args = batches[SEEDS[0]]
-        fns, labels = {}, menu(c)
+        args = batches[seeds[0]]
+        fns, labels = {}, menu_for_case(c)
         rng.shuffle(labels)
         for n in labels:
             start = perf_counter_ns()
@@ -156,17 +157,17 @@ def measure(folder, idx):
             builds.append(dict(case=c.name,variant=n,component="main",process=idx,build_wall_ns=elapsed,
                                fingerprint=Module(fns[n].as_text()).fingerprint()))
         checks.extend(validation(c,fns,batches))
-        timings.extend(block(c,idx,"candidate",fns,args,rng,12))
+        timings.extend(block(c,idx,"candidate",fns,args,rng,rounds))
         for n in labels:
-            timings.extend(block(c,idx,"AA_"+n,dict.fromkeys("ABCD",fns[n]),args,rng,12))
+            timings.extend(block(c,idx,"AA_"+n,dict.fromkeys("ABCD",fns[n]),args,rng,rounds))
         del fns,batches,args,p
         jax.clear_caches()
         gc.collect()
     meta = dict(process=idx,environment=environment("cpu"),lock=digest,case_order=[c.name for c in graphs],
-                rounds=12,warmups=6,seeds=SEEDS)
+                rounds=rounds,warmups=6,seeds=seeds)
     zip_write(target,{"environment.json":json.dumps(meta),"timings.csv":csv_text(timings),
                       "correctness.csv":csv_text(checks),"builds.csv":csv_text(builds)})
-    print(f"Alternative model process {idx}: {len(builds)} configurations, {sum(r['valid'] for r in checks)}/{len(checks)} checks",flush=True)
+    print(f"Process {idx}: {len(builds)} configurations, {sum(r['valid'] for r in checks)}/{len(checks)} checks",flush=True)
 
 
 def derive(parent):
