@@ -2,11 +2,11 @@
 
 在 JAX/XLA 推理中，调用者要求保留原主输出，同时拿到中间激活的统计。增加这些返回值会改变送入编译器的计算图。项目先用两个精确计数定位 CPU 上的重复计算与掩码物化，再将归约改写推广到其他观测请求，并检验编译前的 IR 能否预测整个程序的微秒数。
 
-**[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [参考文献](paper/references.bib) · [观测改写逐项结果](results/cpu_cost/analysis/contracts.csv) · [绝对耗时误差](results/cpu_cost/analysis/accuracy.csv) · [直接预测两种实现的耗时比](results/cpu_cost/paired/policies.csv)
+**[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [逐篇文献对照与下一项实验](docs/literature-review.md) · [参考文献](paper/references.bib) · [观测改写逐项结果](results/cpu_cost/analysis/contracts.csv) · [绝对耗时误差](results/cpu_cost/analysis/accuracy.csv) · [直接预测两种实现的耗时比](results/cpu_cost/paired/policies.csv)
 
 ## CPU 实验回答了什么
 
-1. **已有方法与本研究的贡献。** SystemML 的图 9c–d 已实测共享一个矩阵的多重聚合，图 2 和第 4.2 节已分析重复计算与物化成本。本文把这项既有技术用于必须保留主输出的 XLA 程序，沿主输出和各个观测结果追踪生成代码，并通过等价改写验证哪些开销真实消失。单纯读取 IR 供分析与在推理中增加一个返回值是两个不同操作。[SystemML 原论文](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf)
+1. **已有方法与本研究的贡献。** SystemML 已经联合计算共享输入上的多个聚合，Weld 已经在一次遍历中同时构造向量并求和，BN Fission-n-Fusion 已经在卷积生产激活时累计统计。本文检验固定观测输出后，这些已知思路怎样改变 XLA 的生成程序，并用同图正反例和盲测结果限定能预测什么。读取 IR 用于分析，增加观测输出才会改变待编译的程序。[SystemML 图 9](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf) · [Weld Listing 6](https://www.vldb.org/pvldb/vol11/p1002-palkar.pdf) · [BN 图 5](https://proceedings.mlsys.org/paper_files/paper/2019/file/9db64c20dee0011899dfdf200e61ef35-Paper.pdf)
 
 2. **联合归约的适用范围。** 22 张新图各接受 9 种观测请求。198 组中有 120 组形状及归约轴相容，联合版相对独立版耗时比的几何平均为 0.892。30 组加速、4 组减速超过各自的重复测量波动，另外 86 组差异未能分辨。78 组采用原实现，其中 44 组返回一个元素或完整张量，22 组归约轴不同，12 组激活形状不相等。5 个独立进程的 5,100 项输出校验通过。[成对结果](results/cpu_cost/analysis/rewrite_pairs.csv) · [各组回退原因](results/cpu_cost/analysis/boundaries.csv)
 
@@ -24,13 +24,13 @@
 
 ## 前三阶段怎样逐步收紧研究问题
 
-1. **给成本模型找到一个实际决策。** 选题从用中间表示（IR）分析 GPU 算子融合出发。调试时取一个内部值可能改变生成的程序，这引出了更具体的问题。若一次推理必须返回同样的张量和激活统计，工程师可以怎样写这段观测代码，额外花费多少？数值一致性随之成为所有候选的准入条件。已有研究分别做过稀疏度采样、共享聚合和编译器自动调优，此处固定采样频率、两个观测点和主输出，在同一目标 CPU 上做成对比较。[最初任务书](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/docs/FusionScope_Research_Plan_v2.md) · [文献及与本研究的关系](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/docs/phase2-literature.md)
+1. **给成本模型找到一个实际决策。** 选题从用中间表示（IR）分析 GPU 算子融合出发。调试时取一个内部值可能改变生成的程序，这引出了更具体的问题。若一次推理必须返回同样的张量和激活统计，工程师可以怎样写这段观测代码，额外花费多少？数值一致性随之成为所有候选的准入条件。已有研究分别做过稀疏度采样、共享聚合和编译器自动调优，此处固定采样频率、两个观测点和主输出，在同一目标 CPU 上做成对比较。[最初任务书](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/docs/FusionScope_Research_Plan_v2.md) · [第二阶段的历史文献记录](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/docs/phase2-literature.md)
 
 2. **先导发现，输出大小不足以定义一个公平的比较。** 复用 Lab 01 的 JAX 编译产物导出流程，先测只取主结果、取一个元素、取均值和取完整激活。4,096 元素的示例中，取样和均值都增加 4 字节，中位耗时分别是 28.75 和 32.45 微秒。两者提供的信息不同。于是固定一个可以严格核对的需求：对两处指定 ReLU 分别返回正元素数，并保留原主张量。对有限输入，ReLU 前大于零与 ReLU 后大于零逐元素等价。第一轮九配置小图在四种双点位置都得到 2117 和 2119，领先的两个位置落在计时波动范围内。[四种先导的原始表](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/cpu/pilot/four_probes.csv) · [九配置先导](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/cpu/pilot/first_report.md)
 
 3. **先问“位置有用吗”。** 四类程序（仿射、矩阵乘、按行归一化、残差卷积）各取四档尺寸和链式/分支两种拓扑，得到 32 个条件。每个条件有无观测、四种单点和四种双点版本，一共 288 个配置。官方 Flax 的一个及两个相邻 ResNet 块另有 18 个配置。三个输入种子核对主张量的容差和两个整数的精确相等。五个发现进程、三个新确认进程和同一可执行程序的重复测量控制帮助区分小差异与波动。每个合成条件的四种位置均生成相同的优化后 HLO。128 个双点配置相对无观测的耗时比中位数却为 1.107，干净检出为 1.110。位置模型与固定后置的微小排序也随复跑翻转。[第一阶段结果](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/cpu/report/REPORT.md)
 
-4. **用反例限定这个结论。** 两个 ResNet 子图各保留四类 HLO，但最快位置仍未稳定分出。把小仿射图和真实模块各用两种 ReLU 表达式编译，直接写 maximum 时四种位置合一，用 jax.nn.relu 时保留四种指纹。这个交叉实验定位到了源码写法，尚未定位第一个改变该关系的优化步骤。又用独立单点与双点计时检验成本能否相加。最大归一化图的链式和分支两种拓扑、各四种放置，都重复出现双点成本低于单点增量之和。显式拆成两个可执行程序还会改变调用和物化，因此下一步沿输出路径检查实际工作。[外测和交叉对照](https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/cpu/lowering_aligned) · [独立复跑](https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/reproducibility)
+4. **用反例限定这个结论。** 两个 ResNet 子图各保留四类 HLO，但最快位置仍未稳定分出。把小仿射图和真实模块各用两种 ReLU 表达式编译，直接写 maximum 时四种位置合一，用 jax.nn.relu 时保留四种指纹。本次复核补上了编译过程。在 CPU 首轮代数化简刚结束时，显式 maximum 的 8 个后置计数全部改读此前的加法，库函数的 8 个仍读 maximum。16/16 个最终 HLO 指纹匹配早期归档，48 项输出校验通过。又用独立单点与双点计时检验成本能否相加。最大归一化图的链式和分支两种拓扑、各四种放置，都重复出现双点成本低于单点增量之和。显式拆成两个可执行程序还会改变调用和物化，因此下一步沿输出路径检查实际工作。[外测和交叉对照](https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/cpu/lowering_aligned) · [独立复跑](https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/reproducibility) · [逐步编译对照](results/placement_pass/comparisons.csv)
 
 5. **从三个返回值倒查是谁在重复工作。** 把 HLO 融合体的形参绑定到调用处的实参，沿主张量及两个计数各走一遍，核对重复算术、归约树和跨边界的值。在 4096 × 256 仿射分支上，第一层加法走了三条路径。两个独立归约各写出一个 4 MiB 整数掩码，得到分配记录与优化后 LLVM 写指令的双重印证。大卷积图则已经把比较放进归约融合体，完整掩码导出为零。这给出了同一优化应当收益不同的两个案例。[HLO、缓冲区及 LLVM 逐行审计](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/phase2/analysis/PHASE0.md)
 
@@ -48,7 +48,7 @@
 
 ## 评审后的收益空间、复测与部署成本
 
-原始课题能支持一项关于编译行为的实证研究。两个精确计数把观测信息、输出字节数与频率固定下来，便于检验融合、物化和重复计算。现有应用文献支持监测激活稀疏度的实际用途，其中 Spartan 研究的是训练与自适应监测。生产系统是否需要逐次、逐层精确计数，仍要用真实使用记录验证。SystemML 已研究融合聚合与中间物化的权衡，本文贡献落在给定 XLA 程序的三条输出路径、对照干预及其边界。[Spartan 原论文](https://eprints.gla.ac.uk/240696/) · [SystemML 原论文](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf)
+原始课题能支持一项关于编译行为的实证研究。两个精确计数把观测信息、输出字节数与频率固定下来，便于检验融合、物化和重复计算。现有应用文献支持监测激活稀疏度的实际用途，其中 Spartan 研究的是训练与自适应监测。生产系统是否需要逐次、逐层精确计数，仍要用真实使用记录验证。其余逐篇对照及当前能够支持的四项结论见[文献评审](docs/literature-review.md)。[Spartan 原论文](https://eprints.gla.ac.uk/240696/) · [SystemML 原论文](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf)
 
 评审后先算当前候选菜单中还能节省多少。固定规则始终用联合计数，每块取不超过 16 的最大合法尺寸，能装下整批便直接使用整批。在已有 32 张开发图的 356 个合法观测候选中，逐图选最低中位数，相对固定规则的单次节省中位数仅 **6.73 微秒**。为避免从同一批噪声中挑赢家，我们先封存全部 32 个逐图选择，再用五个新进程复测。复测的单次配对节省中位数为 **5.10 微秒**，16 图超过各自的重复测量误差，16 图不能分辨。原先越过误差门槛的 16 图有 14 图再次越过。四张批量为 4 或 8 的卷积图占复测正向绝对节省的 **83.2%**，这个比例按每个图调用一次计算。[逐图上限与独立复测](results/headroom/analysis/headroom.csv) · [候选封存](https://github.com/ZZzJunzum/Compiler_report/tree/9aa6b689bb0df95a61da67a9092d6b58313ad70a/results/headroom)
 
@@ -79,6 +79,13 @@
 每个进程 ZIP 内有环境、候选编译时间、所有预热和计时样本。正式队列还含逐种子验证。编译表中的 archive 和 component 定位相应的 StableHLO 与优化后 HLO。阶段一、二的完整程序、散装 IR、早期计划和报告保存在固定历史版本，当前分支保留了复核旧模型所需的冻结输入。[两阶段完整快照](https://github.com/ZZzJunzum/Compiler_report/tree/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325)
 
 ## 复现
+
+编译过程检查可以从每个配置的两份相邻 HLO 和最终 HLO 重建全部 16 行对照。要独立重做这 16 次 CPU 编译，使用下面的第二个命令，默认输出写入本地复现目录。
+
+~~~powershell
+.\.venv\Scripts\python -B -m paper.placement_checkpoints verify --out results/placement_pass
+.\.venv\Scripts\python -B -m paper.placement_checkpoints record
+~~~
 
 在仓库根目录及已安装锁定依赖的 Python 环境中，以下三个命令从已发布原始数据核验本轮 CPU 结果。核验包括重读两批 StableHLO、重算开发集拟合与封存预测、比对检查规则和实测可执行程序、从各个进程重算表格。原始进程档案含全部耗时、编译墙钟、输出检查及环境信息。
 
