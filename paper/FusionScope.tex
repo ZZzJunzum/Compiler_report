@@ -19,6 +19,7 @@
 \renewcommand{\shortauthors}{Anonymous Author(s)}
 
 \begin{document}
+\shrinkLastPage{52pt} % Balance the two bibliography columns.
 
 \begin{abstract}
 An inference caller needs both a forward tensor and statistics of intermediate activations. How does the extra use change the compiled program, and can its cost be predicted? On one Intel CPU, four equivalent placements of two positive counts gave the same optimized XLA intermediate representation (IR) fingerprint within each of 32 synthetic workloads. The observed calls still took a median of 1.107 times the ordinary latency. In a million-element affine branch, a joint reduction removed two four-mebibyte masks and ran 3.07 times as fast as separate sums. Across nine requests on 22 fresh graphs, removing targeted fusion outputs gave 30 resolved gains, four losses and 48 unresolved differences. A schedule selector beat whole-tensor joint counting, while its advantage over a fixed tile rule remained unresolved. We finally froze 477 forecasts of added microseconds from the ordinary program before compiling observed candidates on 33 further graphs. Adding baseline IR to source features changed graph-balanced mean absolute error from 69.64 to 69.57 microseconds on new sizes and from 106.38 to 107.42 on held-out architectures. The CPU results identify removable work and delimit the forecasting value of its baseline representation.

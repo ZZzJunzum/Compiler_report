@@ -77,12 +77,12 @@ py -3.12 -m venv .venv
 
 ### 核验已发布的结果
 
-在同一个 PowerShell 会话中执行下列命令，可以从已归档的 HLO、冻结预测和逐进程耗时重建结果。第一条验证 16 次位置编译，最后一条用 32 张开发图重新拟合增量模型并核对 477 个盲测预测。
+在同一个 PowerShell 会话中执行下列命令，可以从已归档的 HLO、冻结预测和逐进程耗时重建结果。第一条验证 16 次位置编译。第二条先运行封存时的选型审计，再计算事后用两次整次调用预测相减的误差。最后一条用 32 张开发图重新拟合直接增量模型并核对 477 个盲测预测。
 
 ~~~powershell
 $py = (Resolve-Path .venv/Scripts/python.exe).Path
 & $py -B -m paper.placement_checkpoints verify --out results/placement_pass
-& $py -B -m paper.check_diagnostics
+& $py -B -m paper.check_paper_results
 & $py -B -m fusionscope.phase3.experiment verify --out results/phase3/cpu
 & $py -B -m paper.headroom_analysis
 & $py -B -m paper.conv_transfer_analysis
