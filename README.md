@@ -1,8 +1,8 @@
 # FusionScope
 
-项目从“用编译器中间表示（IR）预测 GPU 算子融合成本”出发，先在一台 Intel CPU 上研究一个可以严格对照的问题。推理必须返回同一主张量和指定的激活统计，XLA 为此多做了什么，能否用等价改写省时，又能否在后端编译前预知这笔开销？
+项目从“用编译器中间表示（IR）预测 GPU 算子融合成本”出发，先在一台 Intel CPU 上研究一个可以严格对照的问题。推理必须返回同一主张量和指定的激活统计，XLA 为此多做了什么，能否用等价改写省时，又能否在编译带观测的程序之前预知这笔开销？最后一项实验允许编译普通程序以读取其优化后 HLO。
 
-**[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [逐篇文献对照与下一项实验](docs/literature-review.md) · [参考文献](paper/references.bib) · [观测改写逐项结果](results/cpu_cost/analysis/contracts.csv) · [绝对耗时误差](results/cpu_cost/analysis/accuracy.csv) · [直接预测两种实现的耗时比](results/cpu_cost/paired/policies.csv)
+**[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [逐篇文献对照](docs/literature-review.md) · [基线 IR 预测观测增量](results/cpu_cost/increment/accuracy.csv) · [预测带来的实际选型收益](results/cpu_cost/increment/policies.csv) · [观测改写逐项结果](results/cpu_cost/analysis/contracts.csv) · [整次调用误差](results/cpu_cost/analysis/accuracy.csv)
 
 ## 从文献线索到我们的实验
 
@@ -20,8 +20,21 @@
 |---|---|---|
 | 在 CPU 解释并降低观测成本 | 对特定图已从编译路径追到实际写入，并用等价改写复现了加速。扩展测试中 120 个合法比较有 30 胜、4 负、86 个未分辨。 | 能给出机制和适用条件。缓冲消失仍不足以确定耗时方向，四个减速案例的低层原因仍需验证。[机制记录](results/cpu_cost/mechanisms.csv) |
 | 提前预测整次调用耗时 | 预定误差倍数门槛为中位数不超过 1.30 且第 90 百分位不超过 2.00。主盲测的纯 StableHLO 回归在新尺寸上为 1.46 / 2.11，在新架构上为 2.16 / 7.76。独立后续组用 IR 加统计请求校准后分别为 1.13 / 2.32 和 2.15 / 2.51。 | 后续校准在熟悉结构达到了中位数目标，尾部仍超线。主盲测中，源码加 IR 的按图平均绝对对数误差较纯源码上升 2.8% 和 22.6%，没有达到预定的至少降低 10%。[主盲测](results/cpu_cost/analysis/accuracy.csv) · [增益判定](results/cpu_cost/analysis/summary.json) · [后续校准](results/cpu_cost/paired/accuracy.csv) |
-| 预测观测增量并选出划算的方案 | 本次事后复核使用既有封存值，以两次总耗时预测之差估计增量，再对照同图同进程的实测差。纯 IR 的增量绝对误差中位数在新尺寸和新架构上分别为 32.71 和 83.68 微秒，始终预测零的相应误差为 29.38 和 14.60 微秒。 | 目前尚缺直接面向增量、仅依赖基线 IR 的独立精度验证。选型也未证实超过强固定策略。计入编译检查时，依导出选择的策略在 1,000 次调用下总成本是直接选联合的 1.345 倍。[封存预测](results/cpu_cost/predictions.json) · [配对增量](results/cpu_cost/analysis/measurements.csv) · [选型成本](results/cpu_cost/analysis/summary.json) |
-| 用 IR 预测 GPU 算子融合成本 | 已有同语义程序、正确性检查和 GPU 实验协议。 | 预定的 36 个机制配置加 8 个 ResNet 配置，**GPU 实测 0/44**。先在一台 NVIDIA GPU 对齐 HLO、实际内核与设备时间，再在留出的图上把冻结预测与 XLA 内置融合估计和固定策略比较。逐核时间和主机端整次调用分别评价。[GPU 协议第 7 节](docs/plans/FusionScope_Phase3_Research_Plan.md) · [XLA 逐核成本接口](https://github.com/openxla/xla/blob/ddaa568d48ad24c16e08bff00d3038bcf824eab9/xla/backends/gpu/cost_model/gpu_performance_model.h#L36-L60) |
+| 预测观测增量并选出划算的方案 | 已在 33 张新图上直接盲测 477 个增量。新尺寸上，源码模型误差为 69.64 微秒，加入基线 IR 后为 69.57 微秒。训练未见的架构上，相应误差为 106.38 和 107.42 微秒。 | 两组的学习模型都优于猜零。额外 IR 未达到预定的 10% 改善门槛。架构迁移中，模型选出的实现相对固定联合归约平均更快，但只看源码也取得几乎相同的收益。[精度](results/cpu_cost/increment/accuracy.csv) · [实际选型](results/cpu_cost/increment/policies.csv) |
+| 用 IR 预测 GPU 算子融合成本 | 已定位编译器里的真实决策。OpenXLA 的 GPU 优先融合会比较生产者与消费者分开执行及融合执行的估计时间，按预计节省的时间调整融合顺序。 | 预定的 36 个机制配置加 8 个 ResNet 配置，**GPU 实测 0/44**。下一步在同一设备上对齐 GPU HLO、实际内核和设备时间。用输出相同的融合与分离程序检验局部决策，再用同步的整次调用时间检验监控开销。[GPU 协议第 7 节](docs/plans/FusionScope_Phase3_Research_Plan.md) · [XLA 对候选融合打分的代码](https://github.com/openxla/xla/blob/ddaa568d48ad24c16e08bff00d3038bcf824eab9/xla/backends/gpu/transforms/priority_fusion.cc#L816-L869) |
+
+## 能提前知道观测会增加多少微秒吗
+
+对同一张图、同一进程，先分别取带观测与普通调用的多轮耗时中位数，再相减。五个进程的差值取中位数，正数表示增加，负数也保留。训练只用原有 32 张开发图。测试换成 24 张熟悉架构的新尺寸图，以及 9 张属于门控 MLP、ResNet 基本块和步幅瓶颈块的图。后三类架构全部留在训练之外。各模型都知道要返回什么统计，以及使用独立还是联合归约。获取新图特征时仅编译普通程序。GitHub 先保存了全部预测，再开始编译带观测的新图。[实验协议](results/cpu_cost/increment/protocol.json) · [计时前提交](https://github.com/ZZzJunzum/Compiler_report/commit/2ee7503)
+
+| 每图等权的平均绝对误差（微秒，越低越好） | 零增量 | 只看源码 | 只看基线 HLO | 源码加基线 HLO |
+|---|---:|---:|---:|---:|
+| 24 张新尺寸图，360 个预测 | 110.29 | 69.64 | 69.50 | 69.57 |
+| 9 张架构迁移图，117 个预测 | 132.96 | 106.38 | 108.64 | 107.42 |
+
+在主测试组，加入 HLO 的误差变化为 −0.07 微秒，按同族尺寸配对重采样的 95% 区间为 [−1.30, +1.14]。在架构迁移组为 +1.03 微秒，区间为 [−1.15, +2.93]。7,650 项输出校验均通过。477 个增量中有 65 个超过同一可执行程序的重复计时波动门槛，79 个负增量均在各自门槛内。[逐进程增量与各方法预测](results/cpu_cost/increment/measurements.csv) · [误差和尾部误差](results/cpu_cost/increment/accuracy.csv) · [原始进程归档](results/cpu_cost/increment/runs)
+
+这一预测有两个具体用途。有普通调用时间时，加上预测增量可以估算监控后的延迟预算。必须返回相同统计时，用较低的预测值可以选择实现。按实际选中程序的总耗时计，源码加 HLO 相对固定联合归约在两组的比值为 1.0002 和 0.9577，只看源码分别为 1.0037 和 0.9583。组合模型改选的 58 对均未单独超过相应波动门槛。取得基线 HLO 本身也有成本，33 张图的普通程序编译耗时中位数为 103.6 毫秒，提取特征为 1.5 毫秒。论文的决策流程图把这些调用级用途与 GPU 编译器对合法融合候选的打分相对应。[实际选择与配对区间](results/cpu_cost/increment/policies.csv) · [基线编译记录](results/cpu_cost/increment/lock.json) · [GPU 决策依据](docs/literature-review.md#谁会用到成本预测)
 
 ## 早期分块与选型结果
 
@@ -94,13 +107,23 @@
 .\.venv\Scripts\python -B -m paper.placement_checkpoints record
 ~~~
 
-在仓库根目录及已安装锁定依赖的 Python 环境中，以下三个命令从已发布原始数据核验本轮 CPU 结果。核验包括重读两批 StableHLO、重算开发集拟合与封存预测、比对检查规则和实测可执行程序、从各个进程重算表格。原始进程档案含全部耗时、编译墙钟、输出检查及环境信息。
+在仓库根目录及已安装锁定依赖的 Python 环境中，用下列命令从已发布数据核验 CPU 结果。最后一条重读 65 份未观测基线 HLO，从 32 张开发图的原始配对时间重新拟合模型，比对全部封存预测，然后从五个新进程的计时与输出检查重算表格。
 
 ~~~powershell
 $py = (Resolve-Path .venv/Scripts/python.exe).Path
 & $py -B -m fusionscope.cpu_cost.experiment verify --out results/cpu_cost
 & $py -B -m fusionscope.cpu_cost.mechanisms verify --out results/cpu_cost
 & $py -B -m fusionscope.cpu_cost.paired_model verify --out results/cpu_cost
+& $py -B -m fusionscope.cpu_cost.increment verify --out results/cpu_cost/increment
+~~~
+
+单独复跑“基线 IR 预测增加多少微秒”时，沿用已归档的开发数据。新文件默认写入 `reproduction/cpu_increment`。第一步只编译无观测程序，生成的预测锁固定后才进入新候选编译和计时。
+
+~~~powershell
+& $py -B -m fusionscope.cpu_cost.increment lock
+& $py -B -m fusionscope.cpu_cost.increment test
+& $py -B -m fusionscope.cpu_cost.increment report
+& $py -B -m fusionscope.cpu_cost.increment verify
 ~~~
 
 独立重采样默认写入 Git 忽略的 `reproduction/cpu_cost`。依次执行开发、预测封存、参考 HLO 检查与封存、独立计时。计时结束后的联合 HLO 检查用于解释已测差异。末尾的小组实验重用开发计时，所有测试图与主盲测互斥。

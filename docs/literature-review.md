@@ -1,8 +1,8 @@
 # FusionScope 的文献对照与贡献边界
 
-核对日期为 2026 年 11 月 18 日。问题是一次推理必须返回原张量和指定的内部激活统计时，XLA 为这些输出生成哪些额外工作，哪种等价实现能节省时间，以及预测时可用的 IR 提供多少信息。读取编译器输出的 IR 用于分析。改变送进编译器的计算图的是新增的统计和返回值。
+文献与实现核对至 2026 年 11 月 19 日。问题是一次推理必须返回原张量和指定的内部激活统计时，XLA 为这些输出生成哪些额外工作，哪种等价实现能节省时间，以及预测时可用的 IR 提供多少信息。读取编译器输出的 IR 用于分析。改变送进编译器的计算图的是新增的统计和返回值。
 
-材料列出 25 项研究和两份工程文档。下文按论断逐项核对论文、作者稿或正式会议记录，并补查与精确统计、实际 XLA 融合决策及硬件归属有关的原始文献和实现。范围以这份列表和直接影响稿件结论的补充检索为限。材料所据的 508ef3d 封存了最后一组预测，后续的 859389a 才发布两组 CPU 盲测结果。论文比较采用后者及本次新增的编译过程检查。[预测封存](https://github.com/ZZzJunzum/Compiler_report/commit/508ef3d) · [盲测结果发布](https://github.com/ZZzJunzum/Compiler_report/commit/859389a)
+材料列出 25 项研究和两份工程文档。下文按论断逐项核对论文、作者稿或正式会议记录，并补查与精确统计、实际 XLA 融合决策及硬件归属有关的原始文献和实现。整次调用耗时与两种实现的耗时比来自先前两批盲测。随后针对“观测多花多少微秒”单独封存了普通 CPU 程序的优化后 HLO 和直接增量预测。[早期预测封存](https://github.com/ZZzJunzum/Compiler_report/commit/508ef3d) · [早期盲测结果](https://github.com/ZZzJunzum/Compiler_report/commit/859389a) · [直接增量预测封存](https://github.com/ZZzJunzum/Compiler_report/commit/2ee7503)
 
 ## 哪些工作与我们直接重合
 
@@ -60,6 +60,14 @@
 | 一项已知改写真正消除了哪些开销 | 4096 × 256 仿射分支的两张 4 MiB 整数掩码可以在 HLO 返回路径、缓冲分配和 LLVM 存储中交叉定位。联合归约后两张掩码均消失，实测提速 3.07 倍，干净复跑为 2.92 倍。另一个归一化案例在同分块无观测对照下显示，分块虽让整次调用变快，计数增量却从 11.75 升至 15.55 微秒。[历史机制审计](https://github.com/ZZzJunzum/Compiler_report/blob/e5964158e339cb1ff866b5f1ca4d0ba3bc9b6325/results/phase2/analysis/PHASE0.md) · [同分块配对结果](../results/phase3/cpu/analysis/interactions.csv) |
 | 消除导出可作机制证据，单独以此选实现会失手 | 22 张新图、9 种请求的 198 对中，120 对可以直接做联合归约。82 对消除了参考实现里的观测专用导出，其中 30 对明确变快，4 对明确变慢，48 对未分出差异。两版都没有该导出的其余 38 对全未分出差异。同一 320 × 160 仿射链上，三个全局计数的耗时比为 0.53，两个逐行计数为 1.29。这里同时改变了观测点数和归约轴。[逐请求时间、导出及门槛](../results/cpu_cost/analysis/rewrite_pairs.csv) |
 | IR 的解释价值、绝对时间预测和同图选型有不同证据 | 第一版模型五项正成本在 186 个替代方案上均被固定策略支配。后一版删除特定基线 HLO 特征后 28/28 个选择相同。候选 StableHLO 的绝对延迟回归在新尺寸和新架构上的中位误差倍数分别为 1.46、2.16。在另一批图上，直接拟合成对耗时比的集成模型 41 次中改选 17 次，相对固定联合归约有 1 胜、1 负、15 次未分辨，按图等权耗时比为 0.983，95% 区间为 [0.947, 1.016]。目前数据没有确定为选型增加 IR 的额外收益。[模型审计](../paper/check_diagnostics.py) · [绝对误差](../results/cpu_cost/analysis/accuracy.csv) · [独立决策结果](../results/cpu_cost/paired/policies.csv) |
+
+## 谁会用到成本预测
+
+| 使用者及决策 | 预测什么 | 怎样判断预测有用 |
+|---|---|---|
+| 模型使用者为每次推理安排观测预算 | 普通程序已知的调用耗时加上指定观测的预测增量。若统计内容已经确定，独立归约和联合归约仍可能提供相同输出。 | 预算需要微秒误差。选实现则比较模型实际选中的调用耗时与固定策略，还要计入取得额外 IR 的一次性成本。我们在新 CPU 图上分别检验精度和选择。[盲测前封存](https://github.com/ZZzJunzum/Compiler_report/commit/2ee7503) |
+| XLA GPU 编译器决定哪一对生产者和消费者先做融合 | 正常的优先融合路径先检查候选能否生成合法实现，再比较融合前后估计执行时间，更新候选优先级。同一生产者供多个消费者时，重复计算会进入估计。 | 对同一语义的候选记录预测节省、实际发射的内核及设备时间，再检查被选实现的整次调用是否也变快。核实所用版本的优化路径和实际发射记录。[优先级定义](https://github.com/openxla/xla/blob/ddaa568d48ad24c16e08bff00d3038bcf824eab9/xla/backends/gpu/transforms/priority_fusion.h#L42-L65) · [实际打分位置](https://github.com/openxla/xla/blob/ddaa568d48ad24c16e08bff00d3038bcf824eab9/xla/backends/gpu/transforms/priority_fusion.cc#L816-L869) |
+| 自动调优器决定有限实测预算花在哪些候选上 | 按估计运行时间挑选少量实现交给设备测量。Chen 等在含服务器 GPU 的试验中用学习模型指导张量程序搜索。Kaufman 等在 TPU 上检验融合及分块选择。 | 固定试跑次数或搜索时间，比较最终找到的最快程序和搜索代价。XLA 的 GPU 调优器也会针对特定矩阵乘或卷积实测多个实现。[Chen 等，NeurIPS 2018](https://papers.neurips.cc/paper_files/paper/2018/hash/8b5700012be65c9da25f49408d959ca0-Abstract.html) · [Kaufman 等，MLSys 2021](https://proceedings.mlsys.org/paper_files/paper/2021/file/6bcfac823d40046dca25ef6d6d59cc3f-Paper.pdf) · [OpenXLA 的设备调优说明](https://openxla.org/xla/determinism) |
 
 ## 据此怎样推进
 

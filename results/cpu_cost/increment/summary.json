@@ -1,0 +1,32 @@
+{
+  "graphs": 33,
+  "observed_programs": 477,
+  "eligible_choices": 180,
+  "output_checks": 7650,
+  "measured_processes": 5,
+  "ir_criterion": {
+    "new_shape": false,
+    "new_architecture": false
+  },
+  "negative_increments": 79,
+  "resolved_increments": 65,
+  "repeatability": {
+    "new_shape": {
+      "resolved": 59,
+      "median_floor_us": 164.33499999999992,
+      "resolved_negative": 0
+    },
+    "new_architecture": {
+      "resolved": 6,
+      "median_floor_us": 328.06249999999994,
+      "resolved_negative": 0
+    }
+  },
+  "archived_runs": {
+    "p0": "c5f3d131ee72cdbf141838ea316f75417889e00d008a2023d8e5405561940907",
+    "p1": "53ba14fd3b250e020b91b4f701265919faf5ef639b239a2bcc4bdb2e62c988b6",
+    "p2": "7fcc4990b027fdd9d3d9eeb575b6a0c48d2979753a14e5afc0b89ec38acc8263",
+    "p3": "41c04f6e04be81a879d023b2653aae9480f743d30f80d102f99e58f82bae5cf0",
+    "p4": "1145cf9838da144b8f2bbe9810114551c33d6561f9830482ccb918de86c5efe1"
+  }
+}

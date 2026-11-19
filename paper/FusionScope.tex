@@ -21,7 +21,7 @@
 \begin{document}
 
 \begin{abstract}
-Returning two activation counts adds eight bytes to an inference result. What does computing them cost? On one Intel CPU, moving the counts across ReLU produced the same optimized XLA intermediate representation (IR) fingerprint within each of 32 synthetic workloads. Following the output paths revealed two four-mebibyte masks in a million-element affine branch. A joint reduction removed both and ran 3.07 times as fast as separate sums. We then tested nine observation requests on 22 new graphs. Among 82 comparisons where the rewrite removed every targeted export, 30 became measurably faster and four slower. Could compiler IR predict the difference? A regression on pre-backend StableHLO estimated whole-call latency with median multiplicative error 1.46 on new sizes and 2.16 on held-out architectures. On eleven additional graphs, directly modeling relative cost changed 17 choices from a fixed joint reduction, yielding one resolved gain, one loss and 15 unresolved differences. The CPU evidence ties a known aggregation rewrite to removable work and identifies cases where removing it increases latency.
+Returning two activation counts adds eight bytes to an inference result. What does computing them cost? On one Intel CPU, moving the counts across ReLU gave the same optimized XLA intermediate representation (IR) within each of 32 synthetic workloads, as measured by normalized fingerprints. Two four-mebibyte masks remained in a million-element affine branch. A joint reduction removed them and ran 3.07 times as fast as separate sums. Across nine requests on 22 new graphs, eliminating the targeted exports yielded 30 resolved gains, four losses and 48 unresolved differences. We then asked whether the ordinary program could predict the time added by observation. We froze 477 forecasts on 33 further graphs before compiling any observed candidate. On 24 graphs with new sizes, graph-balanced mean absolute errors were 110.29 microseconds for a zero increment, 69.64 for source features and 69.57 for source plus optimized baseline IR. On nine graphs with held-out architectures the errors were 132.96, 106.38 and 107.42 microseconds. Direct modeling improved on zero in both cohorts. Adding baseline IR missed the registered improvement criterion.
 \end{abstract}
 \begin{CCSXML}
 <ccs2012>
@@ -39,7 +39,7 @@ Our first experiment exposed a 4,096-element FP32 activation. The ordinary call 
 
 The initial request returns the forward tensor and two signed 32-bit integers counting positive elements at different layers on every call. Sparsity profiling and numerical debuggers use related statistics~\cite{spartan,tfdebug}. For finite $z$ and $a=\max(z,0)$, $z>0$ and $a>0$ agree element by element. Each counter can therefore read either side of its ReLU. Adding the counters changes the program presented to XLA. Reading its IR lets us trace that change.
 
-When four equivalent placements compiled alike (Section~\ref{sec:placement}), tracing the counters revealed an opportunity for shared aggregation (Section~\ref{sec:mechanism}). Its benefit varied across workloads, creating a choice for a predictor (Section~\ref{sec:selection}). We then changed the requested statistic and tested how well the rewrite and its cost estimates transferred to unseen CPU programs (Section~\ref{sec:transfercost}).
+When four equivalent placements compiled alike (Section~\ref{sec:placement}), tracing the counters revealed an opportunity for shared aggregation (Section~\ref{sec:mechanism}). Its benefit varied across workloads, creating a choice for a predictor (Section~\ref{sec:selection}). We varied the statistic and predicted the whole observed call on unseen programs (Section~\ref{sec:transfercost}). Finally, we withheld the observed program itself and asked how many microseconds the original program's IR could tell a caller to budget for observation (Section~\ref{sec:goals}).
 
 \begin{figure}[t]
 \centering
@@ -108,7 +108,7 @@ For external code we instrumented one or two adjacent blocks of the official Fla
 For each seed, the ordinary tensor had to be finite, FP32, have the original shape and meet its family's fixed tolerance against the unobserved computation. A separate diagnostic returned preactivations to the host, where we counted their positive elements. Every reported counter had to equal its corresponding reference integer exactly. The largest reduction fits in a signed 32-bit count. In the placement and scheduling studies we checked three inputs per configuration, held weights fixed within a workload and timed one prespecified input. Exactness here concerns the counts on those checked inputs. The tensor check permits the registered floating-point tolerance.
 
 \begin{table}[t]
-\caption{Workload conditions and compiled configurations by study. Early development stages reuse graphs. Counts include unobserved controls. The two final blind panels use disjoint graphs.}
+\caption{Workloads and configurations by study, including unobserved controls. Early development stages reuse graphs. The three cost-model test panels use disjoint graph shapes.}
 \label{tab:scope}
 \centering\small
 \begin{tabular}{@{}lrr@{}}
@@ -125,7 +125,8 @@ New convolution readouts & 12 & 48\\
 \midrule
 Observation/cost development & 32 & 512\\
 New sizes / new architectures & 16 / 6 & 256 / 84\\
-Final paired-cost test & 8 / 3 & 80 / 27\\
+Paired schedule-cost test & 8 / 3 & 80 / 27\\
+Direct increment test & 24 / 9 & 384 / 126\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -181,7 +182,7 @@ Table~\ref{tab:mainonly} illustrates why attributing a tile's entire benefit to 
 \section{Can baseline IR choose a faster schedule?}
 \label{sec:selection}
 \subsection{A cost model with a fixed ranking}
-The affine and convolution results made an advance choice worth testing. For deployment we initially allowed the selector to see the unobserved program's optimized HLO, tensor shapes and candidate schedule descriptions. Compilation of the observed candidates came after selection. We trained on three families and held out all sizes and topologies of the fourth. The model estimated cost in microseconds as
+Our first selector used ordinary optimized HLO, shapes and schedule descriptions before compiling observed candidates. We held out one complete family at a time and estimated microseconds by
 \begin{equation}
 \widehat T=dH+\max(fF,bB)+rL+sS .
 \label{eq:cost}
@@ -224,60 +225,38 @@ The static model's primary ratio was 0.861 with a paired 95\% interval of [0.797
 
 \subsection{Which decisions depended on IR?}
 \label{sec:audit}
-After testing the registered whole-joint comparator, we reexamined the same frozen development and confirmation data for a stronger fixed rule, the effect of removing IR features, and the cost of choosing. These are retrospective comparisons.
+We revisited the frozen data to test a stronger fixed rule, ablate IR and account for setup.
 
 \paragraph{A stronger fixed rule.}
-We chose a single policy on the 32 development cases by minimizing geometric-mean paired latency relative to whole joint counting. The catalog contained whole separate, whole joint, staged, and separate or joint tiles capped at 1, 4, 16, 64 or 256 rows or images. A cap maps to the largest legal extent at or below it. A full-extent tile maps to its direct counterpart. The development winner used joint sums with a cap of 16. On the 24 primary cases its ratio to whole joint was 0.876. Repeating the same paired bootstrap with this rule as denominator gave a static/fixed ratio of 0.981 with a 95\% interval of [0.957, 1.007]. These data do not resolve an additional execution-time advantage over the stronger fixed rule.
+Among whole, staged and capped policies on the 32 development graphs, joint sums at the largest legal extent up to 16 minimized geometric-mean paired time relative to whole joint. On the 24 primary graphs its ratio was 0.876. Against this fixed rule the static model gave 0.981 (paired 95\% interval 0.957--1.007).
 
 \paragraph{Withholding baseline HLO.}
 The resident-byte input is the sum of input, parameter and output sizes. The FP32 source shapes recover it exactly on all 60 development and fresh graphs. We set baseline work, fanout and shared-prefix features to zero, reconstructed the byte input from shapes, and retained the frozen regression weights, device calibration and source operator labels. All 28 choices were unchanged. Across all 340 observed candidates, scores relative to the same graph's whole-joint score agreed within $10^{-14}$. Graph-only additive effects cancel when taking that difference. Retraining the same log regression using these source-derived inputs and development-only regularization selection changed two of 28 choices. Its primary ratio was 0.869. This ablation concerns candidate ranking. Absolute predicted latencies can change.
 
-\begin{table}[t]
-\caption{A topology-dependent reversal. Both affine graphs have shape $128\times320$. The model chose a 64-row joint tile for both. Absolute times are medians in microseconds. Ratios use within-process pairing.}
-\label{tab:reversal}
-\centering\small
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-Readout & Whole joint & 64-row joint & Paired ratio\\
-\midrule
-Chain & 45.95 & 49.20 & 1.098\\
-Branch & 110.35 & 50.35 & 0.451\\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \paragraph{A missed reversal.}
-The frozen model made the same choice in each chain and its paired branch, across all twelve pairs. Within each pair the relative schedule scores agreed to numerical precision. In Table~\ref{tab:reversal}, the additional use of $a_1$ changes the sign of the measured benefit. Both paired differences exceeded their own repeatability floor. Branch and fanout enter as graph-level offsets, so the fitted linear score cannot express that reversal at fixed shape and operator types. The records identify the limitation of the score. A pass-by-pass attribution of the reversal and matched unobserved tiles on these new graphs would be needed to assign the latency difference to a particular compiler transformation.
+The model gave each chain the same choice as its paired branch. On the $128\times320$ affine pair, it chose a 64-row joint tile twice. Relative to whole joint, the paired time ratio was 1.098 on the chain and 0.451 on the branch. Both differences cleared their floors. Branch and fanout enter as graph-level offsets, so the score cannot express the reversal caused by the change in readout.
 
 \paragraph{A workload mix and the cost of choosing.}
-The primary endpoint weights per-graph ratios equally. A service with one invocation of each graph asks a different question. Within each confirmation process, we summed the 24 selected median latencies and divided by the corresponding sum for whole joint. The median of these five ratios was 1.005. This is a calculated invocation mix. An end-to-end service with its own request frequencies requires a separate measurement.
+For a hypothetical service calling each of the 24 graphs once, we summed median times within each process. The median selected/whole-joint ratio across processes was 1.005.
 
-For $H$ invocations we charged policy $p$ a total of $C_p+HT_p$. Setup $C_p$ includes required baseline compilation, feature extraction, schedule scoring, observed compilation and exploratory measurements. The timed policies paid for both candidates in both discovery processes. Offline training and common framework initialization were outside this accounting. Cold deployment also pays the measured 714\,ms calibration cost. With that calibration reused, median setup was 151\,ms for static selection and 606\,ms for the ranked shortlist. At 1,000 invocations their median total-time ratios to fixed joint were 1.27 and 1.75. Figure~\ref{fig:reuse} shows these ratios over the registered invocation horizons. Only two static choices and zero timed-shortlist choices had paid back by 1,000 calls. Among the eight graphs with per-call static savings, the first non-worse horizon ranged from 569 to 3,408 invocations.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=.85\textwidth]{reuse.pdf}
-\caption{Registered deployment accounting. Each point summarizes the median total-time ratio to whole joint reduction over 24 primary graphs at the specified reuse count. The two panels charge reused and cold calibration separately. Both axes are logarithmic.}
-\Description{Two panels plot total time against invocations. The overhead of choosing a schedule is greatest at low reuse, particularly for cold calibration.}
-\label{fig:reuse}
-\end{figure*}
+For $H$ invocations we charged $C_p+HT_p$ to policy $p$. Setup includes baseline and observed compilation, feature extraction, scoring and all exploratory trials. Offline training and common framework initialization were excluded. With the 714\,ms calibration reused, median setup was 151\,ms for static selection and 606\,ms for the timed shortlist. At 1,000 calls their median total-time ratios to whole joint were 1.27 and 1.75. Two static choices and zero shortlist choices had paid back. Across the eight graphs with per-call static savings, break-even ranged from 569 to 3,408 calls.
 
 \subsection{How much opportunity remains beyond a fixed tile?}
 \label{sec:opportunity}
-We revisited the development-selected joint cap of 16. Following the per-instance and single-policy comparison used in algorithm selection~\cite{aslib}, we computed each graph's empirical headroom as the latency of the fixed rule minus the lowest latency among its valid observed schedules. Every latency here is the median of three development-process medians. The minimum of noisy measurements is optimistic~\cite{cawley}. We froze the winners for all 32 graphs and tested those pairs in five new processes. Three inputs per configuration checked output validity. The new paired differences use the larger A/A floor of the two actual executables.
+Following the single-policy and per-instance comparison in algorithm selection~\cite{aslib}, we subtracted each graph's lowest valid observed latency from its cap-16 latency. We used medians over three development processes. A minimum over noisy measurements is optimistic~\cite{cawley}, so we froze all 32 winners, checked three inputs per configuration and repeated each comparison in five new processes with executable-specific A/A floors.
 
-The 356 valid observed candidates gave median development headroom of 6.73\us. Across the same graphs the frozen choices had a geometric-mean ratio of 0.832 to cap-16 on independent repeat, with median paired saving of 5.10\us. Sixteen gains exceeded their local floors. The remaining sixteen comparisons were unresolved, including seven identical choices. Fourteen of the sixteen gains rated as resolved in development were resolved again. Two large-batch convolution effects fell below the new floors, and two normalization gains became resolvable. Four convolution graphs with batches of four or eight accounted for 83.2\% of all positive absolute savings on repeat. This share gives each graph one invocation and omits negative differences from its denominator.
+Across 356 valid candidates the median development headroom was 6.73\us. On repeat the frozen choices took 0.832 times cap-16 (geometric mean), with median saving 5.10\us. Sixteen gains cleared the local floors, fourteen of them also resolved in development. The other sixteen comparisons included seven identical choices. Four convolution graphs with batches four or eight supplied 83.2\% of the summed positive savings for one call per graph.
 
 An oracle for a finite horizon must also account for the candidate's build. For graph $g$ and $H$ calls its most favorable estimated net saving is
 \begin{equation}
 \max_{a\in A_g}\{H(t_f-t_a) - (C_a-C_f)\} - C_{\rm info},
 \end{equation}
-where $f$ is cap-16, $C$ is observed-program build time and $C_{\rm info}$ is the extra cost of obtaining selection information. On the 32 development graphs at 1,000 calls, 19 had positive estimated net savings when candidate identity was free. Charging baseline compilation and extraction reduced this to ten, or two with cold calibration. The oracle gets the winner without paying to search or score. Separately, charging the actual recorded policies against cap-16 on the 24 earlier primary graphs yielded positive net savings by 1,000 calls on four graphs for the static model and none for the timed shortlist with reused calibration. The four static gains occurred on dense graphs. These counts differ from the original comparison to whole joint in Figure~\ref{fig:reuse}.
+where $f$ is cap-16, $C$ is observed-program build time and $C_{\rm info}$ is the cost of acquiring selection information. At 1,000 calls, 19 of 32 development graphs had positive estimated net savings with free candidate identity, ten after charging for baseline compilation and extraction, and two with cold calibration. On the 24 primary graphs the actual static choices beat cap-16 on total cost by 1,000 calls on four dense graphs. The timed shortlist did so on none, even with calibration reused.
 
 \subsection{Transfer to unseen convolution shapes}
-The four old convolution graphs also qualified a simple exception for testing: use one-image joint tiles at batches of four and eight. We froze a test on six new NHWC shapes, crossing batches of 4, 8 and 16 with $(28,28,16)$ and $(36,36,24)$ spatial and channel dimensions. Each shape has two otherwise identical two-layer residual convolution programs. Both compute $0.75a_2+0.125+0.25s$. Only the origin of $s$ changes, from the input tensor to the first rectified activation. The named skip multiplication in the optimized direct program was traced back to the intended operand in all twelve graphs. This controls the readout's source arithmetic while allowing its dependencies and live values to change.
+Those four graphs motivated an exception using one-image joint tiles at batches four and eight. Six new NHWC shapes crossed batches 4, 8 and 16 with $(28,28,16)$ and $(36,36,24)$. Two readouts per shape computed $0.75a_2+0.125+0.25s$ using either the input or the first rectified activation as $s$. We verified the skip operand in all twelve optimized modules.
 
-Cap-16 uses the whole batch on all twelve graphs. The exception retains cap-16 at batch 16. Three small regressions choose between whole and one-image joint counts. All were trained on the eight old convolution graphs using the paired log latency ratio, standardized features and the same fixed ridge penalty. The first used shape, the second added sharing and its interactions with batch, and the third added candidate differences in compiler-planned temporary bytes and five classes of HLO instructions. The old training set contained one spatial geometry. We froze the source policies before compiling the new candidates. We then archived the optimized modules and froze the IR decisions before any candidate timings. Five independent processes timed both observed schedules and their same-extent main-only controls.
+Cap-16 uses the whole batch on all twelve graphs. The exception retains it at batch 16. Three ridge models trained on eight old convolution graphs predicted the paired log ratio using shape alone, shape and sharing, or those features plus differences in planned temporary bytes and five HLO operation classes. We locked source choices before candidate compilation and IR choices before timing. Five processes timed both schedules with same-extent main-only controls.
 
 \begin{table}[t]
 \caption{Time for a one-image tile divided by whole-batch time on unseen convolution shapes. The two readouts use the input ($x$) or first activation ($a_1$). Each entry is a median of five paired process ratios.}
@@ -367,46 +346,84 @@ Jung et al.\ accumulate a sum and a sum of squares at a convolution producer for
 \paragraph{Cost prediction.}
 XTAT tunes XLA passes~\cite{xtat}. HloEnv explores alternative HLO rewrites~\cite{hloenv}. TenSet and TpuGraphs supply measurements for learning and ranking tensor programs~\cite{tenset,tpugraphs}. In TENSAT's SqueezeNet example a larger rewrite set lowered estimated cost and increased measured time (Sec.~6.4)~\cite{tensat}. Our predictors use either optimized IR of the unobserved program, pre-backend candidate StableHLO, or optimized IR of a compiled candidate. The last entails a build that we charge to the policy.
 
-\section{Progress toward an IR cost model}
+\section{Can baseline IR predict the added microseconds?}
 \label{sec:goals}
-\paragraph{Predicting the cost added by observation.}
-The initial monitoring question concerns $\Delta=T(g,q,a)-T_0(g)$. We revisited the frozen primary-panel forecasts, computing $\widehat{\Delta}=\widehat T(g,q,a)-\widehat T_0(g)$ from each model's own observed and unobserved predictions. The target is the median of five within-process differences. An increment can be near zero or negative, so Table~\ref{tab:increment} gives absolute errors in microseconds. Predicting zero gives an error equal to the magnitude of the measured increment.
+\paragraph{Subtracting two whole-call estimates.}
+The initial monitoring question concerns $\Delta=T(g,q,a)-T_0(g)$. We first subtracted each frozen whole-call model's own predictions for the observed and ordinary programs. On 240 programs with new sizes, median absolute errors were 29.38\us{} for a zero increment, 24.14\us{} for source, 32.71\us{} for candidate StableHLO and 23.89\us{} for both. On 78 programs with held-out architectures they were 14.60, 38.69, 83.68 and 75.27\us. These retrospective forecasts motivated a prospective test with the ordinary program as the only compiler input.
 
-\begin{table}[htb]
-\caption{Median absolute error in predicted observation increments ($\mu$s), computed from frozen whole-call forecasts. The last column combines source and StableHLO features.}
-\label{tab:increment}
+\paragraph{Direct prediction.}
+Within process $p$, let $m_p(g,q,a)$ denote the median synchronized latency for request $q$ and implementation $a$, and $m_p(g,0)$ the latency of the ordinary call. We trained and evaluated against
+\[
+  \Delta(g,q,a)=\mathop{\mathrm{median}}_p
+       [m_p(g,q,a)-m_p(g,0)] .
+\]
+The subtraction pairs two measurements on the same graph in the same process and retains negative values. All learned models receive the requested domains, output volume, and identities of the statistic and implementation. The source model also receives tensor sizes, arithmetic estimates and branch information. The IR model reads optimized HLO of the \emph{unobserved} call. It counts operations by kind, operand volumes for major operators, fusion exports, and values consumed more than once. Some counts cover all values matching the requested shape, which can include other activations. The combined model adds the IR features to source. Zero always forecasts $0\,\mu\mathrm{s}$.
+
+We fit signed ridge regressions separately for each request and legal implementation to 480 observed configurations from the 32 development graphs. Leaving out one size tier at a time selected the penalty for each model using development data alone. Git revision \texttt{2ee7503} sealed 477 predictions before any observed test executable was compiled. The 24 primary graphs cross four familiar families, three new sizes and two readouts. The nine transfer graphs cover three new sizes each for a gated MLP, a basic ResNet block and a strided bottleneck. Those architectures appeared in earlier studies and contributed no training rows. Five fresh processes each discarded six warm-up rounds and recorded 20 randomized rounds plus same-executable controls.
+
+The primary error averages absolute microsecond error within each graph, then across graphs. We paired models in 10,000 bootstrap resamples of size clusters within each fixed family, keeping both readouts and all requests together. The registered test for additional IR value requires at least a 10\% reduction against source, a negative upper 95\% bound on the error difference, and lower error than zero on the primary graphs.
+
+\begin{table}[t]
+\caption{Direct prediction of added time. Entries are graph-balanced mean absolute errors in microseconds. All learned models know the observation request. IR denotes optimized HLO of the ordinary program.}
+\label{tab:direct}
 \centering\small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrrrrr@{}}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-Cohort & Programs & Zero & Source & IR & Both\\
+Test cohort & Zero & Source & IR & Source + IR\\
 \midrule
-New sizes & 240 & 29.38 & 24.14 & 32.71 & 23.89\\
-New architectures & 78 & 14.60 & 38.69 & 83.68 & 75.27\\
+New sizes (24 graphs) & 110.29 & 69.64 & 69.50 & 69.57\\
+New architectures (9) & 132.96 & 106.38 & 108.64 & 107.42\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-On new sizes the combined model improved the median error over zero. On new architectures all three feature-based estimates had larger errors than zero. This retrospective calculation used the archived forecasts without refitting. Predicting $\Delta$ directly from baseline IR would require its own held-out accuracy test.
+All 7,650 output checks passed. On the primary cohort, adding IR changed mean absolute error by $-0.07$\us{} (95\% interval $[-1.30,1.14]$), a 0.10\% improvement (Table~\ref{tab:direct}). Architecture transfer gave $+1.03$\us{} ($[-1.15,2.93]$). IR alone improved over zero in both cohorts, while source alone captured comparable accuracy. The combined model's pooled 90th-percentile errors were 187.88 and 338.26\us. Of the 477 measured increments, 65 cleared their own repeatability floors. All 79 negative increments lay within those floors. For example, on the $192\times120$ affine branch the combined model predicted $+67.40$\us{} for separate counts and $-7.42$\us{} for joint counts. The paired measurements were $+85.45$ and $+41.95$\us, respectively. The predicted order agreed with the measured medians, but the joint call still had a positive measured increment.
 
-\paragraph{Accuracy and selection on the CPU.}
-On the additional panel, the calibrated IR estimate met the 1.30 median whole-call target on familiar structures (1.13) and missed the 2.00 tail target (2.32). It missed both on new architectures (2.15 and 2.51). On the primary panel, adding IR to source features increased graph-balanced mean absolute log error by 2.8\% and 22.6\% in the two cohorts. The target was a reduction of at least 10\% with a favorable confidence interval. The schedule selector beat whole joint reduction under the registered criterion. Its advantage over a fixed tile remained unresolved.
+\paragraph{Choosing between implementations.}
+On the 144 eligible new-size pairs, choosing the lower combined forecast took 1.0002 times always-joint latency (95\% interval 0.9886--1.0132). On 36 transfer pairs the ratio was 0.9577 (0.9523--0.9631), and source alone achieved 0.9583. A descriptive paired comparison of combined to source gave 0.9965 (0.9912--1.0028) on new sizes and 0.9994 (0.9965--1.0018) on transfer. All 58 changes from always joint lay within their individual A/A floors. The transfer cohort's aggregate saving against joint also arose with source features alone.
 
-\paragraph{What remains for GPU fusion.}
-The GPU protocol specifies 36 combinations of graph, extent and observer plus eight ResNet configurations. All 44 await measurement. First, align GPU HLO with actual launches and collect device times for equivalent implementations alongside synchronized call times. Then freeze predictions for disjoint graphs and shapes. XLA's own producer--consumer and multi-output fusion estimates provide a kernel-level comparator~\cite{openxlagpu}. A fixed policy provides the call-level comparator. These two tests would address the original GPU objective.
+\paragraph{Which decision uses the prediction?}
+A caller with a measured ordinary latency $T_0$ can budget $T_0+\widehat{\Delta}$ for a monitored call. With a fixed request, $T_0$ is common to every implementation, so ranking by predicted increment also ranks predicted whole-call time. A wrong magnitude can cross a budget threshold even when the order is correct. A small absolute error can also reverse two nearly tied implementations. On the 33 test graphs, median baseline build and HLO extraction times were 103.6 and 1.5\,ms, respectively. Existing baseline HLO lets a caller reuse the build. Paying for it solely to choose a schedule raises the number of calls needed to recover that cost.
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+ box/.style={draw=black!65,rounded corners=2pt,align=center,text width=3.25cm,minimum height=1.03cm,inner sep=2.6pt},
+ arr/.style={-{Stealth[length=4pt]},semithick}]
+\node[anchor=west,font=\bfseries] at (0,0) {(a) CPU observation study \enspace\textnormal{One estimate per graph, request and implementation}};
+\node[box] (ca) at (1.78,-.84) {Ordinary CPU HLO\\and requested statistic};
+\node[box] (cb) at (5.90,-.84) {Predict added time\\$\widehat{\Delta}(g,q,a)$};
+\node[box] (cc) at (10.02,-.84) {Check the budget or\\rank legal schedules};
+\node[box] (cd) at (14.14,-.84) {Score against paired\\whole-call timings};
+\draw[arr] (ca)--(cb); \draw[arr] (cb)--(cc); \draw[arr] (cc)--(cd);
+\node[anchor=west,font=\bfseries] at (0,-1.90) {(b) XLA GPU fusion \enspace\textnormal{One local decision per eligible producer and its consumers}};
+\node[box] (ga) at (1.78,-2.74) {Eligible producer--consumer\\fusion in GPU HLO};
+\node[box] (gb) at (5.90,-2.74) {Estimate runtime\\apart and fused};
+\node[box] (gc) at (10.02,-2.74) {Prioritize the estimated\\saving and update HLO};
+\node[box] (gd) at (14.14,-2.74) {Emit GPU work and\\observe device launches};
+\draw[arr] (ga)--(gb); \draw[arr] (gb)--(gc); \draw[arr] (gc)--(gd);
+\end{tikzpicture}
+\caption{Two users of a cost estimate. Panel (a) forecasts a change in a synchronized CPU call. We evaluate accuracy and schedule ranking. Panel (b) summarizes the ordinary cost-based path in OpenXLA's GPU fusion pass~\cite{xlapriority,openxlagpu}. Device timing is the proposed independent check.}
+\Description{Two horizontal paths. The upper path starts with the original CPU graph and a request, predicts extra microseconds, and ends in a measured call-level comparison. The lower path starts with a legal GPU fusion, compares separate and fused estimates, updates the graph, and ends in emitted GPU work.}
+\label{fig:cost-use}
+\end{figure*}
+
+Figure~\ref{fig:cost-use} relates this decision to GPU compilation. If a ReLU and a counter both read an affine result, storing that result can supply both consumers. Fusing the producer into both may save a store and repeat the arithmetic. OpenXLA's \texttt{PriorityFusion} checks fusibility, estimates the times apart and fused, and prioritizes the predicted saving while accounting for duplication~\cite{xlapriority,openxlagpu}. GPU autotuning can also time competing GEMM or convolution implementations~\cite{xlagpuautotune}. A predictor can narrow this search. Chen et al.\ used a learned cost model to select tensor schedules for hardware trials, including on a server GPU~\cite{autotvm}. Kaufman et al.\ evaluated fusion and tiling choices on TPUs~\cite{kaufman}.
+
+The GPU protocol reserves 36 graph/extent/observer configurations and eight ResNet configurations. All 44 await a device. We would first map HLO to launches and time device work and synchronized calls separately. To test fusion, generate legal fused and unfused versions of the same computation, verify their outputs and emitted boundaries, and compare local predicted savings with XLA's estimates and the measured difference. To test observation, compare frozen call-level forecasts and realized choices against zero, source and fixed schedules on disjoint graphs. Charging selection and build time gives the number of calls required for a faster choice to pay back.
 
 \subsection{Validity and scope}
-The measurements cover one compiler version, one pinned logical CPU and fixed shapes and weights. The 24 primary conditions are related templates with three sizes per family. Their bootstrap describes this host and sampling design. The two external ResNet subgraphs use initialized weights, and the four mixed cases vary order and shape. Complete trained models remain outside this evidence. A direct variadic reduction requires equal operand shapes~\cite{stablehlo}, limiting its use across changes in spatial extent or channel count.
+We varied sizes and readouts on one compiler version and one pinned logical CPU. The external ResNet subgraphs use initialized weights. A direct variadic reduction requires equal operand shapes~\cite{stablehlo}, limiting its use across changes in spatial extent or channel count. All floating-point checks used finite inputs and the specified tolerances.
 
-Our producer matching can miss algebraically transformed duplicates. Sixteen of 34 original baseline graphs had a missing or ambiguous ReLU anchor. The initial model used an empty slice for a missing anchor and the largest local producer slice when multiple matched. Optimized HLO, planned allocation and vector stores establish compiler behaviour at specific boundaries. Physical memory traffic and GPU kernel launches require separate measurements. A clean checkout reproduced the 36 crossed-mechanism fingerprints and 540 output checks, providing a same-host reproduction.
+Producer matching can miss algebraically transformed duplicates. Sixteen of 34 original graphs had missing or ambiguous ReLU anchors. The initial model used an empty slice for a missing anchor and the largest matching slice for an ambiguous one. A clean checkout reproduced 36 mechanism fingerprints and 540 output checks. The export scan recognizes specific fusion outputs. Measuring physical traffic and stalls would further distinguish possible causes of the slowdowns.
 
-In the convolution follow-up, the eight target graphs share four shapes, each with two readouts. The A/A floor describes local repeatability without a familywise significance guarantee. The cost bounds condition on the candidate menus, measured builds, reuse assumptions and synthetic workload frequencies. In the absolute-latency study, the trained IR coefficients cover the operation classes present in development. The shape and architecture cohorts contain respectively eight paired shape clusters and six graphs. The final interpolation test has one size per external architecture. All floating-point observations use finite inputs and tolerance-based validation. The static export scan recognizes particular output instructions of explicit fusions. Instruction scheduling, vectorization, cache misses and physical traffic remain unmeasured candidates for the slowdowns.
+Each direct-test family supplies three sizes. Bootstrap intervals condition on those families and the observed processes. Multiple requests per graph do not add independent architectures. Median local A/A floors were 164\us{} for new sizes and 328\us{} for architecture transfer. Baseline HLO for the gated MLP includes exponential, divide and negate operations absent from development, for which the IR model has no learned coefficients. Deployment costs depend on the candidate menu, builds and reuse.
 
 \section{Conclusion}
-The TPU debugging case led to a controlled CPU experiment. Equivalent ReLU placements left measurable overhead. Following the returned counts through XLA exposed mask stores that joint reduction removed, producing a repeatable affine speedup. The same storage change occurred in every resolved slowdown across the wider set of requests. Calibrated IR gave useful typical whole-call estimates on familiar structures. The increment estimates transferred poorly to new architectures, and an advantage over strong fixed policies remains unresolved. GPU fusion costs require device-level measurements.
+Tracing the returned counts through XLA exposed mask stores that joint reduction removed, producing a repeatable affine speedup. Removing the same class of export also occurred in every resolved slowdown in the wider rewrite test. On fresh CPU graphs, direct prediction of added microseconds beat a zero increment. A source model accounted for nearly all of that improvement. Adding baseline HLO changed average error by less than two microseconds in either cohort and gave no resolved advantage over source-based schedule choices. GPU fusion places the decision inside the compiler and still requires device-level validation.
 
 \paragraph{Reproducibility.}
-The repository includes frozen forecasts, raw timings and the pass dumps for 16 controls. Its README gives the revisions and commands that reproduce the tables, including the retrospective increment errors.
+The artifact includes compiler dumps and raw timings. Its instructions reproduce the tables and all 477 frozen forecasts from the baseline HLO and development measurements.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{paper/references}

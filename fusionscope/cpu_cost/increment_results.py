@@ -68,10 +68,14 @@ def analyze(folder, spec, graphs, sealed):
             row.update({k: "S" if sep_pred[k] < pred[k] else "J" for k in METHODS})
             choose[c.name].append(row)
             pairs.append(row)
-    passed = {}
+    passed, repeatability = {}, {}
     for cohort in ("new_shape", "new_architecture"):
         group = [c for c in graphs if c.group == cohort]
         boot = draws(group)
+        rows = [r for c in group for r in by_graph[c.name]]
+        repeatability[cohort] = dict(resolved=sum(r["resolved"] for r in rows),
+                                     median_floor_us=median(r["floor_us"] for r in rows),
+                                     resolved_negative=sum(r["resolved"] and r["delta_us"] < 0 for r in rows))
         signed = {k: [np.array([r[k + "_us"] - r["delta_us"] for r in by_graph[c.name]]) for c in group]
                   for k in METHODS}
         mae = {k: np.array([np.mean(abs(e)) for e in errors]) for k, errors in signed.items()}
@@ -94,15 +98,23 @@ def analyze(folder, spec, graphs, sealed):
             log_ratios = [np.mean([np.log(r["separate_to_joint"]) if r[k] == "S" else 0.
                                    for r in choose[c.name]]) for c in group]
             lower, upper = interval(log_ratios, boot)
+            # Descriptive paired comparison to the source policy, in addition to the registered fixed comparator.
+            vs_source = [np.mean([(int(r[k] == "S") - int(r["source"] == "S")) * np.log(r["separate_to_joint"])
+                                  for r in choose[c.name]]) for c in group]
+            src_lo, src_hi = interval(vs_source, boot)
             policies.append(dict(cohort=cohort, model=k, eligible=len(eligible), separate=len(changed),
                                  resolved_gains=sum(r["outcome"] == "gain" for r in changed),
                                  resolved_losses=sum(r["outcome"] == "loss" for r in changed),
                                  unresolved=sum(r["outcome"] == "unresolved" for r in changed),
                                  time_to_joint=float(np.exp(np.mean(log_ratios))),
-                                 ci_low=float(np.exp(lower)), ci_high=float(np.exp(upper))))
+                                 ci_low=float(np.exp(lower)), ci_high=float(np.exp(upper)),
+                                 different_from_source=sum(r[k] != r["source"] for r in eligible),
+                                 time_to_source=float(np.exp(np.mean(vs_source))),
+                                 source_ci_low=float(np.exp(src_lo)), source_ci_high=float(np.exp(src_hi))))
     summary = dict(graphs=len(graphs), observed_programs=len(observations), eligible_choices=len(pairs),
                    output_checks=checks, measured_processes=m["processes"], ir_criterion=passed,
                    negative_increments=sum(r["delta_us"] < 0 for r in observations),
                    resolved_increments=sum(r["resolved"] for r in observations),
+                   repeatability=repeatability,
                    archived_runs={f"p{i}": sha(folder/f"runs/p{i}.zip") for i in range(m["processes"])})
     return dict(measurements=observations, accuracy=accuracy, choices=pairs, policies=policies), summary
