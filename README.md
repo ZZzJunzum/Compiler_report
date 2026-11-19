@@ -1,20 +1,27 @@
 # FusionScope
 
-在 JAX/XLA 推理中，调用者要求保留原主输出，同时拿到中间激活的统计。增加这些返回值会改变送入编译器的计算图。项目先用两个精确计数定位 CPU 上的重复计算与掩码物化，再将归约改写推广到其他观测请求，并检验编译前的 IR 能否预测整个程序的微秒数。
+项目从“用编译器中间表示（IR）预测 GPU 算子融合成本”出发，先在一台 Intel CPU 上研究一个可以严格对照的问题。推理必须返回同一主张量和指定的激活统计，XLA 为此多做了什么，能否用等价改写省时，又能否在后端编译前预知这笔开销？
 
 **[英文双栏论文 PDF](output/pdf/FusionScope.pdf)** · [LaTeX 源码](paper/FusionScope.tex) · [逐篇文献对照与下一项实验](docs/literature-review.md) · [参考文献](paper/references.bib) · [观测改写逐项结果](results/cpu_cost/analysis/contracts.csv) · [绝对耗时误差](results/cpu_cost/analysis/accuracy.csv) · [直接预测两种实现的耗时比](results/cpu_cost/paired/policies.csv)
 
-## CPU 实验回答了什么
+## 从文献线索到我们的实验
 
-1. **已有方法与本研究的贡献。** SystemML 已经联合计算共享输入上的多个聚合，Weld 已经在一次遍历中同时构造向量并求和，BN Fission-n-Fusion 已经在卷积生产激活时累计统计。本文检验固定观测输出后，这些已知思路怎样改变 XLA 的生成程序，并用同图正反例和盲测结果限定能预测什么。读取 IR 用于分析，增加观测输出才会改变待编译的程序。[SystemML 图 9](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf) · [Weld Listing 6](https://www.vldb.org/pvldb/vol11/p1002-palkar.pdf) · [BN 图 5](https://proceedings.mlsys.org/paper_files/paper/2019/file/9db64c20dee0011899dfdf200e61ef35-Paper.pdf)
+| 文献提供的线索 | 我们做的对照 | 结果怎样决定下一步 |
+|---|---|---|
+| Snider 与 Liang 分析 XLA 的 GPU 融合决策，Kaufman 等用已形成的 TPU 内核预测运行时间。Cano 等发现，调试时拆开 TPU 融合核会恢复原本缺失的半精度舍入。 | 我们把问题收紧到在 CPU 推理中增加一个返回值。先导实验中，取一个元素和取均值都多返回 4 字节，耗时分别为 28.75 和 32.45 微秒。 | 返回字节数不足以排序，而且两种输出回答的问题不同。后续实验每次都保留原主输出，并固定两个正激活计数。[原始研究计划](https://github.com/ZZzJunzum/Compiler_report/blob/4346836/docs/FusionScope_Research_Plan_v2.md) · [TPU 案例图 4](https://arxiv.org/abs/2611.00624) |
+| JAX 记录了打印 ReLU 前的数值可能迫使其物化。对于有限输入，ReLU 前后的正元素集合相同。 | 两层各在 ReLU 前或后计数，32 个合成条件内的四种放置均得到相同的优化后 HLO，观测版相对无观测版的耗时比中位数仍为 1.107。 | 移动位置没消掉这笔开销，于是沿每个返回值倒查生产者。后来的逐步编译复核又定位到两张图上的首轮代数化简，显式 maximum 的 8/8 个后置计数改变操作数，库函数为 0/8。[JAX 调试文档](https://docs.jax.dev/en/latest/debugging/print_breakpoint.html) · [16 个编译对照](results/placement_pass/comparisons.csv) |
+| SystemML 已实测共享输入上的多个聚合并建模重算与物化。Weld 的一个循环同时生成向量与和，给这项技术提供了另一直接先例。 | 4096 × 256 仿射分支上，两张各 4 MiB 的整数掩码可在 HLO、缓冲区分配和 LLVM 写指令中定位。联合归约消去两张掩码，提速 3.07 倍，独立复跑为 2.92 倍。 | 换一种图或分块方式，收益可能换方向。归一化案例在固定分块下配对后发现，整次调用变快，计数本身的增量却从 11.75 升至 15.55 微秒。[SystemML](https://www.vldb.org/pvldb/vol11/p1755-boehm.pdf) · [Weld Listing 6](https://www.vldb.org/pvldb/vol11/p1002-palkar.pdf) · [无观测对照](results/phase3/cpu/analysis/interactions.csv) |
+| 已有成本模型分别评估预测耗时和候选排序。前者误差较小，并不保证后者选对。 | 第一版五项正成本在 186 个替代方案上均被固定策略支配。后一版在 24 个新条件上优于整批联合，但删除指定的基线 HLO 特征后 28/28 个选择相同。 | 我们加入开发集选出的固定 16 规则，分别检验选型、取得 IR 的费用和回本次数。在另一批 11 张图上直接预测两种实现的耗时比，41 次中改选 17 次，仅 1 次明确变快、1 次明确变慢。[AutoTVM](https://proceedings.neurips.cc/paper/2018/file/8b5700012be65c9da25f49408d959ca0-Paper.pdf) · [模型诊断](paper/check_diagnostics.py) · [独立决策](results/cpu_cost/paired/policies.csv) |
+| 前述工作给出了共享机制，实际适用范围要靠改变统计请求来检验。 | 22 张新图各测 9 种请求。198 对中有 120 对满足直接联合归约的条件。82 对消去了参考实现里的观测专用导出，其中 30 对明确加速、4 对明确减速、48 对未分辨。 | 同一张 320 × 160 仿射链上，三个全局计数变快，两个末轴计数变慢。这里同时改变了归约轴和观测点数。要解释逐行计数的减速，下一项 CPU 对照应固定两个点，直接检验归约轴与实现方式的交互。[逐请求结果](results/cpu_cost/analysis/rewrite_pairs.csv) · [78 对回退原因](results/cpu_cost/analysis/boundaries.csv) |
 
-2. **联合归约的适用范围。** 22 张新图各接受 9 种观测请求。198 组中有 120 组形状及归约轴相容，联合版相对独立版耗时比的几何平均为 0.892。30 组加速、4 组减速超过各自的重复测量波动，另外 86 组差异未能分辨。78 组采用原实现，其中 44 组返回一个元素或完整张量，22 组归约轴不同，12 组激活形状不相等。5 个独立进程的 5,100 项输出校验通过。[成对结果](results/cpu_cost/analysis/rewrite_pairs.csv) · [各组回退原因](results/cpu_cost/analysis/boundaries.csv)
+## 距离原定目标还有多少
 
-3. **少写临时张量和缩短时间的关系。** 有 82 组在独立版中检测到仅服务观测的全形状比较、转换掩码或平方结果导出，改写后全部消失。其中有 30 组明确更快、4 组明确更慢。以同一张 320×160 仿射链为例，三个全局计数的联合版耗时比为 0.53。逐行计数的临时空间从 416,000 降至 16 字节，联合版却慢 44.90 微秒，耗时比为 1.29。依赖 HLO 导出的选择规则在 1,000 次调用时，计入检查与编译后的成本为直接编译联合版的 1.345 倍。[前后 HLO 证据位置](results/cpu_cost/mechanisms.csv) · [策略与选择成本](results/cpu_cost/analysis/summary.json)
-
-4. **从 IR 预测总耗时。** 主指标是准备好输入后，从发起一次推理到所有输出就绪的时间。另测构建时间 C，并估算构建一次后执行 H 次的 C + H×T。32 张开发图、512 个配置用于拟合，两组盲测均先公开预测。主盲测中，只读候选 StableHLO 的回归模型在熟悉算子新尺寸上的中位 / 第 90 百分位误差倍数为 **1.46 / 2.11**，在新结构上为 **2.16 / 7.76**。加入源码后的误差改善未达到预设标准。逐程序的实测时间、预测时间和观测增量均可复查。[原始预测封存](https://github.com/ZZzJunzum/Compiler_report/commit/501a669) · [逐程序数据](results/cpu_cost/analysis/measurements.csv)
-
-5. **修正选型模型的数学限制。** 最早的五项正成本在 186 次比较中全部被固定策略支配，后一版删除图级 IR 信息后 28/28 个选择相同。新的绝对时间回归仍选了 120/120 次联合归约。最后单独拟合两种实现的成对耗时比，允许结果跨过 1。在另外 11 张图、107 个配置上，集成模型在 41 次选择中 17 次选独立归约、24 次选联合归约。相对固定联合策略有 1 次明确受益、1 次明确受损，15 次改选差异未分辨，总体比为 **0.983 [0.947, 1.016]**。使用 IR 与已知观测请求插值时，在熟悉结构上的中位误差为 1.13 倍，第 90 百分位仍为 2.32 倍。在三种新架构上分别为 2.15 和 2.51 倍。CPU 结论覆盖本机、已测试的观测及工作负载，GPU 上各融合内核的执行时间、内核边界和跨设备迁移留待服务器验证。[独立封存](https://github.com/ZZzJunzum/Compiler_report/commit/508ef3d) · [最后一组预测误差](results/cpu_cost/paired/accuracy.csv)
+| 目标 | 已有证据 | 差距 |
+|---|---|---|
+| 在 CPU 解释并降低观测成本 | 对特定图已从编译路径追到实际写入，并用等价改写复现了加速。扩展测试中 120 个合法比较有 30 胜、4 负、86 个未分辨。 | 能给出机制和适用条件。缓冲消失仍不足以确定耗时方向，四个减速案例的低层原因仍需验证。[机制记录](results/cpu_cost/mechanisms.csv) |
+| 提前预测整次调用耗时 | 预定误差倍数门槛为中位数不超过 1.30 且第 90 百分位不超过 2.00。主盲测的纯 StableHLO 回归在新尺寸上为 1.46 / 2.11，在新架构上为 2.16 / 7.76。独立后续组用 IR 加统计请求校准后分别为 1.13 / 2.32 和 2.15 / 2.51。 | 后续校准在熟悉结构达到了中位数目标，尾部仍超线。主盲测中，源码加 IR 的按图平均绝对对数误差较纯源码上升 2.8% 和 22.6%，没有达到预定的至少降低 10%。[主盲测](results/cpu_cost/analysis/accuracy.csv) · [增益判定](results/cpu_cost/analysis/summary.json) · [后续校准](results/cpu_cost/paired/accuracy.csv) |
+| 预测观测增量并选出划算的方案 | 本次事后复核使用既有封存值，以两次总耗时预测之差估计增量，再对照同图同进程的实测差。纯 IR 的增量绝对误差中位数在新尺寸和新架构上分别为 32.71 和 83.68 微秒，始终预测零的相应误差为 29.38 和 14.60 微秒。 | 目前尚缺直接面向增量、仅依赖基线 IR 的独立精度验证。选型也未证实超过强固定策略。计入编译检查时，依导出选择的策略在 1,000 次调用下总成本是直接选联合的 1.345 倍。[封存预测](results/cpu_cost/predictions.json) · [配对增量](results/cpu_cost/analysis/measurements.csv) · [选型成本](results/cpu_cost/analysis/summary.json) |
+| 用 IR 预测 GPU 算子融合成本 | 已有同语义程序、正确性检查和 GPU 实验协议。 | 预定的 36 个机制配置加 8 个 ResNet 配置，**GPU 实测 0/44**。先在一台 NVIDIA GPU 对齐 HLO、实际内核与设备时间，再在留出的图上把冻结预测与 XLA 内置融合估计和固定策略比较。逐核时间和主机端整次调用分别评价。[GPU 协议第 7 节](docs/plans/FusionScope_Phase3_Research_Plan.md) · [XLA 逐核成本接口](https://github.com/openxla/xla/blob/ddaa568d48ad24c16e08bff00d3038bcf824eab9/xla/backends/gpu/cost_model/gpu_performance_model.h#L36-L60) |
 
 ## 早期分块与选型结果
 
@@ -163,7 +170,9 @@ Pop-Location
 New-Item -ItemType Directory -Force reproduction/paper | Out-Null
 pdflatex -halt-on-error '-output-directory=reproduction/paper' paper/FusionScope.tex
 bibtex reproduction/paper/FusionScope
-pdflatex -halt-on-error '-output-directory=reproduction/paper' paper/FusionScope.tex
-pdflatex -halt-on-error '-output-directory=reproduction/paper' paper/FusionScope.tex
+foreach ($pass in 1..4) {
+    pdflatex -halt-on-error '-output-directory=reproduction/paper' paper/FusionScope.tex
+    if ($LASTEXITCODE -ne 0) { throw 'LaTeX build failed' }
+}
 Copy-Item -LiteralPath reproduction/paper/FusionScope.pdf -Destination output/pdf/FusionScope.pdf -Force
 ~~~
