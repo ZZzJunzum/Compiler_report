@@ -1,0 +1,44 @@
+{
+  "scope": "Two rowwise int32 predicate counts on the last axis with source arrays of the same shape. The packed implementation is eligible only under its uint32 bound.",
+  "inputs": [
+    "allowed logical CPUs",
+    "input elements per allowed CPU",
+    "output rows per allowed CPU"
+  ],
+  "cpu_map": {
+    "1": "J",
+    "4": "J",
+    "12": "J"
+  },
+  "unknown_affinity_default": "J",
+  "grain": "J",
+  "shape_guard": "J",
+  "selection": "With no prior affinity lookup, the three adaptive policies query the OS once per graph. Static native policies cost zero to select. Packed policies check the width. Compile only the chosen implementation and reuse it for N calls. Evaluator times every alternative for matched comparisons.",
+  "train": "Equal weight per discovery graph/resource cell. Minimize mean log paired total-cost ratio at N=1000 against native J, with lowering+build charged. Grid of powers of two, minimum two cells per leaf. Joint, separate, packed eligible at every leaf whose observed semantic checks all pass. Ties favor a simpler tree, smaller threshold and J then S then P.",
+  "training_cells": 33,
+  "training_ratios": {
+    "grain": 1.0,
+    "shape_guard": 1.0
+  },
+  "discovery_manifests": {
+    "one": "e41b07cf2242c1a7f10403edb1760d985a7094d8a6e99401a35a0d51e274d5a9",
+    "four": "06dd3914be177cfcf1c83da980c84237a39e0c23ff4d7af82782be487982b83a",
+    "default": "770312832b35459d86984674889e0ea22bf8e0a4895647abd865965b4d731de6"
+  },
+  "comparators": [
+    "native_J",
+    "separate",
+    "packed",
+    "resource",
+    "grain"
+  ],
+  "calls": [
+    1,
+    100,
+    1000,
+    10000
+  ],
+  "primary_N": 1000,
+  "max_ratio": 0.95,
+  "endpoint": "All 4 reserved structures x 2 sizes x 3 affinities = 24 cells, equal weight. Per cell median paired total-cost ratio over 5 processes, then geometric mean across cells. Strongest simple comparator has lowest aggregate cost ratio against native J at N=1000. A method claim requires ratio <= 0.95 against that comparator, all chosen output checks valid, and zero resolved native-J latency harms at default affinity. Raw and invalid cells remain visible. Publish each policy and group and every budget irrespective of outcome."
+}
