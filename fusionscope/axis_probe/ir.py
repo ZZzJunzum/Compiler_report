@@ -1,7 +1,6 @@
 """Index saved backend evidence and verify the historical and timed HLO identities."""
 import hashlib
 import json
-from pathlib import Path
 import re
 from zipfile import ZipFile
 

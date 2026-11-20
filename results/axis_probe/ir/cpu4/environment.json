@@ -1,0 +1,42 @@
+{
+  "collected": "2026-11-20T04:28:57.759710-06:00",
+  "lock": {
+    "axis_probe_manifest.json": "1276cbdd244e836d885cbfbd38e84f7b6189e18bd1c61159bf0a59c2869c7cd1",
+    "axis_probe_execution.json": "8582709e11354ad2f46f41c04ed99681b551c1f893a2259e18098afb2477e10e"
+  },
+  "environment": {
+    "backend": "cpu",
+    "devices": [
+      "TFRT_CPU_0"
+    ],
+    "device_kind": "cpu",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.5",
+    "jax": "0.9.0.1",
+    "jaxlib": "0.9.0.1",
+    "numpy": "2.3.5",
+    "logical_cpus": 12,
+    "physical_cpus": 8,
+    "ram_bytes": 16888094720,
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "flags": {
+      "JAX_PLATFORMS": "cpu",
+      "JAX_ENABLE_X64": "false",
+      "JAX_ENABLE_COMPILATION_CACHE": "false",
+      "XLA_FLAGS": "--xla_dump_to=dump --xla_dump_hlo_as_text=true --xla_dump_hlo_pass_re=fusion|tree|parallel.task",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "jaxlib_git": "470cf68044b59afde006e541731ea75c32e2a302",
+    "compiler_binary": "jax_common.dll",
+    "compiler_sha256": "e3525462712544ed3a27655f17ce6293e8a2f99f312ebec086b33edd83b4701f",
+    "cpu_model": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel"
+  }
+}

@@ -1,0 +1,4722 @@
+[
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "axis_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "axis",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 0,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 1,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 2,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 3,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      4,
+      4
+    ],
+    "ieee_reference": [
+      4,
+      4
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "normal_and_signed_zero",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2155872256,
+        2147483648,
+        0,
+        8388608,
+        3212836864,
+        1065353216
+      ],
+      [
+        1065353216,
+        3212836864,
+        8388608,
+        0,
+        2147483648,
+        2155872256
+      ]
+    ],
+    "actual": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "ieee_reference": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      0,
+      0
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "zero_nextafter",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        2147483649,
+        2147483648,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2147483648,
+        2147483649
+      ]
+    ],
+    "actual": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": false
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "count_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "count_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      2,
+      2
+    ],
+    "ieee_reference": [
+      2,
+      2
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "row_S",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  },
+  {
+    "session": "task_1120_082",
+    "local_date": "2026-11-20",
+    "panel": "task",
+    "cpus": 1,
+    "process": 4,
+    "input": "nonfinite",
+    "variant": "row_J",
+    "input_bits": [
+      [
+        4286578688,
+        2147483648,
+        2139095040,
+        2143289344
+      ],
+      [
+        2143289344,
+        2139095040,
+        2147483648,
+        4286578688
+      ]
+    ],
+    "actual": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "ieee_reference": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "exact": true
+  }
+]

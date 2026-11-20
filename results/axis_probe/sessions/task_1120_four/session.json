@@ -1,0 +1,18 @@
+{
+  "name": "task_1120_four",
+  "panel": "task",
+  "cpus": 4,
+  "date": "2026-11-20",
+  "timezone": "America/Chicago",
+  "lock": {
+    "axis_probe_manifest.json": "1276cbdd244e836d885cbfbd38e84f7b6189e18bd1c61159bf0a59c2869c7cd1",
+    "axis_probe_execution.json": "8582709e11354ad2f46f41c04ed99681b551c1f893a2259e18098afb2477e10e"
+  },
+  "archives": {
+    "p0.zip": "0e2a92ed1f2e142dc31e5ab5f70c2a266826db700a633ec24c0121710494cccf",
+    "p1.zip": "fcb72d1801b9de5ef2d840b1c9553b38cc581763f967417662a1078a9c509999",
+    "p2.zip": "296a6fa4a784e74180dd6d9fa774f9cda3e6a614102ddd5d0a4d5fdcdc194e16",
+    "p3.zip": "4f64835f3a7eeb062ab882bf7c6d0ee75be54b8d478ad0bedfbcd37377d12203",
+    "p4.zip": "ea21b0c8723571092590337939c3fe8ea6df335245638f41f6eec778a4cb993f"
+  }
+}

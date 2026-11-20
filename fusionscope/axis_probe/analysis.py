@@ -1,6 +1,6 @@
 """Replay the matched interaction estimator and verify complete input blocks."""
 import argparse
-from collections import Counter, defaultdict
+from collections import defaultdict
 import csv
 from datetime import datetime
 from itertools import combinations, product
@@ -11,7 +11,7 @@ from zipfile import ZipFile
 
 import numpy as np
 from fusionscope.common import read, sha, dump, table
-from .design import (ALIASES, AXIS_GRAPHS, DESIGN, MINI, PRIMARY, PUBLISHED, ROUNDS, SEEDS,
+from .design import (ALIASES, DESIGN, MINI, PRIMARY, PUBLISHED, ROUNDS, SEEDS,
                      VARIANTS, cells, design_lock, graphs, lanes, settings)
 
 
@@ -24,7 +24,8 @@ def require(condition, context):
         raise ValueError(str(context))
 
 
-def process_medians(raw, panel):
+def process_medians(raw, panel, graph_names=None, input_ids=SEEDS):
+    graph_names = graphs(panel) if graph_names is None else graph_names
     blocks = defaultdict(list)
     data = defaultdict(list)
     for r in raw:
@@ -36,33 +37,33 @@ def process_medians(raw, panel):
         if rnd >= 0:
             data[g, seed, *key].append(ns/1000)
     required_lanes = set(lanes(panel))
-    require(set(blocks) == set(product(graphs(panel), ROUNDS, SEEDS)), "missing or extra input block")
-    for g, rnd in product(graphs(panel), ROUNDS):
+    require(set(blocks) == set(product(graph_names, ROUNDS, input_ids)), "missing or extra input block")
+    for g, rnd in product(graph_names, ROUNDS):
         order = []
-        for seed in SEEDS:
+        for seed in input_ids:
             block = blocks[g, rnd, seed]
             require(len(block) == len(required_lanes) and {k for _, _, k in block} == required_lanes
                     and sorted(p for p, _, _ in block) == list(range(len(block))), (g, rnd, seed))
             positions = {b for _, b, _ in block}
             require(len(positions) == 1, "inconsistent seed block")
             order += list(positions)
-        require(sorted(order) == list(range(len(SEEDS))), "invalid input order")
+        require(sorted(order) == list(range(len(input_ids))), "invalid input order")
     return {key: median(xs) for key, xs in data.items()}
 
 
-def effects(panel, graph, processes):
+def effects(panel, graph, processes, input_ids=SEEDS):
     c0, c1, r0, r1 = cells(panel)
     real_by_seed, real_by_process, means = [], [], []
     for p, m in enumerate(processes):
-        for seed in SEEDS:
+        for seed in input_ids:
             a, b, c, d = [m[graph, seed, *cell, "A"] for cell in (c0, c1, r0, r1)]
             real_by_seed.append(dict(process=p, seed=seed, global_diff_us=b-a, row_diff_us=d-c,
                                      interaction_us=(d-c)-(b-a)))
-        recent = real_by_seed[-len(SEEDS):]
+        recent = real_by_seed[-len(input_ids):]
         real_by_process.append({k: fmean(row[k] for row in recent)
                                 for k in ("global_diff_us", "row_diff_us", "interaction_us")})
         # Seed averaging is linear, so each sham can use these means before the process median.
-        means.append({lane: fmean(m[graph, s, *lane] for s in SEEDS) for lane in lanes(panel)})
+        means.append({lane: fmean(m[graph, s, *lane] for s in input_ids) for lane in lanes(panel)})
 
     def sham(candidates):
         return [[m[(*cell, a)] - m[(*cell, b)] for m in means]
