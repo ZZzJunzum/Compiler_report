@@ -1,0 +1,18 @@
+{
+  "phase": "holdout",
+  "resource": "default",
+  "lock": {
+    "partition_boundary.json": "94c904321e73137213c6a256352c0e75008be28b041eeeea646818c7a034a6d7",
+    "collect.py": "b01f4d5f49c1ab537c59b6a38e1801b1c244151cf8bbf9ebd7d80a9c7e8ef24a",
+    "workloads.py": "97f4f41285eb1a73fb9614efbb468096565385f9f34afc8b56f545e59853b429",
+    "partition_holdout.json": "697c4e0d715282af8c6ac98eea5175442e8d74c8fe4c0cefed3acf6ced1d26e5",
+    "policies.py": "9ba79a0cdec2de9e950ba4f185853bf88415ddff5ec1cbdf993293f22067152c"
+  },
+  "archives": {
+    "p0.zip": "4227828f813c61283bb9069f502b1bf8d6adb9ea6ef67bdecf06f1947c6d0384",
+    "p1.zip": "1cb215a767fbb74fe4099bb7d6aba5733f7f14dfe02ae9c38bba8f0cb5678149",
+    "p2.zip": "5040ea21cdea71d20b62894a39ca4066c15d034a86a460984b9cf1d2f62c843e",
+    "p3.zip": "7e6904dcbe791578a623ff195a81986da6f0a74a88f8c325404229257283ae8a",
+    "p4.zip": "4ac086636eebb4e2980389c73603cde311982d7520d3a84d1c98bbff14f69086"
+  }
+}

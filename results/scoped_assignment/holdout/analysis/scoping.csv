@@ -1,0 +1,9 @@
+graph,main_build,main_matches_native,observer_identical,observer_on_parts,observer_off_parts
+residual_square_96x192,native,True,False,[[10]],[]
+residual_square_1024x768,native,True,False,[[12]],[]
+dual_input_96x192,native,True,False,[[12]],[]
+dual_input_1024x768,native,True,False,[[12]],[]
+gated_product_96x192,native,True,False,[[10]],[]
+gated_product_1024x768,native,True,False,[[12]],[]
+center_residual_96x192,native,True,False,[[10]],[]
+center_residual_1024x768,native,True,False,"[[4], [4], [12]]",[]
