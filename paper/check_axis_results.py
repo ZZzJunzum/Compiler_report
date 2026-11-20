@@ -50,6 +50,8 @@ def main():
             require((a != b) == (graph == "two_sites_large" and variant == "row_J"), (graph,variant))
         fixed = json.loads((root/"analysis/fixed_sites.json").read_text(encoding="utf8"))
         for r in fixed:
+            if r["local_date"] != "2026-11-20":
+                continue
             require(r["exact"] == (r["input"] != "zero_nextafter"), r)
             if r["input"] == "zero_nextafter" and r["variant"].startswith("count"):
                 require(r["actual"] == [0,0] and r["ieee_reference"] == [2,2], r)

@@ -242,6 +242,9 @@ def main():
                      f"{r['row_diff_us']:+.2f} | {r['interaction_us']:+.2f} | {r['interaction_floor_us']:.2f} |")
     if not status["date_requirement_met"]:
         verdict = "当前只有一个实际采样日期，跨日复验仍待采集。"
+    elif any(r["panel"] == "axis" and r["cpus"] == 1 and r["graph"] == PRIMARY
+             and r["input"] in set(map(str, SEEDS)) for r in tables["whole_graph_failures"]):
+        verdict = "已达到采样日期数要求。主案例在计时输入上出现了整图输出检查失败，性能结果须结合失败记录解释。"
     elif all(r["interaction_clears"] and r["interaction_us"] > 0 for r in primary):
         verdict = "各日期的全部已收录会话中，主图轴交互均为正，且超过各自实测门槛。"
     else:
