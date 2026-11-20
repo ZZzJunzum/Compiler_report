@@ -7,10 +7,10 @@ from zipfile import ZipFile
 
 import numpy as np
 
-from fusionscope.phase2.experiment import zip_rows
-
 
 def load_runs(folder, lanes, lock_hash, processes, rounds, seeds):
+    from fusionscope.phase2.experiment import zip_rows
+
     archives = sorted(folder.glob("p*.zip"))
     if [p.name for p in archives] != [f"p{i}.zip" for i in range(processes)]:
         raise ValueError(f"Incomplete process set in {folder}")
@@ -73,12 +73,28 @@ def load_runs(folder, lanes, lock_hash, processes, rounds, seeds):
 
 
 def contrast(rows, alternative, fixed):
+    """Describe a paired effect against an empirical A/A repeatability floor.
+
+    The 95th percentile is not a calibrated significance threshold: alias
+    contrasts share medians and are correlated. Sign counts add no separate
+    evidence in odd panels; even panels retain the historical majority screen.
+    """
+    if not rows or any(not np.isfinite(r["times"][v]) or r["times"][v] <= 0
+                       for r in rows for v in (fixed, alternative)):
+        raise ValueError("Paired timings must be finite, positive, and nonempty")
     gains = [r["times"][fixed] - r["times"][alternative] for r in rows]
     ratios = [r["times"][alternative] / r["times"][fixed] for r in rows]
-    floor = max(float(np.percentile([d for r in rows for d in r["aa"][v]], 95))
-                for v in (fixed, alternative))
+    controls = [[d for r in rows for d in r["aa"][v]] for v in (fixed, alternative)]
+    if (any(not values for values in controls)
+            or any(not np.isfinite(value) or value < 0 for values in controls for value in values)):
+        raise ValueError("A/A differences must be finite, nonnegative, and nonempty")
+    floor = max(float(np.percentile(values, 95)) for values in controls)
     gain = median(gains)
-    resolved = abs(gain) > floor and sum(g * gain > 0 for g in gains) > len(rows)/2
+    # A nonzero median in an odd panel already implies a strict sign majority.
+    # Preserve the historical majority screen for even panels.
+    resolved = abs(gain) > floor
+    if len(rows) % 2 == 0:
+        resolved = resolved and sum(g * gain > 0 for g in gains) > len(rows)/2
     return dict(gain_us=gain, ratio=median(ratios), floor_us=floor, positive=sum(g>0 for g in gains),
                 outcome="gain" if resolved and gain>0 else "loss" if resolved else "unresolved",
                 same_hlo=all(r["fingerprints"][alternative] == r["fingerprints"][fixed] for r in rows))

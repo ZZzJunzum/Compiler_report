@@ -12,7 +12,10 @@ METHODS = ("zero", "source", "ir", "combined")
 
 
 def draws(graphs):
-    # One index matrix for all paired comparisons. Keep both readouts of a shape together.
+    # Conditional, family-stratified size-cluster bootstrap. Process medians are
+    # held fixed: 10,000 draws do not supply new programs or independent sessions.
+    # Use one index matrix for all paired comparisons; keep companion readouts
+    # and every request on a sampled graph together.
     rng = np.random.default_rng(47291)
     result = []
     for family in sorted({c.family for c in graphs}):

@@ -54,7 +54,12 @@ def cohort(out, stage, policy=""):
 
 
 def direction(data, a, b):
-    """Positive if a is faster than b."""
+    """Positive if a is faster than b.
+
+    The sign majority is redundant for a nonzero median in odd panels, but
+    discovery uses two processes, where this registered screen is not redundant.
+    This A/A repeatability rule is not a calibrated significance test.
+    """
     d = [p[b]-p[a] for p in data["processes"]]
     med = median(d)
     sign = 1 if med > 0 else -1
