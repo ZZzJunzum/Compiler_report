@@ -1,0 +1,12 @@
+graph,main_build,main_matches_native,observer_identical,observer_on_parts,observer_off_parts
+t_E1_chain,native,True,False,[[12]],[]
+two_sites_small,identity,,True,[],[]
+iso_1x46080,identity,,True,[],[]
+iso_4x11520,identity,,False,[[4]],[]
+iso_12x3840,identity,,False,[[12]],[]
+iso_48x960,identity,,False,[[12]],[]
+iso_144x320,identity,,False,[[12]],[]
+two_sites_large,identity,,False,[[12]],[]
+iso_960x48,identity,,False,[[12]],[]
+iso_2880x16,identity,,False,[[12]],[]
+large_work,identity,,False,[[12]],[]
