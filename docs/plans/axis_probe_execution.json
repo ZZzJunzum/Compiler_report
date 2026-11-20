@@ -1,0 +1,21 @@
+{
+  "design": "axis-discovery-1",
+  "parent": "docs/plans/axis_probe_manifest.json",
+  "calendar": "America/Chicago",
+  "target": "Windows x86-64, i5-13420H, JAX and jaxlib 0.9.0.1, one allowed logical CPU, persistent compilation cache disabled",
+  "weight_seed": 3701,
+  "primary_session": "Each fresh process compiles anew. Five processes run consecutively. Repeat the primary six-graph panel on two distinct local dates. Keep same-date sessions separately identified.",
+  "aliases": "A,B,C,D denote calls of the very same executable. Each input block contains all aliases of each endpoint cell, with V0 once. Within each round shuffle the three seeds; within each seed shuffle all lanes. A is the fixed real-effect lane. Record warmups and every raw position.",
+  "estimator": "Median of 20 timed calls per lane/seed/process, equal-weight mean of the three seed contrasts in each process, median over the five processes in the session. For the axis panel the primary effect is (row_J - row_S) - (count_J - count_S). Positive means a less favorable joint effect for rows.",
+  "floor": "Within each session and graph, form same-binary alias differences for each cell, with all six unordered alias pairs. For each endpoint side choose either executable as the sham. Form interaction shams using all 2 x 2 x 6 x 6 choices and both relative signs. Apply the real estimator to each sham before taking the linear empirical p95 of the 288 absolute estimates. Marginal contrasts use the 12 absolute estimates on their own side. Strictly exceed the corresponding floor to clear the descriptive screen. Shared aliases are dependent.",
+  "intervention": {
+    "evidence_before_timing": "A structural pilot on t_E1_chain found a 12-way outer partition on row_J's count fusion, none on count_J's count fusion, and 12 on the readout in both. Both count kernels contain 8-lane vector code. A flag smoke check established that disabling cpu-parallel-task-assigner removes the annotation.",
+    "change": "Compile the identical lowered program normally or with only cpu-parallel-task-assigner disabled. Keep both executable settings in the same randomized input block. The switch can affect the full graph, including its readout.",
+    "primary_graph": "t_E1_chain",
+    "endpoint": "K = (row_J_off - row_J_on) - (count_J_off - count_J_on). On one allowed logical CPU predict K < 0 and |K| above its matched interaction sham. This measures differential sensitivity; it cannot allocate milliseconds to a particular runtime call.",
+    "controls": "Also time V0 and separate row/global programs in both settings. Use identity readout with just the first two affine sites at 288x160, and an otherwise identical 4x160 control. Before inspecting these programs predict a partition on the large row count kernel only, negative K there, and no resolved K on the small program. These are one reduced template at two sizes, not two independent architectures.",
+    "extra_environment": "Repeat the intervention allowing four logical CPUs from the original affinity set. Report actual affinity. The one-CPU structural prediction does not prescribe a performance sign at four CPUs."
+  },
+  "semantics": "Require finite float32 main outputs within atol=rtol=0.0003 of V0, exact int32 counts with expected shapes relative to diagnostic-exported sites and between S/J. Assess fixed activation masks separately, including signed zeros, exact zero and neighbors, and distinguish exceptional/subnormal inputs from finite normal-input producer cancellation. Report any disagreement and exclude contract failures from optimization claims.",
+  "decision": "This is mechanism discovery. Publish all controls and failed predictions. No automatic selection, break-even, cross-version robustness or confidence level follows from these endpoints."
+}
