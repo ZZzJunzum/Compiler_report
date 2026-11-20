@@ -1,0 +1,13 @@
+{
+  "scope": "Windows XLA CPU 0.9.0.1. The 2023 AutoNumerics-Zero single-thread dispatch observation is prior work. First test whether a resource mismatch is necessary for a row-count slowdown.",
+  "discovery": {"main":"t_E1_chain","minimal":"two_sites_large","small_control":"two_sites_small",
+    "iso_elements":46080,"output_rows":[1,4,12,48,144,288,960,2880],"large_positive_control":[1536,1024]},
+  "resources": ["one","four","default"],
+  "default": "Leave the original process affinity untouched. Record before and after affinity, binary identity and actual OS per-thread user plus system CPU time in an independent repeated-call profile. Partitions are static work units.",
+  "variants": {"J":"native variadic row count","S":"two separate native row counts","P":"local radix-packed unsigned row count","off":"J with the task assignment pass disabled for the full module","global":"native variadic global count","global_off":"global with the pass disabled","V0":"main only"},
+  "local_rewrite": "For two int32 positive counts of width W, let b=W.bit_length(). Add the unsigned mask for the first site to (second unsigned mask << b), sum uint32 on the last axis, then mask/shift to recover two int32 counts. Use only where W+(W<<b) <= 2^32-1 and W>0. Only edit the observer expression. Other compiled kernels may change. Screen exact outputs and compatibility with the original main.",
+  "timing": {"processes":5,"seeds":[733,4261,9521],"warmups":4,"rounds":12,"aliases":["A","B","C"],"round_order":"shuffle seeds, then all real and same-binary alias lanes within each seed; fixed A lane for effects"},
+  "floor": "For any two variants, use the linear p95 of the six absolute same-binary alias differences (three pairs per side), after applying the same mean across input medians and median across processes. These dependent controls provide a descriptive repeatability check.",
+  "held_out": "Reserve four new producer/readout structures: residual-square, independent dual input, gated product, row-centering with residual. Each uses (96,192) and (1024,768). No new structure is compiled or timed until policies, outcomes and budgets are committed. Treat the two sizes as a group. Include every semantic failure and abstention.",
+  "rule_development": "Consider native J, native S and the packed candidate. Compare native J, fixed S, always legal P, a simple affinity rule and a simple minimum work-per-allowed-CPU rule. Explicitly charge choice and selected build once. Compare N=1,100,1000,10000. If the local rule fails to beat the strongest simple baseline, retain the mechanism case and report no method win."
+}
