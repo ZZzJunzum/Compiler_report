@@ -14,20 +14,20 @@ PRIMARY_N = 1000
 GRID = [2**i for i in range(22)]
 
 
-def fit(base):
+def fit(base, menu=MENU, load=load_resource):
     inputs,losses,valid = [],[],[]
     for resource in RESOURCES:
-        processes = load_resource(base/"discovery","discovery",resource,{})
+        processes = load(base/"discovery","discovery",resource,{})
         ncpu = len(processes[0]["meta"]["environment"]["affinity"])
         for c in cases("discovery"):
             costs = {k:[int(p["build"][c.name,k]["build_ns"])/1000 + PRIMARY_N*p["means"][c.name,k,"A"]
-                        for p in processes] for k in MENU}
+                        for p in processes] for k in menu}
             inputs.append((ncpu,c.rows*c.width/ncpu,c.rows/ncpu))
-            losses.append({k:log(median(x/y for x,y in zip(costs[k],costs["J"],strict=True))) for k in MENU})
-            valid.append({k:all(p["checks"][c.name,k,s] for p in processes for s in SEEDS) for k in MENU})
+            losses.append({k:log(median(x/y for x,y in zip(costs[k],costs["J"],strict=True))) for k in menu})
+            valid.append({k:all(p["checks"][c.name,k,s] for p in processes for s in SEEDS) for k in menu})
 
     def leaf(ids):
-        options = [k for k in MENU if all(valid[i][k] for i in ids)]
+        options = [k for k in menu if all(valid[i][k] for i in ids)]
         return min(options,key=lambda k:sum(losses[i][k] for i in ids))
 
     def stump(feature,ids):

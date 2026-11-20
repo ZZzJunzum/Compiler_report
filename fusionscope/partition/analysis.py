@@ -22,9 +22,9 @@ PAIRS = (("J","S"),("global","global_S"),("J","off"),("global","global_off"),
 IDENTITY = ("fingerprint","named_schedule","temp_bytes")
 
 
-def process_means(raw, names):
+def process_means(raw, names, keys=KEYS):
     rounds = range(-TIMING["warmups"],TIMING["rounds"])
-    lanes = set(product(KEYS,ALIASES))
+    lanes = set(product(keys,ALIASES))
     blocks, samples = defaultdict(list), defaultdict(list)
     for r in raw:
         g,rnd,seed = r["graph"],int(r["round"]),int(r["seed"])
@@ -44,7 +44,7 @@ def process_means(raw, names):
             ordering.append(chunk[0][0])
         require(sorted(ordering)==list(range(len(SEEDS))),(g,rnd,"input order"))
     return {(g,k,a):fmean(median(samples[g,s,k,a]) for s in SEEDS)/1000
-            for g,k,a in product(names,KEYS,ALIASES)}
+            for g,k,a in product(names,keys,ALIASES)}
 
 
 def paired(processes, graph, left, right):
@@ -68,9 +68,9 @@ def interactions(processes, graph, row_pair, global_pair):
     return dict(delta_us=delta,floor_us=floor,clears=abs(delta)>floor)
 
 
-def load_resource(folder, phase, resource, ir):
+def load_resource(folder, phase, resource, ir, *, keys=KEYS, signature=lock, policy_set=None):
     names = [c.name for c in cases(phase)]
-    ref_lock = lock(phase)
+    ref_lock = signature(phase)
     dest = folder/resource
     manifest = read(dest/"manifest.json")
     files = {f"p{i}.zip" for i in range(TIMING["processes"])}
@@ -94,19 +94,19 @@ def load_resource(folder, phase, resource, ir):
             require(end>start and (not intervals or start>=intervals[-1][1]),"overlapping workers")
             intervals.append((start,end))
             raw = rows(z,"timings.csv")
-            m = process_means(raw,names)
+            m = process_means(raw,names,keys)
             build_rows,checks = rows(z,"builds.csv"),rows(z,"checks.csv")
             b = {(r["graph"],r["key"]):r for r in build_rows}
-            require(set(b)==set(product(names,KEYS)) and len(b)==len(build_rows),"missing builds")
+            require(set(b)==set(product(names,keys)) and len(b)==len(build_rows),"missing builds")
             for graph in names:
-                require(sorted(int(b[graph,k]["order"]) for k in KEYS)==list(range(len(KEYS))),graph)
+                require(sorted(int(b[graph,k]["order"]) for k in keys)==list(range(len(keys))),graph)
             for (graph,key),rec in b.items():
                 require(int(rec["build_ns"])>0,rec)
                 if ir:
                     idx = ir[graph,key]
                     require(all(str(idx[k])==rec[k] for k in IDENTITY),(resource,graph,key,"IR mismatch"))
-            require(len(checks)==len(names)*len(KEYS)*len(SEEDS) and
-                    {(r["graph"],r["key"],int(r["seed"])) for r in checks}==set(product(names,KEYS,SEEDS)),
+            require(len(checks)==len(names)*len(keys)*len(SEEDS) and
+                    {(r["graph"],r["key"],int(r["seed"])) for r in checks}==set(product(names,keys,SEEDS)),
                     "missing numerical checks")
             ok = {(r["graph"],r["key"],int(r["seed"])):r["valid"]=="True" for r in checks}
             for r in checks:
@@ -114,13 +114,14 @@ def load_resource(folder, phase, resource, ir):
                         and int(r["max_count_error"])==0),r)
             dec = {}
             if phase=="holdout":
-                from .policies import POLICIES, choice
+                if policy_set is None:
+                    from . import policies as policy_set
                 dec_rows = rows(z,"decisions.csv")
                 dec = {(r["graph"],r["policy"]):r for r in dec_rows}
-                require(len(dec)==len(dec_rows) and set(dec)==set(product(names,POLICIES)),"missing decisions")
-                for c,policy in product(cases(phase),POLICIES):
+                require(len(dec)==len(dec_rows) and set(dec)==set(product(names,policy_set.POLICIES)),"missing decisions")
+                for c,policy in product(cases(phase),policy_set.POLICIES):
                     decision = dec[c.name,policy]
-                    require(decision["chosen"]==choice(policy,c.rows,c.width,len(expected_affinity))
+                    require(decision["chosen"]==policy_set.choice(policy,c.rows,c.width,len(expected_affinity))
                             and int(decision["selection_ns"])>=0,decision)
             processes.append(dict(means=m,build=b,checks=ok,dec=dec,meta=meta,raw_rows=len(raw)))
     return processes
@@ -214,15 +215,17 @@ def derive(base,phase,dest,require_ir=True):
     return data
 
 
-def evaluate(data,dest):
-    from .policies import POLICIES
-    seal = read(SEAL)
+def evaluate(data,dest,policy_set=None,seal_path=SEAL):
+    if policy_set is None:
+        from . import policies as policy_set
+    policies = policy_set.POLICIES
+    seal = read(seal_path)
     costs,outcomes,summary = [],[],[]
     for resource,c in product(RESOURCES,cases("holdout")):
         procs = data[resource]
         native = paired(procs,c.name,"J","S")[0]["verdict"]
         assignment = paired(procs,c.name,"J","off")[0]["verdict"]
-        for pol in POLICIES:
+        for pol in policies:
             selected = [p["dec"][c.name,pol] for p in procs]
             key = selected[0]["chosen"]
             require(all(d["chosen"]==key for d in selected),pol)
@@ -241,7 +244,7 @@ def evaluate(data,dest):
     by = {(r["resource"],r["graph"],r["policy"],r["n"],r["process"]):r["total_us"] for r in costs}
     comparisons = {}
     grouped = defaultdict(list)
-    for n,pol,ref in product(seal["calls"],POLICIES,POLICIES):
+    for n,pol,ref in product(seal["calls"],policies,policies):
         ratios = []
         for resource,c in product(RESOURCES,cases("holdout")):
             ratio = median(by[resource,c.name,pol,n,i]/by[resource,c.name,ref,n,i]
