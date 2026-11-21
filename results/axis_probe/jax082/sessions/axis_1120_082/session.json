@@ -1,0 +1,18 @@
+{
+  "name": "axis_1120_082",
+  "panel": "axis",
+  "cpus": 1,
+  "date": "2026-11-20",
+  "timezone": "America/Chicago",
+  "lock": {
+    "axis_probe_manifest.json": "1276cbdd244e836d885cbfbd38e84f7b6189e18bd1c61159bf0a59c2869c7cd1",
+    "axis_probe_execution.json": "8582709e11354ad2f46f41c04ed99681b551c1f893a2259e18098afb2477e10e"
+  },
+  "archives": {
+    "p0.zip": "4dc3d18abf0fde9802eab76fb4eff427e4ed7919f89fe583a0ee2f630fcdf9e9",
+    "p1.zip": "0a777ca0b9243b06b3b9360815326cc4adb95b541505a2ee87f7bd8087a66fbb",
+    "p2.zip": "58d26506604064ae04b59741c4cb1a761167ce82d8a02d70bd9adbeeecb4bcd3",
+    "p3.zip": "5bf1c7fe206230736a929ff9beffc44db13638bcbec9f8993efebe509dd36ed8",
+    "p4.zip": "123c37c108ece29da6a1b55d88d2ae142b3077fae278ac2bfb8a554e81d7ca92"
+  }
+}

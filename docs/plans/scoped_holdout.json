@@ -1,0 +1,44 @@
+{
+  "scope": "Compile the unchanged main with native XLA. Disable task assignment only for the separately compiled observer and its required producers. For a declared identity main, forward input directly. Split_on uses identical graph boundaries and native assignment for both.",
+  "inputs": [
+    "allowed logical CPUs",
+    "input elements per allowed CPU",
+    "output rows per allowed CPU"
+  ],
+  "cpu_map": {
+    "1": "split_off",
+    "4": "split_off",
+    "12": "split_off"
+  },
+  "unknown_affinity_default": "J",
+  "grain": "split_off",
+  "shape_guard": "split_off",
+  "selection": "Fixed mappings are free. Each adaptive choice includes querying current OS affinity and traversing its frozen rule. Cost includes every selected component build and one end-to-end ready latency times N.",
+  "train": "As registered in scoped_assignment.json, minimize the discovery mean of log paired total-cost ratios at N=1000 using the same tree fitter as the packed panel. Tie preference J, S, split_off.",
+  "training_cells": 33,
+  "training_ratios": {
+    "grain": 0.673052590853269,
+    "shape_guard": 0.673052590853269
+  },
+  "discovery_manifests": {
+    "one": "6d2268301177871d15f14e897a9e1ad5430517f50e92109ef889bf0991a137ef",
+    "four": "f592f21621d03b3363f0352fbb8d0eaabb3d4cf5497724b0012ad1bccb71b3b2",
+    "default": "8c181e407fb9d1188cc130a04dcd92c70e5e43eda14efa8e4d31ae0b8faff442"
+  },
+  "comparators": [
+    "native_J",
+    "separate",
+    "scoped_off",
+    "resource",
+    "grain"
+  ],
+  "calls": [
+    1,
+    100,
+    1000,
+    10000
+  ],
+  "primary_N": 1000,
+  "max_ratio": 0.95,
+  "endpoint": "All 4 reserved structures x 2 sizes x 3 affinities = 24 cells, equal weight. Per cell median paired total-cost ratio over 5 processes, then geometric mean across cells. Strongest simple comparator has lowest aggregate cost ratio against native J at N=1000. A method claim requires ratio <= 0.95 against that comparator, all chosen output checks valid, and zero resolved native-J latency harms at default affinity. Raw and invalid cells remain visible. Publish each policy and group and every budget irrespective of outcome."
+}

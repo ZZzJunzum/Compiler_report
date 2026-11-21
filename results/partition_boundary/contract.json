@@ -1,0 +1,127 @@
+{
+  "carries": [
+    {
+      "width": 1,
+      "count1": [
+        1,
+        0,
+        0
+      ],
+      "count2": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "width": 15,
+      "count1": [
+        15,
+        7,
+        0
+      ],
+      "count2": [
+        15,
+        10,
+        15
+      ]
+    },
+    {
+      "width": 16,
+      "count1": [
+        16,
+        8,
+        0
+      ],
+      "count2": [
+        16,
+        10,
+        16
+      ]
+    },
+    {
+      "width": 255,
+      "count1": [
+        255,
+        127,
+        0
+      ],
+      "count2": [
+        255,
+        170,
+        255
+      ]
+    },
+    {
+      "width": 256,
+      "count1": [
+        256,
+        128,
+        0
+      ],
+      "count2": [
+        256,
+        170,
+        256
+      ]
+    },
+    {
+      "width": 65535,
+      "count1": [
+        65535,
+        32767,
+        0
+      ],
+      "count2": [
+        65535,
+        43690,
+        65535
+      ]
+    }
+  ],
+  "rejections": [
+    {
+      "widths": [
+        0,
+        0
+      ],
+      "error": "Packed row counts exceed the uint32 contract"
+    },
+    {
+      "widths": [
+        65536,
+        65536
+      ],
+      "error": "Packed row counts exceed the uint32 contract"
+    },
+    {
+      "widths": [
+        8,
+        7
+      ],
+      "error": "Packed row counts exceed the uint32 contract"
+    }
+  ],
+  "edge_rows": [
+    "signed zeros, normal extremes, infinity, NaN",
+    "two minimum positive FP32 subnormals"
+  ],
+  "host_ieee": [
+    3,
+    2
+  ],
+  "compiled_native": [
+    3,
+    0
+  ],
+  "compiled_packed": [
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      0
+    ]
+  ]
+}

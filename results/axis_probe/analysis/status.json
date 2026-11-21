@@ -1,0 +1,83 @@
+{
+  "primary": "t_E1_chain",
+  "discovery_dates": [
+    "2026-11-20",
+    "2026-11-21"
+  ],
+  "distinct_dates": 2,
+  "date_requirement_met": true,
+  "sessions": [
+    {
+      "session": "axis_1120_a",
+      "local_date": "2026-11-20",
+      "panel": "axis",
+      "cpus": 1,
+      "raw_calls": 39780,
+      "matched_builds": 150,
+      "whole_graph_checks": 650,
+      "whole_graph_failures": 0,
+      "fixed_site_checks": 60,
+      "fixed_site_reference_failures": 20
+    },
+    {
+      "session": "axis_1120_b",
+      "local_date": "2026-11-20",
+      "panel": "axis",
+      "cpus": 1,
+      "raw_calls": 39780,
+      "matched_builds": 150,
+      "whole_graph_checks": 650,
+      "whole_graph_failures": 0,
+      "fixed_site_checks": 60,
+      "fixed_site_reference_failures": 20
+    },
+    {
+      "session": "axis_20261121",
+      "local_date": "2026-11-21",
+      "panel": "axis",
+      "cpus": 1,
+      "raw_calls": 39780,
+      "matched_builds": 150,
+      "whole_graph_checks": 650,
+      "whole_graph_failures": 0,
+      "fixed_site_checks": 60,
+      "fixed_site_reference_failures": 20
+    },
+    {
+      "session": "task_1120_four",
+      "local_date": "2026-11-20",
+      "panel": "task",
+      "cpus": 4,
+      "raw_calls": 25740,
+      "matched_builds": 150,
+      "whole_graph_checks": 750,
+      "whole_graph_failures": 0,
+      "fixed_site_checks": 60,
+      "fixed_site_reference_failures": 20
+    },
+    {
+      "session": "task_1120_one",
+      "local_date": "2026-11-20",
+      "panel": "task",
+      "cpus": 1,
+      "raw_calls": 25740,
+      "matched_builds": 150,
+      "whole_graph_checks": 750,
+      "whole_graph_failures": 0,
+      "fixed_site_checks": 60,
+      "fixed_site_reference_failures": 20
+    },
+    {
+      "session": "task_20261121_one",
+      "local_date": "2026-11-21",
+      "panel": "task",
+      "cpus": 1,
+      "raw_calls": 25740,
+      "matched_builds": 150,
+      "whole_graph_checks": 750,
+      "whole_graph_failures": 0,
+      "fixed_site_checks": 60,
+      "fixed_site_reference_failures": 20
+    }
+  ]
+}

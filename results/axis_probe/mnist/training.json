@@ -1,0 +1,59 @@
+{
+  "model_sha256": "d94475b40adca9d79db552979152f713cb7cc4c401e7b1761fec987a32f58cf7",
+  "dataset_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "seed": 4189,
+  "layer_widths": [
+    784,
+    96,
+    96,
+    96,
+    96,
+    10
+  ],
+  "train_images": 20000,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "epochs": 10,
+  "batch_size": 128,
+  "test_correct": 9606,
+  "test_images": 10000,
+  "timed_test_batch_starts": [
+    0,
+    64,
+    128
+  ],
+  "environment": {
+    "backend": "cpu",
+    "devices": [
+      "TFRT_CPU_0"
+    ],
+    "device_kind": "cpu",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.5",
+    "jax": "0.9.0.1",
+    "jaxlib": "0.9.0.1",
+    "numpy": "2.3.5",
+    "logical_cpus": 12,
+    "physical_cpus": 8,
+    "ram_bytes": 16888094720,
+    "affinity": [
+      0
+    ],
+    "flags": {
+      "JAX_PLATFORMS": "cpu",
+      "JAX_ENABLE_X64": "false",
+      "JAX_ENABLE_COMPILATION_CACHE": "false",
+      "XLA_FLAGS": "",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "jaxlib_git": "470cf68044b59afde006e541731ea75c32e2a302",
+    "compiler_binary": "jax_common.dll",
+    "compiler_sha256": "e3525462712544ed3a27655f17ce6293e8a2f99f312ebec086b33edd83b4701f",
+    "cpu_model": "13th Gen Intel(R) Core(TM) i5-13420H"
+  },
+  "optax": "0.2.9",
+  "trained": "2026-11-20T04:40:04.325591-06:00"
+}

@@ -1,0 +1,18 @@
+{
+  "phase": "discovery",
+  "resource": "default",
+  "lock": {
+    "scoped_assignment.json": "e389809698646d502668e2f59af595f02e30af7e278d1f97900a5fe9249d36a8",
+    "partition_boundary.json": "94c904321e73137213c6a256352c0e75008be28b041eeeea646818c7a034a6d7",
+    "scoped.py": "d79c1b9bdf17b81f194d6f8827af25ebf14e6e00b96ceaad50a45c0cb3b09965",
+    "collect.py": "b01f4d5f49c1ab537c59b6a38e1801b1c244151cf8bbf9ebd7d80a9c7e8ef24a",
+    "workloads.py": "97f4f41285eb1a73fb9614efbb468096565385f9f34afc8b56f545e59853b429"
+  },
+  "archives": {
+    "p0.zip": "2e483db8cfe23e68a7536152d6de76ffd8281006fae2174633e0217e3a4a99e2",
+    "p1.zip": "f355802ed152dfdb1f2488a4e3e1d0d8a084c5205c3487db0faff03ff6b6722f",
+    "p2.zip": "75cb05c1a94cc8e1569887afbfa939c09b7abfafd419660ebf028fc7bf88b584",
+    "p3.zip": "d1caf1eed4b4bf97259e053e167831037324038363d7bd1bfb18cf6be64d28b2",
+    "p4.zip": "500e030f2717bc6db891cc3f7640ed910de74863252caa2bf30d699f789b7a8a"
+  }
+}

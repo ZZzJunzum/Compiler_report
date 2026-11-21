@@ -1,0 +1,17 @@
+panel,scenario,n,ratio_to_native,cheaper_cells,total_cells
+partition_boundary,cold,1,1.0002347088146515,0,24
+partition_boundary,cold,100,1.0001444004367717,0,24
+partition_boundary,cold,1000,1.0000572118218338,0,24
+partition_boundary,cold,10000,1.0000097206235734,0,24
+partition_boundary,main_available,1,1.0002347088146515,0,24
+partition_boundary,main_available,100,1.0001444004367717,0,24
+partition_boundary,main_available,1000,1.0000572118218338,0,24
+partition_boundary,main_available,10000,1.0000097206235734,0,24
+scoped_assignment,cold,1,1.3479310407752574,1,24
+scoped_assignment,cold,100,1.2853693414502438,2,24
+scoped_assignment,cold,1000,1.1714484867460593,6,24
+scoped_assignment,cold,10000,1.0831607427596157,10,24
+scoped_assignment,main_available,1,0.6889581526973937,24,24
+scoped_assignment,main_available,100,0.8621634807870059,20,24
+scoped_assignment,main_available,1000,0.9953418699395428,15,24
+scoped_assignment,main_available,10000,1.0527038879986617,13,24

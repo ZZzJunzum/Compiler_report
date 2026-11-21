@@ -1,0 +1,25 @@
+{
+  "primary_N": 1000,
+  "strongest_simple": "native_J",
+  "ratio": 1.1714484867460593,
+  "per_structure": {
+    "residual_square": 1.0765888707792097,
+    "dual_input": 1.113847492535502,
+    "gated_product": 1.040347385874766,
+    "center_residual": 1.5095196995714877
+  },
+  "exact_cells": 24,
+  "cells": 24,
+  "unmodified": 0,
+  "faster": 8,
+  "slower": 11,
+  "unresolved": 5,
+  "native_regressions": 3,
+  "native_regressions_helped": 2,
+  "native_wins": 20,
+  "native_wins_harmed": 10,
+  "native_assignment_wins": 8,
+  "native_assignment_wins_harmed": 7,
+  "default_harms": 5,
+  "method_gate_passed": false
+}

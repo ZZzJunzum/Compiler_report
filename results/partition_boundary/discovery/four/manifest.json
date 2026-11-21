@@ -1,0 +1,16 @@
+{
+  "phase": "discovery",
+  "resource": "four",
+  "lock": {
+    "partition_boundary.json": "94c904321e73137213c6a256352c0e75008be28b041eeeea646818c7a034a6d7",
+    "collect.py": "b01f4d5f49c1ab537c59b6a38e1801b1c244151cf8bbf9ebd7d80a9c7e8ef24a",
+    "workloads.py": "97f4f41285eb1a73fb9614efbb468096565385f9f34afc8b56f545e59853b429"
+  },
+  "archives": {
+    "p0.zip": "4f20c0ecf2c1a7dff398050c4dacea67e3952b63dfc72c6f954bdd022937585c",
+    "p1.zip": "9e907b7187f22ea700b21aa5f9bf481369edc75d9bda4f77d77964b497a63980",
+    "p2.zip": "5ab0d65600cb64d24ebef6cf584eb1e51fff4f0a846328133d053d79d3f60726",
+    "p3.zip": "bce13bcc407155079c065128e04f72b168473c25a199722179ec1e435e80e075",
+    "p4.zip": "16c76b4a9316bb4022585a5a62811ec078dfa24a36ffa34479f08227a59bfb85"
+  }
+}

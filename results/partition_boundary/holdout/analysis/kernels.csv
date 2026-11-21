@@ -1,0 +1,65 @@
+resource,graph,key,temp_bytes,observer_partitions,main_partitions,shared_partitions,objects,compare_to,identical_objects,only_this,only_other
+default,residual_square_96x192,J,16,[[10]],[[12]],[],2,off,0,2,2
+default,residual_square_96x192,S,149760,[[12]],[[12]],[],5,,,,
+default,residual_square_96x192,P,76032,[[12]],[[12]],[],6,J,1,5,1
+default,residual_square_96x192,off,16,[],[],[],2,,,,
+default,residual_square_96x192,global,16,[],[[12]],[],2,global_off,1,1,1
+default,residual_square_96x192,global_S,147528,[[12]],[[12]],[],5,,,,
+default,residual_square_96x192,global_off,16,[],[],[],2,,,,
+default,residual_square_96x192,V0,0,[],[[12]],[],1,,,,
+default,residual_square_1024x768,J,16,[[12]],[[12]],[],2,off,0,2,2
+default,residual_square_1024x768,S,6389760,"[[4], [12], [4], [4]]",[[12]],[],5,,,,
+default,residual_square_1024x768,P,3244032,"[[12], [4]]",[[12]],[],6,J,1,5,1
+default,residual_square_1024x768,off,16,[],[],[],2,,,,
+default,residual_square_1024x768,global,16,[],[[12]],[],2,global_off,1,1,1
+default,residual_square_1024x768,global_S,6294528,"[[4], [12], [4], [4]]",[[12]],[],5,,,,
+default,residual_square_1024x768,global_off,16,[],[],[],2,,,,
+default,residual_square_1024x768,V0,0,[],[[12]],[],1,,,,
+default,dual_input_96x192,J,16,[[12]],[],[],2,off,1,1,1
+default,dual_input_96x192,S,149760,[],[],[],4,,,,
+default,dual_input_96x192,P,76032,[],[],[],6,J,1,5,1
+default,dual_input_96x192,off,16,[],[],[],2,,,,
+default,dual_input_96x192,global,16,[],[],[],2,global_off,2,0,0
+default,dual_input_96x192,global_S,147528,[],[],[],4,,,,
+default,dual_input_96x192,global_off,16,[],[],[],2,,,,
+default,dual_input_96x192,V0,0,[],[],[],1,,,,
+default,dual_input_1024x768,J,16,[[12]],[[4]],[],2,off,0,2,2
+default,dual_input_1024x768,S,6389760,"[[4], [4], [4], [4]]",[[4]],[],4,,,,
+default,dual_input_1024x768,P,3244032,"[[4], [4]]",[[4]],[],6,J,1,5,1
+default,dual_input_1024x768,off,16,[],[],[],2,,,,
+default,dual_input_1024x768,global,16,[],[[4]],[],2,global_off,1,1,1
+default,dual_input_1024x768,global_S,6294528,"[[4], [4], [4], [4]]",[[4]],[],4,,,,
+default,dual_input_1024x768,global_off,16,[],[],[],2,,,,
+default,dual_input_1024x768,V0,0,[],[[4]],[],1,,,,
+default,gated_product_96x192,J,73744,[[12]],[],[],3,off,2,1,1
+default,gated_product_96x192,S,221184,[],[],[],6,,,,
+default,gated_product_96x192,P,147456,[],[],[],7,J,2,5,1
+default,gated_product_96x192,off,73744,[],[],[],3,,,,
+default,gated_product_96x192,global,73744,[],[],[],3,global_off,3,0,0
+default,gated_product_96x192,global_S,221184,[],[],[],6,,,,
+default,gated_product_96x192,global_off,73744,[],[],[],3,,,,
+default,gated_product_96x192,V0,0,[],[[12]],[],1,,,,
+default,gated_product_1024x768,J,3145744,[[12]],[[4]],[[4]],3,off,0,3,3
+default,gated_product_1024x768,S,9437184,"[[4], [4], [4], [4]]",[[4]],[[4]],6,,,,
+default,gated_product_1024x768,P,6291456,"[[4], [4]]",[[4]],[[4]],7,J,2,5,1
+default,gated_product_1024x768,off,3145744,[],[],[],3,,,,
+default,gated_product_1024x768,global,3145744,[],[[4]],[[4]],3,global_off,1,2,2
+default,gated_product_1024x768,global_S,9437184,"[[4], [4], [4], [4]]",[[4]],[[4]],6,,,,
+default,gated_product_1024x768,global_off,3145744,[],[],[],3,,,,
+default,gated_product_1024x768,V0,0,[],[[12]],[],1,,,,
+default,center_residual_96x192,J,2704,[[10]],[],[],5,off,4,1,1
+default,center_residual_96x192,S,149760,[[12]],[],[],8,,,,
+default,center_residual_96x192,P,76032,[[12]],[],[],9,J,4,5,1
+default,center_residual_96x192,off,2704,[],[],[],5,,,,
+default,center_residual_96x192,global,2704,[],[],[],5,global_off,5,0,0
+default,center_residual_96x192,global_S,147840,[[12]],[],[],8,,,,
+default,center_residual_96x192,global_off,2704,[],[],[],5,,,,
+default,center_residual_96x192,V0,2688,[],[],[],4,,,,
+default,center_residual_1024x768,J,102416,[[12]],[[4]],"[[4], [4]]",5,off,1,4,4
+default,center_residual_1024x768,S,6389760,"[[12], [4], [4], [4]]",[[4]],"[[4], [4]]",8,,,,
+default,center_residual_1024x768,P,3244032,"[[12], [4]]",[[4]],"[[4], [4]]",9,J,4,5,1
+default,center_residual_1024x768,off,102416,[],[],[],5,,,,
+default,center_residual_1024x768,global,102416,[],[[4]],"[[4], [4]]",5,global_off,2,3,3
+default,center_residual_1024x768,global_S,6295552,"[[12], [4], [4], [4]]",[[4]],"[[4], [4]]",8,,,,
+default,center_residual_1024x768,global_off,102416,[],[],[],5,,,,
+default,center_residual_1024x768,V0,102400,[],"[[4], [4], [4]]",[],4,,,,
