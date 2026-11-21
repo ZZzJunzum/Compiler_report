@@ -36,10 +36,12 @@ def main():
     glob_row = list(product(("count_S","count_J","row_S","row_J"), ("on",)))
     intervention = list(product(("count_J","row_J"), ("on","off")))
     for root, session, value in ((PUBLISHED,"axis_1120_a",115.80), (PUBLISHED,"axis_1120_b",110.03),
-                                 (PUBLISHED/"jax082","axis_1120_082",88.45)):
+                                 (PUBLISHED/"jax082","axis_1120_082",88.45),
+                                 (PUBLISHED,"axis_20261121",348.10)):
         check_numbers(root, session, PRIMARY, glob_row, value)
     for root, session, values in ((PUBLISHED,"task_1120_one",(-63.62,-115.45,0.17)),
                                   (PUBLISHED,"task_1120_four",(-22.20,-37.67,0.15)),
+                                  (PUBLISHED,"task_20261121_one",(-315.23,-279.72,-8.68)),
                                   (PUBLISHED/"jax082","task_1120_082",(-64.03,-67.88,1.03))):
         for graph, value in zip((PRIMARY,"two_sites_large","two_sites_small"), values, strict=True):
             check_numbers(root, session, graph, intervention, value)
@@ -50,7 +52,7 @@ def main():
             require((a != b) == (graph == "two_sites_large" and variant == "row_J"), (graph,variant))
         fixed = json.loads((root/"analysis/fixed_sites.json").read_text(encoding="utf8"))
         for r in fixed:
-            if r["local_date"] != "2026-11-20":
+            if r["local_date"] not in ("2026-11-20","2026-11-21"):
                 continue
             require(r["exact"] == (r["input"] != "zero_nextafter"), r)
             if r["input"] == "zero_nextafter" and r["variant"].startswith("count"):
@@ -59,7 +61,7 @@ def main():
     for r, value in zip(mnist, (-3.27,-2.80,-2.70), strict=True):
         require(abs(float(r["row_diff_us"])-value) < .0051 and r["row_diff_clears"] == "True", r)
     require(all(r["valid"] == "True" for r in records(PUBLISHED/"mnist/checks.csv")), "MNIST semantics")
-    print("Verified 12 paired endpoints from raw rounds, object-code controls, subnormal counts and trained fragments.")
+    print("Verified 16 paired endpoints across dates and releases, object-code controls, subnormal counts and trained fragments.")
 
 
 if __name__ == "__main__":

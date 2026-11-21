@@ -14,25 +14,27 @@ def render():
         return ("The archive currently contains the original one-CPU axis and large/small intervention "
                 "panels on November 20, 2026. The predeclared second calendar date has no observations "
                 "in this version. The independent structures below were timed on the first date.\n")
-    out = ["The one-CPU panels have now run on "+str(len(eligible))+
-           " distinct Chicago calendar dates. For each later axis batch we give joint minus separate "
-           "for the global and row requests. For intervention batches we give the paired row-minus-global "
-           "change on disabling assignment, followed by its repeatability floor. All values are in microseconds."]
+    first = [r for r in rows if (r["local_date"],r["cpus"],r["panel"],r["graph"])
+             ==(eligible[0],"1","axis","t_E1_chain")]
+    first_values = " and ".join(f"${float(r['interaction_us']):+.2f}$" for r in first)
+    out = [f"On {eligible[0]} the full-chain row-minus-global interactions for joint versus separate "
+           f"counting were {first_values} microseconds in the original one-CPU sessions."]
     for date in eligible[1:]:
         for r in rows:
             if (r["local_date"],r["cpus"])!=(date,"1"):
                 continue
             if (r["panel"],r["graph"])==("axis","t_E1_chain"):
-                out.append(f"On {date} the full-chain global and row differences were "
-                           f"{float(r['global_diff_us']):+.2f} and {float(r['row_diff_us']):+.2f}, "
-                           f"with floors {float(r['global_diff_floor_us']):.2f} and {float(r['row_diff_floor_us']):.2f}.")
+                out.append(f"On {date}, joint minus separate was ${float(r['global_diff_us']):+.2f}$ for global counts "
+                           f"and ${float(r['row_diff_us']):+.2f}$ for row counts. The paired interaction reached "
+                           f"${float(r['interaction_us']):+.2f}$ (floor {float(r['interaction_floor_us']):.2f}). "
+                           "In the pass intervention we measure the row-minus-global change on disabling assignment.")
             elif r["panel"]=="task":
                 name = {"t_E1_chain":"full chain","two_sites_large":"large reduced program",
                         "two_sites_small":"small reduced program"}[r["graph"]]
-                out.append(f"The {name} interaction was {float(r['interaction_us']):+.2f} "
+                out.append(f"The {name} interaction was ${float(r['interaction_us']):+.2f}$ "
                            f"(floor {float(r['interaction_floor_us']):.2f}).")
-    out.append("The calendar replication measures the original axis and intervention endpoints. "
-               "The held-out policy panels still have one sampling date.")
+    out.append("These differences and floors are in microseconds. "
+               "The held-out policy panels were measured on the first date.")
     return " ".join(out)+"\n"
 
 

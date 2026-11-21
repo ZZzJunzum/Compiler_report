@@ -6,6 +6,8 @@
 
 2023 年的 AutoNumerics-Zero 已经记录了单线程下 XLA 并行分派的代价，以及拆分融合避开分派的实例。本研究的新证据是输出形状、可用 CPU 和下游主输出共同限定了这个反例的适用范围。论文进一步检验整数打包计数和只在独立观测子程序内关闭分区两种方案。两套规则及强基线均在首次编译四种留出结构前公开冻结。[重叠工作的原文 §S3](https://arxiv.org/html/2312.08472v1#S3) · [打包方案冻结](https://github.com/ZZzJunzum/Compiler_report/commit/19238ac) · [局部分区方案冻结](https://github.com/ZZzJunzum/Compiler_report/commit/79112c3)
 
+11 月 21 日的单 CPU 复验再次得到完整主例和大简化例的负向分区干预，小负对照仍在门槛内。两天方向一致，效应大小有明显变化。四种留出结构仍只有首日数据。冷构建并运行 1,000 次，打包菜单的冻结规则与原生联合基本持平，局部关闭观测分区的规则总成本高 17.1%。论文据此收束为机制与适用边界案例。[跨日效应与门槛](results/axis_probe/analysis/sessions.md) · [留出判定](results/scoped_assignment/holdout/analysis/verdict.json)
+
 | 需要核对什么 | 证据入口 |
 |---|---|
 | 完整图、简化图的干预及第二编译版本 | [跨版本与机器码对照](results/axis_probe/README.md) |
